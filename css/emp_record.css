@@ -264,9 +264,10 @@
   justify-content: center;
   position: relative;
     top: 10px;
-    left: 127px;
+    left: 79px;
     width: auto;
     margin-bottom: 50px;
+   margin-top: 38px;
 }
 .sec-2
 {
@@ -394,4 +395,15 @@
 .form-group
 {
   margin-bottom: 20px;
+}
+.form-box
+{
+  position: fixed;
+  justify-content: center;
+  top: 50%;
+  left: 20%;
+  width: 57%;
+  height: auto;
+ 
+
 }
