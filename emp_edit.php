@@ -155,9 +155,7 @@ session_start();
 
                  ?>
                 <div class = "container">
-                                 <form action="emp_edit.php" method="post">
-    
-                
+                                 <form action="backend/emp_edit.php" method="post">                  
                                  <h3>Edit Employee Info</h3>
                 <div class="controls">
     
@@ -225,7 +223,7 @@ session_start();
                             <div class="form-group">
                             <label for="form_need">Employee's designation <span style="color:#ff0000">*</span></label>
                                 <select id="form_need" name="designation" class="form-control" required="required" >
-                                <option value="<?php echo $data['designation'] ?>" selected disabled>--<?php echo $data['designation'] ?>--</option>
+                                <option value="<?php echo $data['designation'] ?>">--<?php echo $data['designation'] ?>--</option>
                                 <?php
                                 
                             $query2 = "select *from designation";
@@ -255,7 +253,7 @@ session_start();
                             <div class="form-group">
                                 <label for="form_need1">Employee's salary <span style="color:#ff0000">*</span></label>
                                 <select id="form_need1"  name="salary" class="form-control" required="required">
-                                    <option value="<?php echo $data['salary'] ?>" selected disabled>--<?php echo $data['salary'] ?> &#2547; --</option>
+                                    <option value="<?php echo $data['salary'] ?>">--<?php echo $data['salary'] ?> &#2547; --</option>
                                     <?php
                                      $query3 ="select *from salary_list ";
                                      $run3 = mysqli_query($connect,$query3);

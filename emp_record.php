@@ -16,10 +16,10 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/emp_record.css" rel='stylesheet'>
    
-    <title>Document</title>
+    <title>Employee Record</title>
 </head>
 <body>
-
+<!--sidebar starts here-->
 <div class="sidebar close">
     <div class="logo-details">
       <i class='bx bxl-c-plus-plus'></i>
@@ -48,14 +48,14 @@ session_start();
           <li><a href="#">Employee Records</a></li>
           <li><a href="#">Holiday list</a></li>
           <li><a href="#">Joining Letter</a></li>
-          <li><a href="#">Manage Salary</a></li>
+          <li><a href="#">Bonus/Deduct Salary</a></li>
         </ul>
       </li>
       <li>
         <div class="iocn-link">
           <a href="#">
             <i class='bx bx-book-alt' ></i>
-            <span class="link_name">Posts</span>
+            <span class="link_name">Finance Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
@@ -140,7 +140,9 @@ session_start();
   </li>
 </ul>
   </div>
-  
+  <!-- sidebar ends here-->
+
+ <!--homesection or main body starts here -->
 
   <section class="home-section">
     <div class="home-content">
@@ -195,7 +197,7 @@ session_start();
           </th>
           <th colspan ="2" class="head1">
           <form action="backend/delete.php" method="POST">
-          <button class="btn btn-danger" type="submit" name ="submit"><i class="fa-solid fa-trash-can"></i>&nbsp;Delete Selected</button>
+          <button class="btn btn-danger" type="submit" name ="submit"  ><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete Selected</button>
           </th>
           
           
@@ -224,6 +226,7 @@ session_start();
         </tr>
     </thead>
     <tbody>
+          <!-- php code for generating the employee list in the table-->
           <?php
           mysqli_select_db($connect,'erp');
            $query  = "select *from employee natural join salary ORDER BY emp_id desc LIMIT {$offset},{$limit}";
@@ -240,6 +243,7 @@ session_start();
             <td>0<?php echo $fetch['emp_phone']?></td>
             <td><?php echo $fetch['bank']?></td>
             <td><?php echo $fetch['gender']?></td>
+            <!-- php code for extracting month date and year individually from mysql-->
             <?php 
             $date = $fetch['join_date'];
             $month = date('F', strtotime($date));
@@ -300,7 +304,7 @@ if(mysqli_num_rows($result)> 0)
      </div>
      
     <hr>
-<div id="sec-2" class ="sec-2">
+<div id="sec-2" class ="sec-2">  <!-- This is the add employee section -->
 
 <div class=" text-center mt-5 ">              
             
@@ -366,6 +370,7 @@ if(mysqli_num_rows($result)> 0)
                             <label for="form_need">Please specify designation <span style="color:#ff0000">*</span></label>
                                 <select id="form_need" name="designation" class="form-control" required="required" >
                                 <option value="" selected disabled>--Select a designation--</option>
+                                <!-- php code for generating the designation list-->
                                 <?php
                             $query2 = "select *from designation";
                             $run2 = mysqli_query($connect,$query2);
@@ -395,9 +400,10 @@ if(mysqli_num_rows($result)> 0)
                                 <label for="form_need1">Please specify salary <span style="color:#ff0000">*</span></label>
                                 <select id="form_need1"  name="salary" class="form-control" required="required">
                                     <option value="" selected disabled>--Select Salary--</option>
+                                    <!-- php code for generating the salary list-->
                                     <?php
                                      $query3 ="select *from salary_list ";
-                                     $run3 = mysqli_query($connect,$query3);
+                                     $run3 = mysqli_query($connect,$query3);    
                                      while($fetch4 = mysqli_fetch_assoc($run3))
                                      {
                                     ?>
@@ -415,7 +421,7 @@ if(mysqli_num_rows($result)> 0)
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="form_message">Remarks </label>
-                                <textarea id="form_message" name="message" class="form-control" placeholder="Write a remark here (OPTIONAL)" rows="4"  ></textarea>
+                                <textarea id="form_message" name="message" class="form-control" placeholder="Write a remark here (OPTIONAL)" rows="4"  >
                                 </div>
     
                             </div>
@@ -444,21 +450,24 @@ if(mysqli_num_rows($result)> 0)
      </div>
 <footer>
 <div class="bg-light py-4">
-      <div class="container text-center">
-        <? $date = date("Y");
+      <div class="container text-center">        <!--this is the footer -->
+        <?php $date = date("Y");
         $year =date('Y',strtotime($date));?>
         <p class="text-muted mb-0 py-2">© <?php echo $year ?> Bando Eco Apparels Ltd All Rights Reserved.</p>
       </div>
     </div>
 </footer>
-  </section>
+  </section> <!--homesection ends here-->
+
+  <!-- javascript codes are here -->
+
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <?php
 if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
-?>
+?> <!-- notification javascript code -->
         <script>
             swal({
-  title: "<?php echo $_SESSION['status'];?>",
+  title: "<?php echo $_SESSION['status'];?>",             
   text: "",
   icon: "<?php echo $_SESSION['status_code'];?>",
   button: "OK",
@@ -468,11 +477,14 @@ if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
 unset($_SESSION['status']);
 ?>   
 
+
+<!--navbar javascript code-->
   <script>
 let arrow = document.querySelectorAll(".arrow");
 for (var i = 0; i < arrow.length; i++) {
   arrow[i].addEventListener("click", (e)=>{
- let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+ let arrowParent = e.target.parentElement.parentElement;   
+                                                            
  arrowParent.classList.toggle("showMenu");
   });
 }
@@ -483,8 +495,6 @@ sidebarBtn.addEventListener("click", ()=>{
   sidebar.classList.toggle("close");
 });
 </script>
-
-
 </body>
 
 </html>
