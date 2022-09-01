@@ -4,7 +4,7 @@ include 'connect.php';
 mysqli_select_db($connect,'erp');
 if(isset($_POST['submit']))
 {
-   $sql ="SELECT *from employee natural join salary order by emp_id desc";
+   $sql ="SELECT *from salary natural join employee order by emp_id desc";
    $run = mysqli_query($connect,$sql);
    if(mysqli_num_rows($run) > 0)
    {
@@ -13,12 +13,10 @@ if(isset($_POST['submit']))
      <th>Employee ID</th>
      <th>Employee Name</th>
      <th>Designation</th>
-     <th>Address</th> 
-     <th>Phone No</th>
-     <th>Bank AC Num</th>
-     <th>Gender</th>
-     <th>Join date</th>
      <th>Salary</th>
+     <th>Total Bonus Amount</th>
+     <th>Total Deducted Amount</th>
+     <th>Festival Bonus</th>
      
     
      </tr>
@@ -32,12 +30,10 @@ if(isset($_POST['submit']))
           <td>'.$row['emp_id'].'</td>
           <td>'.$row['name'].'</td>
           <td>'.$row['designation'].'</td>
-          <td>'.$row['address'].'</td>
-          <td>'.$row['emp_phone'].'</td>
-          <td>'.$row['bank'].'</td>
-          <td>'.$row['gender'].'</td>
-          <td>'.$row['join_date'].'</td>
           <td>'.$row['salary'].'</td>
+          <td>'.$row['bonus'].'</td>
+          <td>'.$row['deduction'].'</td>
+          <td>'.$row['festival_bonus'].'</td>
         </tr>
         
         
@@ -46,7 +42,7 @@ if(isset($_POST['submit']))
      }
      $output .= '</table>';
      header('Content-type: application/xls');
-     header('Content-Disposition:attachment;filename=Employee_Data.xls');
+     header('Content-Disposition:attachment;filename=Employee_Salary_Data.xls');
      echo $output;
    }
 }

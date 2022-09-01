@@ -15,7 +15,7 @@ session_start();
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/emp_record.css" rel='stylesheet'>
-   
+    <link rel="icon" href="logo/Bando.png" type="image/x-icon">
     <title>Employee Record</title>
 </head>
 <body>
@@ -48,7 +48,7 @@ session_start();
           <li><a href="#">Employee Records</a></li>
           <li><a href="#">Holiday list</a></li>
           <li><a href="#">Joining Letter</a></li>
-          <li><a href="#">Bonus/Deduct Salary</a></li>
+          <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
       </li>
       <li>
@@ -156,7 +156,7 @@ session_start();
     <?php
            include 'connect.php';
            mysqli_select_db($connect,'erp');
-           $limit = 10;
+           $limit = 12;
            
            if(isset($_GET['page']))
            {
@@ -189,7 +189,7 @@ session_start();
           </form>
           <form  method="POST" action="backend/emp_excel_record.php">
           <th colspan="1" class="head1" >
-          <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
+          <button class="btn btn-warning" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
           </th>
           </form>
           <th colspan="2" class="head1" >
@@ -421,7 +421,7 @@ if(mysqli_num_rows($result)> 0)
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="form_message">Remarks </label>
-                                <textarea id="form_message" name="message" class="form-control" placeholder="Write a remark here (OPTIONAL)" rows="4"  >
+                                <textarea id="form_message" name="message" class="form-control" placeholder="Write a remark here (OPTIONAL)" rows="4"  ></textarea>
                                 </div>
     
                             </div>
@@ -447,7 +447,7 @@ if(mysqli_num_rows($result)> 0)
 
         </div>
 </div>
-     </div>
+
 <footer>
 <div class="bg-light py-4">
       <div class="container text-center">        <!--this is the footer -->
@@ -479,22 +479,21 @@ unset($_SESSION['status']);
 
 
 <!--navbar javascript code-->
-  <script>
-let arrow = document.querySelectorAll(".arrow");
-for (var i = 0; i < arrow.length; i++) {
-  arrow[i].addEventListener("click", (e)=>{
- let arrowParent = e.target.parentElement.parentElement;   
-                                                            
- arrowParent.classList.toggle("showMenu");
+<script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
   });
-}
-let sidebar = document.querySelector(".sidebar");
-let sidebarBtn = document.querySelector(".bx-menu");
-console.log(sidebarBtn);
-sidebarBtn.addEventListener("click", ()=>{
-  sidebar.classList.toggle("close");
-});
-</script>
+  </script>
 </body>
 
 </html>

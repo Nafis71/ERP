@@ -6,9 +6,9 @@ if(isset($_POST['submit']))
 {
     $id = $_POST['check'];
     $extract = implode(',' , $id);
-    $query ="delete from employee where emp_id IN($extract)";
+    $query ="DELETE from employee where emp_id IN($extract)";
     mysqli_query($connect,$query);
-    $query ="delete from salary where emp_id IN($extract)";
+    $query ="DELETE from salary where emp_id IN($extract)";
     mysqli_query($connect,$query);
     $_SESSION['status']="Employee Info Removed Successfully";
     $_SESSION['status_code']="success";

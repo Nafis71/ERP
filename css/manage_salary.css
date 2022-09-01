@@ -263,8 +263,8 @@
   display: inline-block;
   justify-content: center;
   position: relative;
-    top: 10px;
-    left: 50px;
+    top: 2%;
+    left: 0px;
     width: auto;
     margin-bottom: 50px;
    margin-top: 38px;
@@ -388,8 +388,8 @@
   background: #D6EAF8 ;
   padding-top: 46px;
   padding-bottom: 32px;
-  padding-left: 50px;
-  padding-right:50px ;
+  padding-left: 12px;
+  padding-right:90px ;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.10);
   border: none;
   border-radius: 1px;
@@ -424,13 +424,15 @@
     justify-content: center;
   }
   
+  
   /* Modal Content */
   .modal-content {
     position: relative;
     background-color: #fefefe;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
+    border: 1px;
+    border-radius: 1px;
     width: 60%;
     justify-content:left;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -469,8 +471,9 @@
   .modal-header {
     position: relative;
     left: 0;
-    background-color: #344d7c ;
-    color: white;
+    background-color: #ECF0F1 ;
+    color: black;
+    
   }
   
   .modal-body {
@@ -481,3 +484,4 @@ justify-content: center;}
     background-color: #334c7a ;
     color: white;
   }
+  

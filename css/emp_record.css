@@ -224,6 +224,7 @@
   height: 60px;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .home-section .home-content .bx-menu,
 .home-section .home-content .text{
@@ -258,13 +259,21 @@
     left: 0;
   }
 }
+.home-content .main-container {
+	background: #444e80;
+	color: #abafc6;
+	border-radius: 5px;
+	padding: 20px;
+	width: 440px;
+	height: 362px;
+}
 .sec-1
 {
   display: inline-block;
   justify-content: center;
   position: relative;
     top: 10px;
-    left: 79px;
+    left: 10px;
     width: auto;
     margin-bottom: 50px;
    margin-top: 38px;
@@ -380,7 +389,7 @@
   margin-top: 20px;
   left: 9px;
 }
-.btn-success
+.sec-2 .btn-success
 {
   margin-top: 9px;
 }
@@ -389,8 +398,11 @@
   height: auto;
   background: #D6EAF8 ;
   padding-bottom: 32px;
+  padding-left: 10px;
+  padding-right: 59px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.10);
   border: none;
+  border-radius: 1px;
 }
 .form-group
 {

@@ -11,9 +11,9 @@ if(isset($_POST['submit']))
     $designation  = $_POST['designation'];
     $bank  = $_POST['bank'];
     $salary  = $_POST['salary'];
-    $sql ="update employee set name ='$name', address ='$address', emp_phone ='$phone', designation ='$designation', bank ='$bank' where emp_id ='$id'";
+    $sql ="UPDATE employee set name ='$name', address ='$address', emp_phone ='$phone', designation ='$designation', bank ='$bank' where emp_id ='$id'";
     mysqli_query($connect,$sql);
-    $sql2 = "update salary set salary ='$salary' where emp_id ='$id'";
+    $sql2 = "UPDATE salary set salary ='$salary' where emp_id ='$id'";
     mysqli_query($connect,$sql2);
     $_SESSION['status']="Employee Info Updated Successfully";
     $_SESSION['status_code']="success";

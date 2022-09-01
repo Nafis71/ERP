@@ -15,8 +15,8 @@ session_start();
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/manage_salary.css" rel='stylesheet'>
-   
-    <title>Employee Record</title>
+    <link rel="icon" href="logo/Bando.png" type="image/x-icon">
+    <title>Bonus/Deduct Salary</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -45,7 +45,7 @@ session_start();
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">HRM Panel</a></li>
-          <li><a href="#">Employee Records</a></li>
+          <li><a href="emp_record.php">Employee Records</a></li>
           <li><a href="#">Holiday list</a></li>
           <li><a href="#">Joining Letter</a></li>
           <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
@@ -156,7 +156,7 @@ session_start();
     <?php
            include 'connect.php';
            mysqli_select_db($connect,'erp');
-           $limit = 10;
+           $limit = 12;
            
            if(isset($_GET['page']))
            {
@@ -183,16 +183,20 @@ session_start();
           <th colspan="2" class="head1">
            <input id="form_lastname" type="number"  name="search" class="form-control" placeholder="Enter employee id *"  required="required" >
           </th>
-          <th colspan="3"class="head1">
+          <th colspan="2"class="head1">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          
+          <form  method="POST" action="backend/export-salary-bonus-deduct.php">
+          <th colspan="1" class="head1" >
+          <button class="btn btn-warning" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
+          </th>
+          </form>
           <th class="head1">
             <button class="btn btn-success" onclick="window.location.href='t.php'" name ="submit"><i class="fas fa-history"></i>&nbsp;History</button>
             <button class="btn btn-success" onclick="myFunction()" name ="submit"><i class="fas fa-hand-holding-usd"></i>&nbsp;Festival Bonus(All)</button>
             <button class="btn btn-light"  id="mybtn" ><i class="fas fa-angle-double-up"></i>&nbsp;Add Bonus</button>
-            <button type="submit"class="btn btn-light" id="mybtn2"><i class="fas fa-angle-double-down"></i>&nbsp;Deduct</button>
+            <button type="submit"class="btn btn-light" id="mybtn2"><i class="fas fa-angle-double-down"></i>&nbsp;Deduct Salary</button>
           </th>
           <th colspan="1"class="head1">
           <button class="btn btn-danger" onclick="myFunction2()" name ="submit"><i class="fas fa-broom"></i>&nbsp;Clear Festive Bonus</button>
@@ -249,17 +253,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="emp_record.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="manage_salary.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="emp_record.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="manage_salary.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="emp_record.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="manage_salary.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
@@ -270,8 +274,8 @@ if(mysqli_num_rows($result)> 0)
 <!-- Modal content -->
 <div class="modal-content">
   <div class="modal-header">
-    <span class="close"><button type="button" class="btn btn-danger" id="close"><i class="fas fa-times"></i></button></span>
     <h2>Add Bonus</h2>
+    <span class="close"><button type="button" class="btn btn-danger" id="close"><i class="fas fa-times"></i></button></span>
   </div>
   <div class="modal-body">
   
@@ -279,11 +283,11 @@ if(mysqli_num_rows($result)> 0)
   <form action="backend/bonus.php" method="post">
           <div class="col-lg-7 mx-auto">
              <div class="row">
-
+             <hr>
            <div class="col-md-6">
                             <div class="form-group">
                                 <label for="form_id">Employee ID <span style="color:#ff0000">*</span></label>
-                                <input id="form_id" type="number"  name="id" class="form-control" placeholder="Please enter unique employee ID *" value="" required >
+                                <input id="form_id" type="number"  name="id" class="form-control" placeholder="Enter unique employee ID *" value="" required >
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -300,15 +304,70 @@ if(mysqli_num_rows($result)> 0)
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="form_id">Remarks</label>
-                                <textarea id="form_id" name="reason" class="form-control" placeholder="Please type the reason for the bonus" required></textarea>
+                                <textarea id="form_id" name="reason" class="form-control" placeholder="Type the reason for the bonus" required></textarea>
                                 
                             </div>
                         </div>
+                        <hr>
                         <div class="col-md-12">
                         
                             <button name ="submit" type="submit" class="btn btn-success btn-send  pt-2 btn-block
                                 "  >Submit</button>
                        </div>
+                       
+                    </div>
+             </div>
+          </div>
+  </div>
+  </div>
+  
+</div>
+
+</div>
+</form>
+<div id="myModal2" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+  <div class="modal-header"> 
+    <h2>Deduct Salary</h2>
+    <span class="close"><button type="button" class="btn btn-danger" id="close2"><i class="fas fa-times"></i></button></span>
+  </div>
+  <div class="modal-body">
+  
+  <div class="row ">
+  <form action="backend/deduct.php" method="post">
+          <div class="col-lg-7 mx-auto">
+             <div class="row">
+             <hr>
+           <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_id">Employee ID <span style="color:#ff0000">*</span></label>
+                                <input id="form_id" type="number"  name="id" class="form-control" placeholder="Enter unique employee ID *"  required >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                            <label for="form_id">Deduct Amount <span style="color:#ff0000">*</span></label>
+                                <input id="form_id" type="number"  name="deduct" class="form-control" placeholder="Enter the deduction amount *"  required >
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_id">Remarks</label>
+                                <textarea id="form_id" name="reason" class="form-control" placeholder="Type the reason for the deduction" required></textarea>
+                                
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-md-12">
+                        
+                            <button name ="submit" type="submit" class="btn btn-success btn-send  pt-2 btn-block
+                                "  >Submit</button>
+                                
+                       </div>
+                       
                     </div>
              </div>
           </div>
@@ -320,8 +379,9 @@ if(mysqli_num_rows($result)> 0)
 </div>
 </form>
 
+     </div>  
      </div>
-     </div>
+  
 <footer>
 <div class="bg-light py-4">
       <div class="container text-center">        <!--this is the footer -->
@@ -339,7 +399,7 @@ if(mysqli_num_rows($result)> 0)
                   function myFunction() {
                     var txt;
                   if (confirm("NB: All employees will be enjoying 20% Festival bonus.                         Press Ok to proceed")) {
-                  window.location.replace("http://www.w3schools.com");
+                  window.location.replace("backend/festivebonus.php");
                      } else {
                         txt = "You pressed Cancel!";
                       }
@@ -379,10 +439,13 @@ unset($_SESSION['status']);
 
 // Get the modal
 var modal = document.getElementById("myModal");
+var modal2 = document.getElementById("myModal2");
 
 // Get the button that opens the modal
 var btn = document.getElementById("mybtn");
+var btn2 = document.getElementById("mybtn2");
 var close = document.getElementById("close");
+var close2 = document.getElementById("close2");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close");
@@ -391,9 +454,15 @@ var span = document.getElementsByClassName("close");
 btn.onclick = function() {
   modal.style.display = "block";
 }
+btn2.onclick = function() {
+  modal2.style.display = "block";
+}
 
 close.onclick = function() {
   modal.style.display = "none";
+}
+close2.onclick = function() {
+  modal2.style.display = "none";
 }
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -405,7 +474,11 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+  if (event.target == modal2) {
+    modal2.style.display = "none";
+  }
 }
+
 
 </script>
 

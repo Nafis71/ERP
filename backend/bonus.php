@@ -7,7 +7,7 @@ if(isset($_POST['submit']))
     $id =$_POST['id'];
     $bonus = $_POST['bonus'];
     $remark = $_POST['reason'];
-    $sql ="select *from salary where emp_id ='$id'";
+    $sql ="SELECT *from salary where emp_id ='$id'";
     $run = mysqli_query($connect,$sql);
     $fetch = mysqli_fetch_assoc($run);
     $currentsalary = $fetch['salary'];
@@ -17,7 +17,7 @@ if(isset($_POST['submit']))
     $newbonus = $totalbonus + $previousbonus;
     if($bonus!= 20)
     {
-    $sql ="update salary set salary='$newsalary', bonus='$newbonus' where emp_id ='$id'";
+    $sql ="UPDATE salary set salary='$newsalary', bonus='$newbonus' where emp_id ='$id'";
     mysqli_query($connect,$sql);
     }
     else
@@ -29,15 +29,15 @@ if(isset($_POST['submit']))
             $_SESSION['cause'] = "";
             header("location:../manage_salary.php");
         }
-        $sql ="update salary set salary='$newsalary', bonus='$newbonus' festival_bonus='$totalbonus' where emp_id ='$id'";
+        $sql ="UPDATE salary set salary='$newsalary', bonus='$newbonus' festival_bonus='$totalbonus' where emp_id ='$id'";
         mysqli_query($connect,$sql);   
     }
-    $sql ="select *from employee where emp_id ='$id'";
+    $sql ="SELECT *from employee where emp_id ='$id'";
     $run = mysqli_query($connect,$sql);
     $fetch = mysqli_fetch_assoc($run);
     $name = $fetch['name'];
     $designation =$fetch['designation'];
-    $sql ="insert into bonus_deduct(emp_id,name,designation,amount,remark,date) values('$id','$name','$designation','$totalbonus','$remark',NOW())";
+    $sql ="INSERT into bonus_deduct(emp_id,name,designation,amount,remark,date) values('$id','$name','$designation','$totalbonus','$remark',NOW())";
     mysqli_query($connect,$sql);
     $_SESSION['status']="Bonus Added Successfully";
     $_SESSION['status_code']="success";

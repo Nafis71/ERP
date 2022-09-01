@@ -11,6 +11,7 @@ session_start();
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/emp_record.css" rel='stylesheet'>
+    <link rel="icon" href="logo/Bando.png" type="image/x-icon">
     <title>Employee Edit</title>
 </head>
 <body>
