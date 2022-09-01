@@ -384,7 +384,7 @@
 .card
 {
   height: auto;
-  width: 106%;
+  width:170%;
   background: #D6EAF8 ;
   padding-top: 46px;
   padding-bottom: 32px;
@@ -407,12 +407,6 @@
   width: 57%;
   height: auto;
  
-
-}
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
 
 }
 .modal {

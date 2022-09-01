@@ -1,9 +1,18 @@
 <?php
 session_start();
+include 'connect.php';
 //if(!isset($_SESSION['login']))
 //{
  //   header('location:index.php');
 //}
+$search =$_POST['search'];
+mysqli_select_db($connect,'erp');
+$sql = "select *from employee natural join salary where emp_id ='$search'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:backend/redirect_searcherror.php?indicate=2');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -157,7 +166,6 @@ session_start();
            include 'connect.php';
            mysqli_select_db($connect,'erp');
            $limit = 12;
-           
            if(isset($_GET['page']))
            {
             $page = $_GET['page'];
@@ -167,7 +175,7 @@ session_start();
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $query1 = "select * from employee";
+           $query1 = "select * from employee where emp_id ='$search'";
            $result = mysqli_query($connect,$query1);
            ?>
       <thead>
@@ -221,9 +229,19 @@ session_start();
     <tbody>
           <!-- php code for generating the employee list in the table-->
           <?php
-          mysqli_select_db($connect,'erp');
-           $query  = "select *from employee natural join salary ORDER BY emp_id desc LIMIT {$offset},{$limit}";
+          if(isset($_POST['submit']))
+          {
+           mysqli_select_db($connect,'erp');
+           $id = $_POST['search'];
+           $query  = "SELECT *from employee natural join salary where emp_id ='$search'  LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
+           if(mysqli_num_rows($run) == 0)
+           {
+            $_SESSION['status']="Employee Data Not Available";
+            $_SESSION['status_code']="info";
+            $_SESSION['cause'] = "Please Recheck Employee ID";
+            header("location:manage_salary.php");
+           }
            while($fetch = mysqli_fetch_array($run))
            {
            ?>
@@ -238,7 +256,7 @@ session_start();
             <td><?php echo $fetch['festival_bonus']?> &#2547;</td>
                
         </tr><?php
-           }
+           }}
            ?> 
     </tbody>
         
@@ -426,7 +444,7 @@ if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
         <script>
             swal({
   title: "<?php echo $_SESSION['status'];?>",             
-  text: "<?php echo $_SESSION['cause']?>",
+  text: "<?php echo $_SESSION['cause'] ?>",
   icon: "<?php echo $_SESSION['status_code'];?>",
   button: "OK",
 }); </script>

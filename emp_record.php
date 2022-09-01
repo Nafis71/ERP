@@ -179,7 +179,7 @@ session_start();
       </thead>
       <thead>
         <tr>
-          <form action="emp_search.php" method="POST">
+          <form action="emp_search.php" method="GET">
           <th colspan="2" class="head1">
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter employee id *" required="required" >
           </th>
@@ -468,7 +468,7 @@ if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
         <script>
             swal({
   title: "<?php echo $_SESSION['status'];?>",             
-  text: "",
+  text: "<?php echo $_SESSION['cause']?>",
   icon: "<?php echo $_SESSION['status_code'];?>",
   button: "OK",
 }); </script>

@@ -1,9 +1,19 @@
 <?php
 session_start();
+include 'connect.php';
 //if(!isset($_SESSION['login']))
 //{
  //   header('location:index.php');
 //}
+$search =$_GET['search'];
+mysqli_select_db($connect,'erp');
+$sql = "select *from employee natural join salary where emp_id ='$search'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:backend/redirect_searcherror.php?indicate=1');
+}
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +30,7 @@ session_start();
     <title>Document</title>
 </head>
 <body>
+  
 <div class="sidebar close">
     <div class="logo-details">
       <i class='bx bxl-c-plus-plus'></i>
@@ -152,10 +163,10 @@ session_start();
      <div class ="card">
      <table class="styled-table">
     <?php
+    $search = $_GET['search'];
            include 'connect.php';
            mysqli_select_db($connect,'erp');
            $limit = 10;
-           
            if(isset($_GET['page']))
            {
             $page = $_GET['page'];
@@ -165,7 +176,7 @@ session_start();
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $query1 = "select * from employee";
+           $query1 = "select * from employee where emp_id ='$search'";
            $result = mysqli_query($connect,$query1);
            ?>
       <thead>
@@ -177,7 +188,7 @@ session_start();
       </thead>
       <thead>
         <tr>
-          <form action="emp_search.php" method= "POST">
+          <form action="emp_search.php" method= "GET">
           <th colspan="2" class="head1">
            <input id="form_lastname" type="text" name="search" class="form-control" placeholder="Enter employee name/id *" required="required" >
           </th>
@@ -221,11 +232,8 @@ session_start();
     </thead>
     <tbody>
           <?php
-          if(isset($_POST['submit']))
-          {
-          mysqli_select_db($connect,'erp');
-          $search = $_POST['search'];
-           $query  = "select *from employee natural join salary where emp_id Like '%$search%' ORDER BY emp_id desc LIMIT {$offset},{$limit}";
+           mysqli_select_db($connect,'erp');
+           $query  = "select *from employee natural join salary where emp_id ='$search'  LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            while($fetch = mysqli_fetch_array($run))
            {
@@ -266,7 +274,7 @@ session_start();
             <?php echo '<td> <a class = "btn btn-secondary"  href="#">';?><i class="fa-solid fa-user-pen"></i>&nbsp;Edit</a></td>
             
         </tr><?php
-           }}
+           }
            ?> 
     </tbody>
 </table>
@@ -448,7 +456,7 @@ if(mysqli_num_rows($result)> 0)
 <footer>
 <div class="bg-light py-4">
       <div class="container text-center">
-        <? $date = date("Y");
+        <?php $date = date("Y");
         $year =date('Y',strtotime($date));?>
         <p class="text-muted mb-0 py-2">© <?php echo $year ?> Bando Eco Apparels Ltd All Rights Reserved.</p>
       </div>
