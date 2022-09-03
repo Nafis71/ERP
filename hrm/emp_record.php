@@ -14,8 +14,8 @@ session_start();
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/emp_record.css" rel='stylesheet'>
-    <link rel="icon" href="logo/Bando.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/emp_record.css" rel='stylesheet'>
+    <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
     <title>Employee Record</title>
 </head>
 <body>
@@ -32,7 +32,7 @@ session_start();
           <span class="link_name">Dashboard</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Dashboard</a></li>
+          <li><a class="link_name" href="../dashboard.php">Dashboard</a></li>
         </ul>
       </li>
       <li>
@@ -45,7 +45,7 @@ session_start();
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">HRM Panel</a></li>
-          <li><a href="#">Employee Records</a></li>
+          <li><a href="emp_record.php">Employee Records</a></li>
           <li><a href="#">Holiday list</a></li>
           <li><a href="#">Joining Letter</a></li>
           <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
@@ -179,25 +179,25 @@ session_start();
       </thead>
       <thead>
         <tr>
-          <form action="emp_search.php" method="GET">
-          <th colspan="2" class="head1">
+          <form action="../hrm/emp_search.php" method="GET">
+          <th colspan="3" class="head1">
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter employee id *" required="required" >
           </th>
-          <th colspan="6"class="head1">
+          <th colspan="5"class="head1">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="backend/emp_excel_record.php">
-          <th colspan="1" class="head1" >
+          <form  method="POST" action="../backend/emp_excel_record.php">
+          <th colspan="3" class="head1" >
           <button class="btn btn-warning" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
-          </th>
+          
           </form>
-          <th colspan="2" class="head1" >
-          &nbsp;&nbsp;&nbsp;<a class="btn btn-light" href="emp_record.php#sec-2"><i class="fa-solid fa-plus"></i>Add Employee</a>
+          
+          &nbsp;&nbsp;&nbsp;<a class="btn btn-light" href="../hrm/emp_record.php#sec-2"><i class="fa-solid fa-plus"></i>Add Employee</a>
           </th>
           <th colspan ="2" class="head1">
-          <form action="backend/delete.php" method="POST">
-          <button class="btn btn-danger" type="submit" name ="submit"  ><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete Selected</button>
+          <form action="../backend/delete.php" method="POST">
+          <button class="btn btn-danger" type="submit" name ="submit"  ><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
           </th>
           
           
@@ -267,7 +267,7 @@ session_start();
             }else 
             echo '<td>Yes</td>'; 
             ?>
-            <?php echo '<td> <a class = "btn btn-secondary" href="emp_edit.php?id='.$fetch['emp_id'].'">';?><i class="fa-solid fa-user-pen"></i>&nbsp;Edit</a></td>          
+            <?php echo '<td> <a class = "btn btn-secondary" href="../hrm/emp_edit.php?id='.$fetch['emp_id'].'">';?><i class="fa-solid fa-user-pen"></i>&nbsp;Edit</a></td>          
         </tr><?php
            }
            ?> 
@@ -284,17 +284,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="emp_record.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/emp_record.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="emp_record.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/emp_record.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="emp_record.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/emp_record.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
@@ -318,7 +318,7 @@ if(mysqli_num_rows($result)> 0)
                 <div class="card-body bg-light">
            
                 <div class = "container">
-                                 <form action="backend/add_emp.php" method="post">
+                                 <form action="../backend/add_emp.php" method="post">
     
                 
                                  <h3>Add Employee</h3>

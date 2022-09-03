@@ -5,14 +5,6 @@ include 'connect.php';
 //{
  //   header('location:index.php');
 //}
-$search =$_POST['search'];
-mysqli_select_db($connect,'erp');
-$sql = "select *from bonus_deduct where emp_id ='$search'";
-$run =mysqli_query($connect,$sql);
-if(mysqli_num_rows($run) == 0)
-{
-  header('location:backend/redirect_searcherror.php?indicate=3');
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +15,8 @@ if(mysqli_num_rows($run) == 0)
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/historybonus_deduct.css" rel='stylesheet'>
-    <link rel="icon" href="logo/Bando.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/historybonus_deduct.css" rel='stylesheet'>
+    <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
     <title>History</title>
 </head>
 <body>
@@ -41,7 +33,7 @@ if(mysqli_num_rows($run) == 0)
           <span class="link_name">Dashboard</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Dashboard</a></li>
+          <li><a class="link_name" href="../dashboard.php">Dashboard</a></li>
         </ul>
       </li>
       <li>
@@ -177,7 +169,7 @@ if(mysqli_num_rows($run) == 0)
            }
            
            $offset = ($page-1) * $limit;
-           $query1 = "SELECT *from bonus_deduct where emp_id='$search'";
+           $query1 = "select * from bonus_deduct";
            $result = mysqli_query($connect,$query1);
            ?>
       <thead>
@@ -189,7 +181,7 @@ if(mysqli_num_rows($run) == 0)
       </thead>
       <thead>
         <tr>
-          <form action="historybdSearch.php" method="POST">
+          <form action="../hrm/historybdSearch.php" method="POST">
           <th colspan="2" class="head1">
            <input id="form_lastname" type="number"  name="search" class="form-control" placeholder="Enter employee id *"  required="required" >
           </th>
@@ -197,15 +189,11 @@ if(mysqli_num_rows($run) == 0)
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="backend/bonus_deduct_excelsearch.php">
+          <form  method="POST" action="../backend/bonus_deduct_excel.php">
           <th colspan="1" class="head1" >
-          <input type="hidden" name="id" value="<?php echo $search ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
           </th>
-          </form>
-        
-         
-          
+          </form>  
         </tr>           
       </thead>
     <thead>
@@ -224,7 +212,7 @@ if(mysqli_num_rows($run) == 0)
           <!-- php code for generating the employee list in the table-->
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from bonus_deduct where emp_id='$search' LIMIT {$offset},{$limit}";
+           $query  = "select *from bonus_deduct ORDER BY date desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            while($fetch = mysqli_fetch_array($run))
            {
@@ -254,16 +242,16 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="historybonus_deduct.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/historybonus_deduct.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
-    echo'<li><a href="historybonus_deduct.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/historybonus_deduct.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="historybonus_deduct.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/historybonus_deduct.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 

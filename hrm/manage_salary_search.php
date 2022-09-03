@@ -23,8 +23,8 @@ if(mysqli_num_rows($run) == 0)
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/manage_salary.css" rel='stylesheet'>
-    <link rel="icon" href="logo/Bando.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/manage_salary.css" rel='stylesheet'>
+    <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
     <title>Bonus/Deduct Salary</title>
 </head>
 <body>
@@ -41,7 +41,7 @@ if(mysqli_num_rows($run) == 0)
           <span class="link_name">Dashboard</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Dashboard</a></li>
+          <li><a class="link_name" href="../dashboard.php">Dashboard</a></li>
         </ul>
       </li>
       <li>
@@ -187,7 +187,7 @@ if(mysqli_num_rows($run) == 0)
       </thead>
       <thead>
         <tr>
-          <form action="manage_salary_search.php" method="POST">
+          <form action="../hrm/manage_salary_search.php" method="POST">
           <th colspan="2" class="head1">
            <input id="form_lastname" type="number"  name="search" class="form-control" placeholder="Enter employee id *"  required="required" >
           </th>
@@ -195,13 +195,13 @@ if(mysqli_num_rows($run) == 0)
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="backend/export-salary-bonus-deduct.php">
+          <form  method="POST" action="../backend/export-salary-bonus-deduct.php">
           <th colspan="1" class="head1" >
           <button class="btn btn-warning" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
           </th>
           </form>
           <th class="head1">
-            <button class="btn btn-success" onclick="window.location.href='historybonus_deduct.php'" name ="submit"><i class="fas fa-history"></i>&nbsp;History</button>
+            <button class="btn btn-success" onclick="window.location.href='../hrm/historybonus_deduct.php'" name ="submit"><i class="fas fa-history"></i>&nbsp;History</button>
             <button class="btn btn-success" onclick="myFunction()" name ="submit"><i class="fas fa-hand-holding-usd"></i>&nbsp;Festival Bonus(All)</button>
             <button class="btn btn-light"  id="mybtn" ><i class="fas fa-angle-double-up"></i>&nbsp;Add Bonus</button>
             <button type="submit"class="btn btn-light" id="mybtn2"><i class="fas fa-angle-double-down"></i>&nbsp;Deduct Salary</button>
@@ -271,17 +271,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="manage_salary.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/manage_salary.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="manage_salary.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/manage_salary.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="manage_salary.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/manage_salary.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
