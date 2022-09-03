@@ -19,7 +19,7 @@ if(isset($_POST['submit']))
     $_SESSION['status']="Deduction amount is greater than the salary!";
     $_SESSION['status_code']="info";
     $_SESSION['cause'] = "";
-    header("location:../manage_salary.php");
+    header("location:../hrm/manage_salary.php");
     }
     else
     {
@@ -32,7 +32,7 @@ if(isset($_POST['submit']))
         $_SESSION['status']="Salary Deducted Successfully";
         $_SESSION['status_code']="success";
         $_SESSION['cause'] = "";
-        header("location:../manage_salary.php");
+        header("location:../hrm/manage_salary.php");
     }
     
     

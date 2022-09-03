@@ -9,7 +9,7 @@ if(mysqli_num_rows($run)!=0)
     $_SESSION['status']="No employees are currently enjoying this bonus";
     $_SESSION['status_code']="info";
     $_SESSION['cause'] = "";
-    header("location:../manage_salary.php");   
+    header("location:../hrm/manage_salary.php");  
 }
 else
 {
@@ -37,7 +37,7 @@ else
             $_SESSION['status']="Festival Bonus Cleared Successfully";
             $_SESSION['status_code']="success";
             $_SESSION['cause'] = "";
-            header("location:../manage_salary.php");
+            header("location:../hrm/manage_salary.php");
         }
         
     

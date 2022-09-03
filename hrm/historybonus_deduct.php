@@ -1,10 +1,9 @@
 <?php
 session_start();
-include 'connect.php';
-//if(!isset($_SESSION['login']))
-//{
- //   header('location:index.php');
-//}
+if(!isset($_SESSION['id']))
+{
+   header('location:index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

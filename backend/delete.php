@@ -13,7 +13,7 @@ if(isset($_POST['submit']))
     $_SESSION['status']="Employee Info Removed Successfully";
     $_SESSION['status_code']="success";
     $_SESSION['cause'] = "";
-    header("location:../emp_record.php");
+    header("location:../hrm/emp_record.php");
 }
 else
 {

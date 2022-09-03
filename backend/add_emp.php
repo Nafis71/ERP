@@ -36,14 +36,14 @@ if(isset($_POST['submit']))
             $_SESSION['status']="Employee Info Added Successfully";
             $_SESSION['status_code']="success";
             $_SESSION['cause'] = "";
-            header("location:../emp_record.php");
+            header("location:../hrm/emp_record.php");
             }
             else
             {
             $_SESSION['status']="Duplicate Phone Number";
             $_SESSION['status_code']="error";
             $_SESSION['cause'] = "";
-            header("location:../emp_record.php");
+            header("location:../hrm/emp_record.php");
             }
         }
         else
@@ -51,7 +51,7 @@ if(isset($_POST['submit']))
             $_SESSION['status']="Duplicate Bank Account Number";
             $_SESSION['status_code']="error";
             $_SESSION['cause'] = "";
-            header("location:../emp_record.php");
+            header("location:../hrm/emp_record.php");
         }
 
 
@@ -61,7 +61,7 @@ if(isset($_POST['submit']))
         $_SESSION['status']="Employee ID already exists";
         $_SESSION['status_code']="error";
         $_SESSION['cause'] = "";
-        header("location:../emp_record.php");
+        header("location:../hrm/emp_record.php");
     }
 }
 

@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION['id']))
+{
+   header('location:index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -107,12 +114,17 @@
         </ul>
       </li>
       <li>
-        <a href="#">
+      <div class="iocn-link">
+          <a href="#">
           <i class='bx bx-cog' ></i>
-          <span class="link_name">Setting</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Setting</a></li>
+            <span class="link_name">Settings</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow'></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Settings</a></li>
+          <li><a href="#">Add ERP Account</a></li>
+          
         </ul>
       </li>
       <li>
@@ -390,6 +402,23 @@ a 15.9155 15.9155 0 0 1 0 -31.831" />
   </div>
     </div>
   </section>
+    <!-- javascript codes are here -->
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<?php
+if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
+?> <!-- notification javascript code -->
+        <script>
+            swal({
+  title: "<?php echo $_SESSION['status'];?>",             
+  text: "<?php echo $_SESSION['cause']?>",
+  icon: "<?php echo $_SESSION['status_code'];?>",
+  button: "OK",
+}); </script>
+<?php
+}
+unset($_SESSION['status']);
+?>  
   <script>
   let arrow = document.querySelectorAll(".arrow");
   for (var i = 0; i < arrow.length; i++) {

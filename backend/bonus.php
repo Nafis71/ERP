@@ -27,7 +27,7 @@ if(isset($_POST['submit']))
             $_SESSION['status']="Selected Employee already enjoying this bonus";
             $_SESSION['status_code']="info";
             $_SESSION['cause'] = "";
-            header("location:../manage_salary.php");
+            header("location:../hrm/manage_salary.php");
         }
         $sql ="UPDATE salary set salary='$newsalary', bonus='$newbonus' festival_bonus='$totalbonus' where emp_id ='$id'";
         mysqli_query($connect,$sql);   
@@ -42,7 +42,7 @@ if(isset($_POST['submit']))
     $_SESSION['status']="Bonus Added Successfully";
     $_SESSION['status_code']="success";
     $_SESSION['cause'] = "";
-    header("location:../manage_salary.php");
+    header("location:../hrm/manage_salary.php");
 
 }
 

@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'connect.php';
-//if(!isset($_SESSION['login']))
-//{
- //   header('location:index.php');
-//}
+if(!isset($_SESSION['id']))
+{
+   header('location:index.php');
+}
+
 $search =$_POST['search'];
 mysqli_select_db($connect,'erp');
 $sql = "select *from employee natural join salary where emp_id ='$search'";

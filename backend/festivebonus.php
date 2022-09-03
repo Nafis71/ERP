@@ -32,6 +32,6 @@ else
     $_SESSION['status']="Festival Bonus added Successfully";
     $_SESSION['status_code']="success";
     $_SESSION['cause'] = "";
-    header("location:../manage_salary.php");
+    header("location:../hrm/manage_salary.php");
 
 ?>
