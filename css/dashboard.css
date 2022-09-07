@@ -396,15 +396,18 @@
 .sec-1
 {
   position: relative;
-  top: 390%;
-  left: -4%;
+    top: 260px;
+    left: -290px;
+    width: auto;
+    flex-shrink: calc(100% -80%);
+    
 
 }
 .sec-2
 {
-  position: relative;
-  top: 390%;
-  left: 0%;
+  position: absolute;
+  top: 528px;
+  left: -4%;
 
 }
 .sec-3

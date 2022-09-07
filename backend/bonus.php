@@ -29,7 +29,7 @@ if(isset($_POST['submit']))
             $_SESSION['cause'] = "";
             header("location:../hrm/manage_salary.php");
         }
-        $sql ="UPDATE salary set salary='$newsalary', bonus='$newbonus' festival_bonus='$totalbonus' where emp_id ='$id'";
+        $sql ="UPDATE salary set salary='$newsalary', bonus='$newbonus', festival_bonus='$totalbonus' where emp_id ='$id'";
         mysqli_query($connect,$sql);   
     }
     $sql ="SELECT *from employee where emp_id ='$id'";

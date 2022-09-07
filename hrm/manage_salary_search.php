@@ -1,18 +1,20 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:index.php');
 }
-
 $search =$_POST['search'];
+
 mysqli_select_db($connect,'erp');
 $sql = "select *from employee natural join salary where emp_id ='$search'";
 $run =mysqli_query($connect,$sql);
 if(mysqli_num_rows($run) == 0)
 {
-  header('location:backend/redirect_searcherror.php?indicate=2');
+  header('location:../backend/redirect_searcherror.php?indicate=2');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -195,8 +197,9 @@ if(mysqli_num_rows($run) == 0)
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="../backend/export-salary-bonus-deduct.php">
+          <form  method="POST" action="../backend/search_export_salary_bonus.php">
           <th colspan="1" class="head1" >
+          <input type="hidden" name="id" value="<?php echo $search; ?>">
           <button class="btn btn-warning" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
           </th>
           </form>
@@ -262,7 +265,7 @@ if(mysqli_num_rows($run) == 0)
         
 </table>
 <?php
-$query1 = "select * from employee";
+$query1 = "select * from employee where emp_id ='$search'";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -271,17 +274,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/manage_salary.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/manage_salary_search.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../hrm/manage_salary.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/manage_salary_search.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/manage_salary.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/manage_salary_search.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 

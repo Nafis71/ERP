@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:index.php');
@@ -11,7 +12,7 @@ $sql = "select *from employee natural join salary where emp_id ='$search'";
 $run =mysqli_query($connect,$sql);
 if(mysqli_num_rows($run) == 0)
 {
-  header('location:backend/redirect_searcherror.php?indicate=1');
+  header('location:../backend/redirect_searcherror.php?indicate=1');
 }
 ?>
 ?>
@@ -176,7 +177,7 @@ if(mysqli_num_rows($run) == 0)
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $query1 = "select * from employee where emp_id ='$search'";
+           $query1 = "select *from employee where emp_id ='$search'";
            $result = mysqli_query($connect,$query1);
            ?>
       <thead>
@@ -280,7 +281,7 @@ if(mysqli_num_rows($run) == 0)
 </table>
 </form>
 <?php
-$query1 = "select * from employee";
+$query1 = "select * from employee where emp_id ='$search'";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -289,17 +290,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/emp_record.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/emp_search.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../hrm/emp_record.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/emp_search.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/emp_record.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/emp_search.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 

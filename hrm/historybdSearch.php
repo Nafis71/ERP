@@ -1,18 +1,19 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:index.php');
 }
-
-$search =$_POST['search'];
-mysqli_select_db($connect,'erp');
-$sql = "select *from bonus_deduct where emp_id ='$search'";
-$run =mysqli_query($connect,$sql);
-if(mysqli_num_rows($run) == 0)
-{
-  header('location:backend/redirect_searcherror.php?indicate=3');
+if(!isset($_POST['search']))
+{ $search1 = $_GET['search1'];
+  
 }
+else
+{
+  $search1 = $_POST['search'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -163,9 +164,12 @@ if(mysqli_num_rows($run) == 0)
      <div class ="card">
      <table class="styled-table">
     <?php
+    if(isset($_POST['search']))
+         {
+           $search = $_POST['search'];
            include 'connect.php';
            mysqli_select_db($connect,'erp');
-           $limit = 12;
+           $limit = 5;
            
            if(isset($_GET['page']))
            {
@@ -179,6 +183,26 @@ if(mysqli_num_rows($run) == 0)
            $offset = ($page-1) * $limit;
            $query1 = "SELECT *from bonus_deduct where emp_id='$search'";
            $result = mysqli_query($connect,$query1);
+          }
+          else
+          {
+           include 'connect.php';
+           mysqli_select_db($connect,'erp');
+           $limit = 5;
+           
+           if(isset($_GET['page']))
+           {
+            $page = $_GET['page'];
+           }
+           else
+           {
+            $page =1;
+           }
+           
+           $offset = ($page-1) * $limit;
+           $query1 = "SELECT *from bonus_deduct where emp_id='$search1'";
+           $result = mysqli_query($connect,$query1);
+          }
            ?>
       <thead>
         <tr>
@@ -199,7 +223,7 @@ if(mysqli_num_rows($run) == 0)
           </form>
           <form  method="POST" action="../backend/bonus_deduct_excelsearch.php">
           <th colspan="1" class="head1" >
-          <input type="hidden" name="id" value="<?php echo $search ?>">
+          <input type="hidden" name="id" value="<?php if(!isset($_POST['search'])){echo $search1;} else{echo $search;}?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
           </th>
           </form>
@@ -223,9 +247,20 @@ if(mysqli_num_rows($run) == 0)
     <tbody>
           <!-- php code for generating the employee list in the table-->
           <?php
-          mysqli_select_db($connect,'erp');
+          if(isset($_POST['search']))
+          {
+            $search = $_POST['search'];
+           mysqli_select_db($connect,'erp');
            $query  = "SELECT *from bonus_deduct where emp_id='$search' LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
+           $rows = mysqli_num_rows($run);
+           if($rows ==0)
+           {?>
+            <script>confirm("NB: No data found!")</script>
+            <?php
+           }
+           else
+           {
            while($fetch = mysqli_fetch_array($run))
            {
            ?>
@@ -239,13 +274,43 @@ if(mysqli_num_rows($run) == 0)
             <td><?php echo $fetch['date']?></td>
                
         </tr><?php
+           }}}
+           else
+           {
+            mysqli_select_db($connect,'erp');
+            $query  = "SELECT *from bonus_deduct where emp_id='$search1' LIMIT {$offset},{$limit}";
+            $run = mysqli_query($connect,$query);
+            $rows = mysqli_num_rows($run);
+            if($rows ==0)
+            {?>
+             <script>confirm("NB: No data found!")</script>
+             <?php
+            }
+            else
+            {
+            while($fetch = mysqli_fetch_array($run))
+            {
+            ?>
+         <tr>
+             
+             <td><?php echo $fetch['emp_id']?></td>
+             <td><?php echo $fetch['name']?></td>
+             <td><?php echo $fetch['designation']?></td>
+             <td><?php echo $fetch['amount']?> &#2547;</td>
+             <td><?php echo $fetch['remark']?></td>
+             <td><?php echo $fetch['date']?></td>
+                
+         </tr><?php
+            }}
            }
            ?> 
     </tbody>
         
 </table>
 <?php
-$query1 = "select * from bonus_deduct";
+if(isset($_POST['search']))
+{
+$query1 = "select * from bonus_deduct where emp_id ='$search'";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -254,19 +319,46 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/historybonus_deduct.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/historybdSearch.php?page='.($page-1).'&search1='.$search.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
-    echo'<li><a href="../hrm/historybonus_deduct.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/historybdSearch.php?page='.$i.'&search1='.$search.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/historybonus_deduct.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/historybdSearch.php?page='.($page+1).'&search1='.$search.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
+}
+}
+else
+{
+  $query1 = "select * from bonus_deduct where emp_id ='$search1'";
+$result = mysqli_query($connect,$query1);
+if(mysqli_num_rows($result)> 0)
+{
+  $records =mysqli_num_rows($result); 
+  $total_page = ceil($records / $limit);
+  echo '<ul class ="pagination">';
+  if($page >1)
+  {
+    echo'<li><a href="../hrm/historybdSearch.php?page='.($page-1).'&search1='.$search1.'" class="btn btn-primary">Prev</a></li>';
+  }
+  for($i =1;$i<=$total_page;$i++)
+  {
+    echo'<li><a href="../hrm/historybdSearch.php?page='.$i.'&search1='.$search1.'" class="btn btn-primary">'.$i.'</a></li>';
+  
+  }
+  if($total_page > $page)
+  {
+    echo'<li><a href="../hrm/historybdSearch.php?page='.($page+1).'&search1='.$search1.'" class="btn btn-primary">Next</a></li>';
+  }
+  echo'</ul>';
+
+}
 }
 ?>
 

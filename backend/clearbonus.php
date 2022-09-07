@@ -2,9 +2,9 @@
 session_start();
 include 'connect.php';
 mysqli_select_db($connect,'erp');
-$sql ="SELECT *from salary where festival_bonus = 0";
+$sql ="SELECT *from salary where festival_bonus > 0";
 $run =mysqli_query($connect,$sql);
-if(mysqli_num_rows($run)!=0)
+if(mysqli_num_rows($run) == 0)
 {
     $_SESSION['status']="No employees are currently enjoying this bonus";
     $_SESSION['status_code']="info";

@@ -14,6 +14,8 @@ if(!isset($_SESSION['id']))
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="logo/Bando.png" type="image/x-icon">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
    </head>
 <body>
   <div class="sidebar close">
@@ -28,7 +30,7 @@ if(!isset($_SESSION['id']))
           <span class="link_name">Dashboard</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">HRM Panel</a></li>
+          <li><a class="link_name" href="#">Dashboard</a></li>
         </ul>
       </li>
       <li>
@@ -40,11 +42,11 @@ if(!isset($_SESSION['id']))
           <i class='bx bxs-chevron-down arrow'></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Category</a></li>
-          <li style="pointer-events:none;opacity:0.6;" ><a href="emp_record.php">Employee Records</a></li>
-          <li><a href="#">Add Employee</a></li>
-          <li><a href="#">Delete Emp</a></li>
-          <li><a href="#">Add Bonus</a></li>
+        <li><a class="link_name" href="#">HRM Panel</a></li>
+          <li><a href="hrm/emp_record.php">Employee Records</a></li>
+          <li><a href="#">Holiday list</a></li>
+          <li><a href="#">Joining Letter</a></li>
+          <li><a href="hrm/manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
       </li>
       <li>
@@ -144,262 +146,16 @@ if(!isset($_SESSION['id']))
     <div class="home-content">
       <i class='bx bx-menu' ></i>
       <span class="text">Dashboard</span>
-      <div class="sec-1">
-
-      <div class="main-container">
-        <p>Monthly Sales</p>
-    
-		<div class="year-stats">
-			<div class="month-group">
-				<div class="bar h-100"></div>
-				<p class="month">Jan</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-50"></div>
-				<p class="month">Feb</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-75"></div>
-				<p class="month">Mar</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-25"></div>
-				<p class="month">Apr</p>
-			</div>
-			<div class="month-group ">
-				<div class="bar h-100"></div>
-				<p class="month">May</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-50"></div>
-				<p class="month">Jun</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-75"></div>
-				<p class="month">Jul</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-25"></div>
-				<p class="month">Aug</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-50"></div>
-				<p class="month">Sep</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-75"></div>
-				<p class="month">Oct</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-25"></div>
-				<p class="month">Nov</p>
-			</div>
-			<div class="month-group">
-				<div class="bar h-100"></div>
-				<p class="month">Dec</p>
-			</div>
-		</div>
-
-		<div class="stats-info">
-			<div class="graph-container">
-				<div class="percent">
-					<svg viewBox="0 0 36 36" class="circular-chart">
-						<path class="circle" stroke-dasharray="100, 100" d="M18 2.0845
-      a 15.9155 15.9155 0 0 1 0 31.831
-      a 15.9155 15.9155 0 0 1 0 -31.831" />
-						<path class="circle" stroke-dasharray="85, 100" d="M18 2.0845
-      a 15.9155 15.9155 0 0 1 0 31.831
-      a 15.9155 15.9155 0 0 1 0 -31.831" />
-						<path class="circle" stroke-dasharray="60, 100" d="M18 2.0845
-      a 15.9155 15.9155 0 0 1 0 31.831
-      a 15.9155 15.9155 0 0 1 0 -31.831"/>
-						<path class="circle" stroke-dasharray="30, 100" d="M18 2.0845
-      a 15.9155 15.9155 0 0 1 0 31.831
-      a 15.9155 15.9155 0 0 1 0 -31.831" />
+      <div class="sec-1" style="display: flex;">
+        <div id="curve_chart" style="width: 900px; height: 400px"></div>
+        <div id="curve_chart1" style="width: 900px; height: 400px"></div>
+      </div>
+      <div class="sec-2" style="display: flex;">
+      <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+      <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+    </div>
+      <div class=""></div>
       
-					</svg>
-				</div>
-				<p>Total: $2075</p>
-			</div>
-
-			<div class="info">
-				<p>Most expensive category <br /><span>Restaurants & Dining</span></p>
-				<p>Updated categories <span>2</span></p>
-				<p>Bonus payments <span>$92</span></p>
-			</div>
-		</div>
-	</div>
-  </div>
-  <div class="sec-2">
-
-<div class="main-container">
-  <p>Monthly Revenues</p>
- 
-<div class="year-stats">
-<div class="month-group">
-  <div class="bar h-100"></div>
-  <p class="month">Jan</p>
-</div>
-<div class="month-group">
-  <div class="bar h-50"></div>
-  <p class="month">Feb</p>
-</div>
-<div class="month-group">
-  <div class="bar h-75"></div>
-  <p class="month">Mar</p>
-</div>
-<div class="month-group">
-  <div class="bar h-25"></div>
-  <p class="month">Apr</p>
-</div>
-<div class="month-group ">
-  <div class="bar h-100"></div>
-  <p class="month">May</p>
-</div>
-<div class="month-group">
-  <div class="bar h-50"></div>
-  <p class="month">Jun</p>
-</div>
-<div class="month-group">
-  <div class="bar h-75"></div>
-  <p class="month">Jul</p>
-</div>
-<div class="month-group">
-  <div class="bar h-25"></div>
-  <p class="month">Aug</p>
-</div>
-<div class="month-group">
-  <div class="bar h-50"></div>
-  <p class="month">Sep</p>
-</div>
-<div class="month-group">
-  <div class="bar h-75"></div>
-  <p class="month">Oct</p>
-</div>
-<div class="month-group">
-  <div class="bar h-25"></div>
-  <p class="month">Nov</p>
-</div>
-<div class="month-group">
-  <div class="bar h-100"></div>
-  <p class="month">Dec</p>
-</div>
-</div>
-
-<div class="stats-info">
-<div class="graph-container">
-  <div class="percent">
-    <svg viewBox="0 0 36 36" class="circular-chart">
-      <path class="circle" stroke-dasharray="100, 100" d="M18 2.0845
-a 15.9155 15.9155 0 0 1 0 31.831
-a 15.9155 15.9155 0 0 1 0 -31.831" />
-      <path class="circle" stroke-dasharray="85, 100" d="M18 2.0845
-a 15.9155 15.9155 0 0 1 0 31.831
-a 15.9155 15.9155 0 0 1 0 -31.831" />
-      <path class="circle" stroke-dasharray="60, 100" d="M18 2.0845
-a 15.9155 15.9155 0 0 1 0 31.831
-a 15.9155 15.9155 0 0 1 0 -31.831"/>
-      <path class="circle" stroke-dasharray="30, 100" d="M18 2.0845
-a 15.9155 15.9155 0 0 1 0 31.831
-a 15.9155 15.9155 0 0 1 0 -31.831" />
-
-    </svg>
-  </div>
-  <p>Total: $2075</p>
-</div>
-
-<div class="info">
-  <p>Most expensive category <br /><span>Restaurants & Dining</span></p>
-  <p>Updated categories <span>2</span></p>
-  <p>Bonus payments <span>$92</span></p>
-</div>
-</div>
-</div>
-</div>
-  
-  <div class = "sec-3">
-  <div class="cpanel">
-<div class="icon-part">
-<i class="fa fa-users" aria-hidden="true"></i><br>
-<small>Total Employee</small>
-<p>985</p>
-</div>
-<div class="card-content-part">
-<a href="#">More Details </a>
-</div>
-</div>
-<div class="cpanel cpanel-green">
-<div class="icon-part">
-<i class="fa-solid fa-user-check"></i><br>
-<small>Employee Working</small>
-<p>$ 452</p>
-</div>
-<div class="card-content-part">
-<a href="#">More Details </a>
-</div>
-</div>
-<div class="cpanel cpanel-orange">
-<div class="icon-part">
-<i class="fa-solid fa-user-large-slash"></i><br>
-<small>Employee Absent</small>
-<p>11 New</p>
-</div>
-<div class="card-content-part">
-<a href="#">More Details </a>
-</div>
-</div>
-<div class="cpanel cpanel-blue">
-<div class="icon-part">
-<i class="fa-solid fa-user-injured"></i><br>
-<small>On leave</small>
-<p>85</p>
-</div>
-<div class="card-content-part">
-<a href="#">More Details</a>
-</div>
-</div>
-<div class="cpanel cpanel-blue">
-<div class="icon-part">
-<i class="fa-solid fa-building-columns"></i><br>
-<small>Total Assets</small>
-<p>$ 45</p>
-</div>
-<div class="card-content-part">
-<a href="#">More Details </a>
-</div>
-</div>
-<div class="cpanel cpanel-red">
-<div class="icon-part">
-<i class="fa-solid fa-money-bill-transfer"></i><br>
-<small>Total Exports</small>
-<p>$ 45</p>
-</div>
-<div class="card-content-part">
-<a href="#">More Details </a>
-</div>
-</div>
-<div class="cpanel ">
-<div class="icon-part">
-<i class="fa-solid fa-money-bill-transfer"></i><br>
-<small>Total Imports</small>
-<p>$ 45</p>
-</div>
-<div class="card-content-part">
-<a href="#">More Details </a>
-</div>
-</div>
-<div class="cpanel cpanel-skyblue">
-<div class="icon-part">
-<i class="fa-solid fa-money-bills"></i><br>
-<small>Machine Repair Cost</small>
-<p>104</p>
-</div>
-<div class="card-content-part">
-<a href="#">More Details </a>
-</div>
-</div>
-
-  </div>
     </div>
   </section>
     <!-- javascript codes are here -->
@@ -419,6 +175,103 @@ if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
 }
 unset($_SESSION['status']);
 ?>  
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Machine Repair Expenses','Electricity Cost', 'Total Expenses'],
+          ['2004',  1000,     490,        550,                400],
+          ['2005',  1170,     950,          680,              460],
+          ['2006',  660,       1056,         980,            1120],
+          ['2007',  1030,      356,            200,           540]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+   <script type="text/javascript">
+   google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Employee' ],
+          ['2004',  1000      ],
+          ['2005',  1170      ],
+          ['2006',  660       ],
+          ['2007',  1030      ]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart1'));
+
+        chart.draw(data, options);
+  }
+  </script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Title', 'Total Number'],
+          ['Present', 105],
+          ['Male',      50],
+          ['Female',  60],
+          ['Absent',    5]
+        ]);
+
+        var options = {
+          title: 'Employee Summary',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Total Order Recieved', 'Total Order Completed', 'Total Income'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Production Report',
+            subtitle: 'Total Order Recieved, Total Order Completed, and Total Income: 2014-2017',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
   <script>
   let arrow = document.querySelectorAll(".arrow");
   for (var i = 0; i < arrow.length; i++) {
