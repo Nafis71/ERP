@@ -13,12 +13,13 @@ session_start();
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>
+    <link rel="icon" href="logo/Bando.png" type="image/x-icon">
     <title>Log In</title>
 </head>
 <body>
     
 <div class="login-page">
-
+<img src="logo/back.png" alt="">
   <div class="form">
   
     <form class="register-form" >
@@ -31,7 +32,7 @@ session_start();
       <p class="message">Already registered? <a href="#">Sign In</a></p>
     </form>
     <form class="login-form" action="backend/login.php" method="post">
-    <h4>Bando Eco Apparels Ltd</h4>
+    <h4>Bando Eco Apparels</h4>
     <hr>
     <h3>ERP Login</h3>
     <br>

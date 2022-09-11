@@ -4,6 +4,7 @@ if(!isset($_SESSION['id']))
 {
    header('location:index.php');
 }
+$id = $_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -133,11 +134,18 @@ if(!isset($_SESSION['id']))
     <div class="profile-details">
       <div class="profile-content">
       </div>
+      <?php
+       include 'connect.php';
+       mysqli_select_db($connect,'erp');
+       $sql="SELECT *FROM employee where emp_id ='$id'";
+       $run = mysqli_query($connect,$sql);
+       $fetch = mysqli_fetch_array($run);
+      ?>
       <div class="name-job">
-        <div class="profile_name">Tonmoy</div>
-        <div class="job">Web Desginer</div>
+        <div class="profile_name"><?php echo $fetch['name']; ?></div>
+        <div class="job"><?php echo $fetch['designation']; ?></div>
       </div>
-      <i class='bx bx-log-out' ></i>
+      <i class='bx bx-log-out' onclick="window.location.href='../backend/logout.php'"></i>
     </div>
   </li>
 </ul>
@@ -158,6 +166,15 @@ if(!isset($_SESSION['id']))
       
     </div>
   </section>
+  <footer>
+<div class="bg-light py-4">
+      <div class="container text-center">        <!--this is the footer -->
+        <?php $date = date("Y");
+        $year =date('Y',strtotime($date));?>
+        <p class="text-muted mb-0 py-2">© <?php echo $year ?> Bando Eco Apparels Ltd All Rights Reserved.</p>
+      </div>
+    </div>
+</footer>
     <!-- javascript codes are here -->
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

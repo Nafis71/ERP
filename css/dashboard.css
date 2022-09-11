@@ -417,70 +417,9 @@
   left: 1.5%;
 
 }
-.cpanel{
-  width:32%;
-  display: inline-block;
-  max-inline-size: 20%;
-  background-color:#34495E;
-  color:#fff;
-  margin-top: 50px;
-  text-align: center;
-  margin-left: 35px;
-  
-  }
-  .icon-part i{
-  font-size: 30px;
-  padding:10px;
-  border:1px solid #fff;
-  border-radius:50%;
-  margin-top:-25px;
-  margin-bottom: 10px;
-  background-color:#34495E;
-  }
-  .icon-part p{
-  margin:0px;
-  font-size: 20px;
-  padding-bottom: 10px;
-  }
-  .card-content-part{
-  background-color: #2F4254;
-  padding: 5px 0px;
-  }
-  .cpanel .card-content-part:hover{
-  background-color: #5a5a5a;
-  cursor: pointer;
-  }
-  .card-content-part a{
-  color:#fff;
-  text-decoration: none;
-  }
-  .cpanel-green .icon-part,.cpanel-green .icon-part i{
-  background-color: #16A085;
-  }
-  .cpanel-green .card-content-part{
-  background-color: #149077;
-  }
-  .cpanel-orange .icon-part,.cpanel-orange .icon-part i{
-  background-color: #F39C12;
-  }
-  .cpanel-orange .card-content-part{
-  background-color: #DA8C10;
-  }
-  .cpanel-blue .icon-part,.cpanel-blue .icon-part i{
-  background-color: #2980B9;
-  }
-  .cpanel-blue .card-content-part{
-  background-color:#2573A6;
-  }
-  .cpanel-red .icon-part,.cpanel-red .icon-part i{
-  background-color:#E74C3C;
-  }
-  .cpanel-red .card-content-part{
-  background-color:#CF4436;
-  }
-  .cpanel-skyblue .icon-part,.cpanel-skyblue .icon-part i{
-  background-color:#8E44AD;
-  }
-  .cpanel-skyblue .card-content-part{
-  background-color:#803D9B;
-  }
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+
+}

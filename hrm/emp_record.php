@@ -4,6 +4,7 @@ if(!isset($_SESSION['id']))
 {
    header('location:index.php');
 }
+$id = $_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,11 +132,18 @@ if(!isset($_SESSION['id']))
       <div class="profile-content">
         
       </div>
+      <?php
+       include 'connect.php';
+       mysqli_select_db($connect,'erp');
+       $sql="SELECT *FROM employee where emp_id ='$id'";
+       $run = mysqli_query($connect,$sql);
+       $fetch = mysqli_fetch_array($run);
+      ?>
       <div class="name-job">
-        <div class="profile_name">Tonmoy</div>
-        <div class="job">Web Desginer</div>
+      <div class="profile_name"><?php echo $fetch['name']; ?></div>
+        <div class="job"><?php echo $fetch['designation']; ?></div>
       </div>
-      <i class='bx bx-log-out' ></i>
+      <i class='bx bx-log-out' onclick="window.location.href='../backend/logout.php'"></i>
     </div>
   </li>
 </ul>
@@ -448,7 +456,9 @@ if(mysqli_num_rows($result)> 0)
         </div>
 </div>
 
-<footer>
+
+  </section> <!--homesection ends here-->
+  <footer>
 <div class="bg-light py-4">
       <div class="container text-center">        <!--this is the footer -->
         <?php $date = date("Y");
@@ -457,7 +467,6 @@ if(mysqli_num_rows($result)> 0)
       </div>
     </div>
 </footer>
-  </section> <!--homesection ends here-->
 
   <!-- javascript codes are here -->
 

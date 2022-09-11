@@ -4,6 +4,13 @@ include 'connect.php';
 mysqli_select_db($connect,'erp');
 if(isset($_POST['submit']))
 {
+    if($_POST['check'] == NULL)
+    {
+        $_SESSION['status']="Please Select an Employee First";
+        $_SESSION['status_code']="info";
+        $_SESSION['cause'] = "";
+        header("location:../hrm/emp_record.php");
+    }
     $id = $_POST['check'];
     $extract = implode(',' , $id);
     $query ="DELETE from employee where emp_id IN($extract)";
@@ -17,7 +24,7 @@ if(isset($_POST['submit']))
 }
 else
 {
-    echo 'error';
+   
 }
 
 

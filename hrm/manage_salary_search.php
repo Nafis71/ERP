@@ -5,8 +5,8 @@ if(!isset($_SESSION['id']))
 {
    header('location:index.php');
 }
+$id = $_SESSION['id'];
 $search =$_POST['search'];
-
 mysqli_select_db($connect,'erp');
 $sql = "select *from employee natural join salary where emp_id ='$search'";
 $run =mysqli_query($connect,$sql);
@@ -142,11 +142,18 @@ if(mysqli_num_rows($run) == 0)
       <div class="profile-content">
         
       </div>
+      <?php
+       include 'connect.php';
+       mysqli_select_db($connect,'erp');
+       $sql="SELECT *FROM employee where emp_id ='$id'";
+       $run = mysqli_query($connect,$sql);
+       $fetch = mysqli_fetch_array($run);
+      ?>
       <div class="name-job">
-        <div class="profile_name">Tonmoy</div>
-        <div class="job">Web Desginer</div>
+      <div class="profile_name"><?php echo $fetch['name']; ?></div>
+        <div class="job"><?php echo $fetch['designation']; ?></div>
       </div>
-      <i class='bx bx-log-out' ></i>
+      <i class='bx bx-log-out' onclick="window.location.href='../backend/logout.php'"></i>
     </div>
   </li>
 </ul>

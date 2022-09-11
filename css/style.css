@@ -7,9 +7,10 @@
 }
 
 .login-page {
-  width: 360px;
+  width: auto;
   padding: 8% 0 0;
   margin: auto;
+  display: flex;
 }
 .form {
   position: relative;
@@ -20,7 +21,9 @@
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  border-radius: 1px;
+  border-radius: 4px;
+  height: 100%;
+  top: 80px;
 }
 .form input {
   font-family: "Roboto", sans-serif;
@@ -94,4 +97,13 @@
 }
 .container .info span .fa {
   color: #EF3B3A;
+}
+img
+{
+  display: flex;
+  position: relative;
+  image-rendering: -webkit-optimize-contrast;
+  height: 700px;
+  top: -54px;
+  left: 24px;
 }

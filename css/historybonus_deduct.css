@@ -484,4 +484,10 @@ justify-content: center;}
     background-color: #334c7a ;
     color: white;
   }
+  footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  
+  }
   
