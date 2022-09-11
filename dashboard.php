@@ -145,7 +145,7 @@ $id = $_SESSION['id'];
         <div class="profile_name"><?php echo $fetch['name']; ?></div>
         <div class="job"><?php echo $fetch['designation']; ?></div>
       </div>
-      <i class='bx bx-log-out' onclick="window.location.href='../backend/logout.php'"></i>
+      <i class='bx bx-log-out' onclick="window.location.href='backend/logout.php'"></i>
     </div>
   </li>
 </ul>
