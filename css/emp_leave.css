@@ -270,11 +270,12 @@
 .sec-1
 {
   display: inline-block;
+  width: 95%;
   justify-content: center;
   position: relative;
     top: 10px;
     left: 10px;
-    width: auto;
+    
     margin-bottom: 50px;
    margin-top: 38px;
 }
@@ -322,6 +323,14 @@
 .styled-table .head1
 {
   text-align: left;
+  font-style: normal;
+  font-weight: 100;
+  background: #dad5d5;
+  
+}
+.styled-table .head2
+{
+  text-align: right;
   font-style: normal;
   font-weight: 100;
   background: #dad5d5;
@@ -396,14 +405,15 @@
 .card
 {
   height: auto;
-  width :100%;
-  background: #F9F9F9;
+  background: #F8F9FA;
   padding-bottom: 32px;
   padding-left: 10px;
   padding-right: 59px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.10);
   border: none;
   border-radius: 2px;
+ 
+   
 }
 .form-group
 {

@@ -2,7 +2,7 @@
 session_start();
 if(!isset($_SESSION['id']))
 {
-   header('location:index.php');
+   header('location:../index.php');
 }
 $id = $_SESSION['id'];
 ?>
@@ -47,7 +47,7 @@ $id = $_SESSION['id'];
         <ul class="sub-menu">
           <li><a class="link_name" href="#">HRM Panel</a></li>
           <li><a href="emp_record.php">Employee Records</a></li>
-          <li><a href="#">Holiday list</a></li>
+          <li><a href="emp_leave.php">Employee Leave Information</a></li>
           <li><a href="#">Joining Letter</a></li>
           <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
@@ -310,6 +310,7 @@ if(mysqli_num_rows($result)> 0)
 ?>
 
      </div>
+    </div>
      
     <hr>
 <div id="sec-2" class ="sec-2">  <!-- This is the add employee section -->
@@ -452,13 +453,8 @@ if(mysqli_num_rows($result)> 0)
 
             </div>
          </div>
-
         </div>
-</div>
-
-
-  </section> <!--homesection ends here-->
-  <footer>
+        <footer>
 <div class="bg-light py-4">
       <div class="container text-center">        <!--this is the footer -->
         <?php $date = date("Y");
@@ -467,6 +463,9 @@ if(mysqli_num_rows($result)> 0)
       </div>
     </div>
 </footer>
+
+  </section> <!--homesection ends here-->
+
 
   <!-- javascript codes are here -->
 

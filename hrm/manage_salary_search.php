@@ -3,7 +3,7 @@ session_start();
 include 'connect.php';
 if(!isset($_SESSION['id']))
 {
-   header('location:index.php');
+   header('location:../index.php');
 }
 $id = $_SESSION['id'];
 $search =$_POST['search'];

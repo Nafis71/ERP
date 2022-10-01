@@ -1,20 +1,10 @@
 <?php
 session_start();
-include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
-if(!isset($_POST['search']))
-{ $search1 = $_GET['search1'];
-  
-}
-else
-{
-  $search1 = $_POST['search'];
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,9 +15,9 @@ else
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/historybonus_deduct.css" rel='stylesheet'>
+    <link rel="stylesheet" href="../css/emp_leave.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>History</title>
+    <title>Employee Leave</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -57,7 +47,7 @@ else
         <ul class="sub-menu">
           <li><a class="link_name" href="#">HRM Panel</a></li>
           <li><a href="emp_record.php">Employee Records</a></li>
-          <li><a href="#">Holiday list</a></li>
+          <li><a href="emp_leave.php">Employee Leave</a></li>
           <li><a href="#">Joining Letter</a></li>
           <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
@@ -165,19 +155,16 @@ else
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Bonus/Deduct Salary</span>
+      <span class="text">Employee Leave Information</span>
       
     </div>
     <div class = "sec-1">
      <div class ="card">
      <table class="styled-table">
     <?php
-    if(isset($_POST['search']))
-         {
-           $search = $_POST['search'];
            include 'connect.php';
            mysqli_select_db($connect,'erp');
-           $limit = 5;
+           $limit = 12;
            
            if(isset($_GET['page']))
            {
@@ -187,138 +174,108 @@ else
            {
             $page =1;
            }
-           
            $offset = ($page-1) * $limit;
-           $query1 = "SELECT *from bonus_deduct where emp_id='$search'";
+           $query1 = "SELECT *from emp_leave";
            $result = mysqli_query($connect,$query1);
-          }
-          else
-          {
-           include 'connect.php';
-           mysqli_select_db($connect,'erp');
-           $limit = 5;
-           
-           if(isset($_GET['page']))
-           {
-            $page = $_GET['page'];
-           }
-           else
-           {
-            $page =1;
-           }
-           
-           $offset = ($page-1) * $limit;
-           $query1 = "SELECT *from bonus_deduct where emp_id='$search1'";
-           $result = mysqli_query($connect,$query1);
-          }
            ?>
       <thead>
         <tr>
-          <th class="head" colspan="6">
+          <th class="head" colspan="10">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
       </thead>
       <thead>
         <tr>
-          <form action="../hrm/historybdSearch.php" method="POST">
+          <form action="../hrm/emp_search.php" method="GET">
           <th colspan="2" class="head1">
-           <input id="form_lastname" type="number"  name="search" class="form-control" placeholder="Enter employee id *"  required="required" >
+           <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter employee id *" required="required" >
           </th>
           <th colspan="3"class="head1">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="../backend/bonus_deduct_excelsearch.php">
-          <th colspan="1" class="head1" >
-          <input type="hidden" name="id" value="<?php if(!isset($_POST['search'])){echo $search1;} else{echo $search;}?>">
+          <form  method="POST" action="../backend/emp_excel_record.php">
+          <th colspan="4" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
-          </th>
+          
           </form>
+          
+          &nbsp;&nbsp;&nbsp;<a class="btn btn-light" href="../hrm/emp_record.php#sec-2"><i class="fa-solid fa-plus"></i>&nbsp;Add Employee</a>
+          </th>
+          <th colspan ="1" class="head2">
+          <form action="../backend/delete.php" method="POST">
+          <button class="btn btn-danger" type="submit" name ="submit"  ><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
+          </th>
+          
+          
+        </tr>
         
          
-          
-        </tr>           
+           
+         
       </thead>
     <thead>
         <tr>
-            
+            <th>#</th>
             <th>Employee ID&nbsp;</th>
-            <th>Employee Name&nbsp;&nbsp;</th>
-            <th>Designation&nbsp;&nbsp;</th>
-            <th>Amount&nbsp;&nbsp;</th>
-            <th>Remarks&nbsp;&nbsp;</th>
-            <th>Date</th>
+            <th>Employee Name&nbsp;</th>
+            <th>Start Date&nbsp;&nbsp;</th>
+            <th>End Date&nbsp;&nbsp;</th>
+            <th>Leave Days&nbsp;</th>
+            <th>Leave Type&nbsp;</th>
+            <th>Remarks&nbsp;</th>
+            <th>Approve Status&nbsp;</th>
+            <th>Action&nbsp;</th>
            
         </tr>
     </thead>
     <tbody>
           <!-- php code for generating the employee list in the table-->
           <?php
-          if(isset($_POST['search']))
-          {
-            $search = $_POST['search'];
-           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from bonus_deduct where emp_id='$search' LIMIT {$offset},{$limit}";
+          mysqli_select_db($connect,'erp');
+           $query  = "select *from emp_leave ORDER BY emp_id desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
-           $rows = mysqli_num_rows($run);
-           if($rows ==0)
-           {?>
-            <script>confirm("NB: No data found!")</script>
-            <?php
-           }
-           else
-           {
            while($fetch = mysqli_fetch_array($run))
            {
            ?>
         <tr>
-            
+            <td><input type="checkbox" name=check[] value="<?php  echo $fetch['emp_id']; ?>"> </td>
             <td><?php echo $fetch['emp_id']?></td>
             <td><?php echo $fetch['name']?></td>
-            <td><?php echo $fetch['designation']?></td>
-            <td><?php echo $fetch['amount']?> &#2547;</td>
-            <td><?php echo $fetch['remark']?></td>
-            <td><?php echo $fetch['date']?></td>
-               
-        </tr><?php
-           }}}
-           else
-           {
-            mysqli_select_db($connect,'erp');
-            $query  = "SELECT *from bonus_deduct where emp_id='$search1' LIMIT {$offset},{$limit}";
-            $run = mysqli_query($connect,$query);
-            $rows = mysqli_num_rows($run);
-            if($rows ==0)
-            {?>
-             <script>confirm("NB: No data found!")</script>
-             <?php
-            }
-            else
-            {
-            while($fetch = mysqli_fetch_array($run))
-            {
+            <td><?php echo $fetch['start_date']?></td>
+            <td><?php echo $fetch['end_date']?></td>
+            <?php
+            $diff ="SELECT DATEDIFF(end_date,start_date) as diff FROM emp_leave";
+            $execute = mysqli_query($connect,$diff);
+            $fetch_diff = mysqli_fetch_array($execute);
             ?>
-         <tr>
-             
-             <td><?php echo $fetch['emp_id']?></td>
-             <td><?php echo $fetch['name']?></td>
-             <td><?php echo $fetch['designation']?></td>
-             <td><?php echo $fetch['amount']?> &#2547;</td>
-             <td><?php echo $fetch['remark']?></td>
-             <td><?php echo $fetch['date']?></td>
-                
-         </tr><?php
-            }}
+            <td><?php echo $fetch_diff['diff']?></td>
+            <td><?php echo $fetch['leave_type']?></td>
+            <td><?php echo $fetch['remarks']?></td>
+            <?php
+              if($fetch['approve_status']==1)
+              {
+                echo '<td><b>Approved</b></td>';
+              }
+              elseif($fetch['approve_status']==0)
+              {
+                echo '<td>Not Approved</td>';
+              }
+              else
+              {
+                echo '<td>Open</td>';
+              }
+            ?>
+            <?php echo '<td> <a class = "btn btn-secondary" href="../hrm/emp_edit.php?id='.$fetch['emp_id'].'">';?><i class="fa-solid fa-user-pen"></i>&nbsp;Edit</a></td>          
+        </tr><?php
            }
            ?> 
     </tbody>
-        
 </table>
+</form>
 <?php
-if(isset($_POST['search']))
-{
-$query1 = "select * from bonus_deduct where emp_id ='$search'";
+$query1 = "SELECT *from emp_leave";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -327,53 +284,25 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/historybdSearch.php?page='.($page-1).'&search1='.$search.'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/emp_leave.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
-    echo'<li><a href="../hrm/historybdSearch.php?page='.$i.'&search1='.$search.'" class="btn btn-primary">'.$i.'</a></li>';
+    
+    echo'<li><a href="../hrm/emp_leave.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/historybdSearch.php?page='.($page+1).'&search1='.$search.'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/emp_leave.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
-}
-}
-else
-{
-  $query1 = "select * from bonus_deduct where emp_id ='$search1'";
-$result = mysqli_query($connect,$query1);
-if(mysqli_num_rows($result)> 0)
-{
-  $records =mysqli_num_rows($result); 
-  $total_page = ceil($records / $limit);
-  echo '<ul class ="pagination">';
-  if($page >1)
-  {
-    echo'<li><a href="../hrm/historybdSearch.php?page='.($page-1).'&search1='.$search1.'" class="btn btn-primary">Prev</a></li>';
-  }
-  for($i =1;$i<=$total_page;$i++)
-  {
-    echo'<li><a href="../hrm/historybdSearch.php?page='.$i.'&search1='.$search1.'" class="btn btn-primary">'.$i.'</a></li>';
-  
-  }
-  if($total_page > $page)
-  {
-    echo'<li><a href="../hrm/historybdSearch.php?page='.($page+1).'&search1='.$search1.'" class="btn btn-primary">Next</a></li>';
-  }
-  echo'</ul>';
-
-}
 }
 ?>
-
      </div>
     </div>
-  
-<footer>
+        <footer>
 <div class="bg-light py-4">
       <div class="container text-center">        <!--this is the footer -->
         <?php $date = date("Y");
@@ -382,7 +311,11 @@ if(mysqli_num_rows($result)> 0)
       </div>
     </div>
 </footer>
+
   </section> <!--homesection ends here-->
+
+
+  <!-- javascript codes are here -->
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <?php
@@ -391,7 +324,7 @@ if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
         <script>
             swal({
   title: "<?php echo $_SESSION['status'];?>",             
-  text: "",
+  text: "<?php echo $_SESSION['cause']?>",
   icon: "<?php echo $_SESSION['status_code'];?>",
   button: "OK",
 }); </script>
@@ -399,23 +332,24 @@ if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
 }
 unset($_SESSION['status']);
 ?>   
+
+
 <!--navbar javascript code-->
-  <script>
-let arrow = document.querySelectorAll(".arrow");
-for (var i = 0; i < arrow.length; i++) {
-  arrow[i].addEventListener("click", (e)=>{
- let arrowParent = e.target.parentElement.parentElement;   
-                                                            
- arrowParent.classList.toggle("showMenu");
+<script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
   });
-}
-let sidebar = document.querySelector(".sidebar");
-let sidebarBtn = document.querySelector(".bx-menu");
-console.log(sidebarBtn);
-sidebarBtn.addEventListener("click", ()=>{
-  sidebar.classList.toggle("close");
-});
-</script>
+  </script>
 </body>
 
 </html>
