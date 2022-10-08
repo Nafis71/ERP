@@ -201,7 +201,7 @@ $id = $_SESSION['id'];
           
           </form>
           
-          &nbsp;&nbsp;&nbsp;<a class="btn btn-light" href="../hrm/emp_record.php#sec-2"><i class="fa-solid fa-plus"></i>&nbsp;Add Employee</a>
+          &nbsp;&nbsp;&nbsp;<button class="btn btn-light"  id="mybtn" ><i class="fas fa-angle-double-up"></i>&nbsp;Add Leave Request</button>
           </th>
           <th colspan ="1" class="head2">
           <form action="../backend/delete.php" method="POST">
@@ -314,6 +314,146 @@ if(mysqli_num_rows($result)> 0)
 
   </section> <!--homesection ends here-->
 
+  <div id="myModal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+  <div class="modal-header">
+    <h2>Add Bonus</h2>
+    <span class="close"><button type="button" class="btn btn-danger" id="close"><i class="fas fa-times"></i></button></span>
+  </div>
+  <div class="modal-body">
+  <form action="../backend/bonus.php" method="post">
+  <div class=" text-center mt-5 ">              
+            
+            </div>
+    
+        
+        <div class="row ">
+          
+          <div class="col-lg-7 mx-auto">
+            
+                
+           
+                <div class = "container">
+                                 <form action="../backend/add_emp.php" method="post">
+    
+                
+                                 <h3>Leave Information</h3>
+                <div class="controls">
+    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_id">Employee ID <span style="color:#ff0000">*</span></label>
+                                <input id="form_id" type="number" name="id" class="form-control" placeholder="Please enter unique employee ID *" required="required" >
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1" value="Male" required>
+                            <label class="form-check-label" for="flexRadioDefault1" >Male <span style="color:#ff0000">*</span></label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault2"value="Female"required>
+                            <label class="form-check-label" for="flexRadioDefault2" >
+                              Female <span style="color:#ff0000">*</span>
+                            </label>
+                          </div>    
+                             </div>
+                        </div>
+                           
+                        <div class="col-md-6">
+                            <div class="form-group">
+                            <label for="form_need">Please specify designation <span style="color:#ff0000">*</span></label>
+                                <select id="form_need" name="designation" class="form-control" required="required" >
+                                <option value="" selected disabled>--Select a designation--</option>
+                                <!-- php code for generating the designation list-->
+                                <?php
+                            $query2 = "select *from designation";
+                            $run2 = mysqli_query($connect,$query2);
+                            while($fetch2 = mysqli_fetch_assoc($run2))
+                            {
+                            ?>
+                                    <option value ="<?php echo $fetch2['name'] ?>"><?php echo $fetch2['name']?></option>
+                                    <?php
+                            }
+                            ?>
+                                </select>   
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_bank">Bank Account <span style="color:#ff0000">*</span></label>
+                                <input id="form_bank" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); " type="number" maxlength="9" name="bank" class="form-control" placeholder="Please enter the account Number *" required="required" data-error="Valid email is required.">
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_need1">Please specify salary <span style="color:#ff0000">*</span></label>
+                                <select id="form_need1"  name="salary" class="form-control" required="required">
+                                    <option value="" selected disabled>--Select Salary--</option>
+                                    <!-- php code for generating the salary list-->
+                                    <?php
+                                     $query3 ="select *from salary_list ";
+                                     $run3 = mysqli_query($connect,$query3);    
+                                     while($fetch4 = mysqli_fetch_assoc($run3))
+                                     {
+                                    ?>
+                                    <option value = " <?php echo $fetch4['amount'] ?> "> <?php echo $fetch4['designation'] ?> -> <?php echo $fetch4['amount']?> &#2547;</option>
+                                  
+                                    <?php 
+                                    }
+                                    ?>
+                                </select>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="form_message">Remarks </label>
+                                <textarea id="form_message" name="message" class="form-control" placeholder="Write a remark here (OPTIONAL)" rows="4"  ></textarea>
+                                </div>
+    
+                            </div>
+    
+    
+                        <div class="col-md-12">
+                            
+                            <button name ="submit" type="submit" class="btn btn-success btn-send  pt-2 btn-block
+                                " value="INSERT" >Submit</button>
+                        
+                       </div>
+              
+                      </div>
+    
+    
+                    </div>
+                  </form>
+              
+             
+
+            </div>
+         </div>
+          </div>
+  </div>
+  </div>
+  
+</div>
+
+</div>
+</form>
+ 
 
   <!-- javascript codes are here -->
 
@@ -332,7 +472,43 @@ if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
 }
 unset($_SESSION['status']);
 ?>   
+<!-- Modal Javascript starts here -->
+<script>
 
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("mybtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close");
+var close = document.getElementById("close");
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+
+close.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+</script>
+<!-- modal script ends here -->
 
 <!--navbar javascript code-->
 <script>
