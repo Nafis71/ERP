@@ -15,7 +15,6 @@ if(mysqli_num_rows($run) == 0)
   header('location:../backend/redirect_searcherror.php?indicate=1');
 }
 ?>
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

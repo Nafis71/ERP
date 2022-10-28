@@ -22,6 +22,13 @@ $_SESSION['status_code']="info";
 $_SESSION['cause'] = "No Data Available For This Employee";
 header('location:../hrm/historybonus_deduct.php');
 }
+else if($indicate == 4)
+{
+$_SESSION['status']="No Data Available";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "No Data Available For This Employee";
+header('location:../hrm/emp_leave.php');
+}
 
 
 ?>

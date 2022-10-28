@@ -47,7 +47,7 @@ $id = $_SESSION['id'];
         <ul class="sub-menu">
           <li><a class="link_name" href="#">HRM Panel</a></li>
           <li><a href="emp_record.php">Employee Records</a></li>
-          <li><a href="emp_leave.php">Employee Leave Information</a></li>
+          <li><a href="emp_leave.php">Employee Leave</a></li>
           <li><a href="#">Joining Letter</a></li>
           <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
@@ -429,7 +429,7 @@ if(mysqli_num_rows($result)> 0)
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="form_message">Remarks </label>
+                                <label for="form_message">Remarks</label>
                                 <textarea id="form_message" name="message" class="form-control" placeholder="Write a remark here (OPTIONAL)" rows="4"  ></textarea>
                                 </div>
     

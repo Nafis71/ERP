@@ -415,6 +415,24 @@
  
    
 }
+.date {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 2px;
+}
+.card1
+{
+  height: auto;
+  
+  padding-bottom: 32px;
+  padding-left: 10px;
+  padding-right: 59px;
+  border: none;
+  border-radius: 2px;
+  width: 160%;
+ 
+   
+}
 .form-group
 {
   margin-bottom: 20px;
@@ -425,7 +443,7 @@
   justify-content: center;
   top: 50%;
   left: 20%;
-  width: 57%;
+  width: 90%;
   height: auto;
  
 
@@ -445,9 +463,9 @@ footer {
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   padding-top: 100px; /* Location of the box */
-  left: 240px;
+  left: 540px;
   top: 0;
-  width: 90%; /* Full width */
+  width: 50%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   
@@ -464,7 +482,7 @@ footer {
   padding: 0;
   border: 1px;
   border-radius: 1px;
-  width: 70%;
+  width: 90%;
   justify-content:left;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   -webkit-animation-name: animatetop;

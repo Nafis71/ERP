@@ -1,10 +1,19 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+$search =$_GET['search'];
+mysqli_select_db($connect,'erp');
+$sql = "select *from emp_leave where emp_id ='$search'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=4');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,7 +171,7 @@ $id = $_SESSION['id'];
      <div class ="card">
      <table class="styled-table">
     <?php
-           include 'connect.php';
+           
            mysqli_select_db($connect,'erp');
            $limit = 12;
            
@@ -175,7 +184,7 @@ $id = $_SESSION['id'];
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $query1 = "SELECT *from emp_leave";
+           $query1 = "SELECT *from emp_leave where emp_id='$search'";
            $result = mysqli_query($connect,$query1);
            ?>
       <thead>
@@ -235,7 +244,7 @@ $id = $_SESSION['id'];
           <!-- php code for generating the employee list in the table-->
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "select *from emp_leave ORDER BY issue_date desc LIMIT {$offset},{$limit}";
+           $query  = "select *from emp_leave where emp_id='$search' ORDER BY issue_date desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            while($fetch = mysqli_fetch_array($run))
            {
@@ -259,34 +268,33 @@ $id = $_SESSION['id'];
             <?php
               if($fetch['approve_status']==1)
               {
-                echo '<td style=color:green>Approved</td>';
+                echo '<td><b>Approved</b></td>';
               }
               elseif($fetch['approve_status']==0)
               {
-                echo '<td style=color:Crimson>Not Approved</td>';
+                echo '<td>Not Approved</td>';
               }
               else
               {
-                echo '<td style=color:Black>Open</td>';
+                echo '<td>Open</td>';
               }
             ?>
              <?php
               if($fetch['approve_status']==3)
               {?>
-            <?php echo '<td> <a class = "btn btn-success" href="../backend/emp_leave_approve.php?id='.$fetch['emp_id'].'"><i class="fa-solid fa-check"></i></a>&nbsp; &nbsp;&nbsp;<a class = "btn btn-danger" href="../backend/emp_leave_notapproved.php?id='.$fetch['emp_id'].'">';?><i class="fa-solid fa-xmark"></i></a></td>    
+            <?php echo '<td> <a class = "btn btn-success" href="../backend/emp_leave_approve.php?id='.$fetch['emp_id'].'&page=2"><i class="fa-solid fa-check"></i></a>&nbsp; &nbsp;&nbsp;<a class = "btn btn-danger" href="../backend/emp_leave_notapproved.php?id='.$fetch['emp_id'].'">';?><i class="fa-solid fa-xmark"></i></a></td>    
             <?php }
             else{
               echo '<td>&nbsp;</td>';
             }
-            ?>    
-        </tr><?php
+            ?><?php
            }
            ?> 
     </tbody>
 </table>
 </form>
 <?php
-$query1 = "SELECT *from emp_leave";
+$query1 = "SELECT *from emp_leave where emp_id='$search'";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -295,17 +303,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/emp_leave.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/emp_leave_search.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../hrm/emp_leave.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/emp_leave_search.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/emp_leave.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/emp_leave_search.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
