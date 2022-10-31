@@ -206,6 +206,7 @@ if(mysqli_num_rows($run) == 0)
           </form>
           <form  method="POST" action="../backend/emp_leave_excel_record.php">
           <th colspan="4" class="head2" >
+          <input type="hidden" name="id" value="<?php echo $search ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
           
           </form>
@@ -268,11 +269,11 @@ if(mysqli_num_rows($run) == 0)
             <?php
               if($fetch['approve_status']==1)
               {
-                echo '<td><b>Approved</b></td>';
+                echo '<td style=color:green>Approved</td>';
               }
               elseif($fetch['approve_status']==0)
               {
-                echo '<td>Not Approved</td>';
+                echo '<td style=color:Crimson>Not Approved</td>';
               }
               else
               {
@@ -282,7 +283,7 @@ if(mysqli_num_rows($run) == 0)
              <?php
               if($fetch['approve_status']==3)
               {?>
-            <?php echo '<td> <a class = "btn btn-success" href="../backend/emp_leave_approve.php?id='.$fetch['emp_id'].'&page=2"><i class="fa-solid fa-check"></i></a>&nbsp; &nbsp;&nbsp;<a class = "btn btn-danger" href="../backend/emp_leave_notapproved.php?id='.$fetch['emp_id'].'">';?><i class="fa-solid fa-xmark"></i></a></td>    
+            <?php echo '<td> <a class = "btn btn-success" href="../backend/emp_leave_approve.php?id='.$fetch['emp_id'].'&page=2"><i class="fa-solid fa-check"></i></a>&nbsp; &nbsp;&nbsp;<a class = "btn btn-danger" href="../backend/emp_leave_notapproved.php?id='.$fetch['emp_id'].'&page=2">';?><i class="fa-solid fa-xmark"></i></a></td>    
             <?php }
             else{
               echo '<td>&nbsp;</td>';
@@ -303,17 +304,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/emp_leave_search.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/emp_leave_search.php?page='.($page-1).'&search='.$search.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../hrm/emp_leave_search.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/emp_leave_search.php?page='.$i.'&search='.$search.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/emp_leave_search.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/emp_leave_search.php?page='.($page+1).'&search='.$search.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 

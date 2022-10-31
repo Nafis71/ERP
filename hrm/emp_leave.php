@@ -48,7 +48,7 @@ $id = $_SESSION['id'];
           <li><a class="link_name" href="#">HRM Panel</a></li>
           <li><a href="emp_record.php">Employee Records</a></li>
           <li><a href="emp_leave.php">Employee Leave</a></li>
-          <li><a href="#">Joining Letter</a></li>
+          <li><a href="attendance.php">Attendance</a></li>
           <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
       </li>
@@ -235,7 +235,7 @@ $id = $_SESSION['id'];
           <!-- php code for generating the employee list in the table-->
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "select *from emp_leave ORDER BY issue_date desc LIMIT {$offset},{$limit}";
+           $query  = "select *from emp_leave ORDER BY issue_date asc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            while($fetch = mysqli_fetch_array($run))
            {

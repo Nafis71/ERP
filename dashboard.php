@@ -45,8 +45,8 @@ $id = $_SESSION['id'];
         <ul class="sub-menu">
         <li><a class="link_name" href="#">HRM Panel</a></li>
           <li><a href="hrm/emp_record.php">Employee Records</a></li>
-          <li><a href="#">Holiday list</a></li>
-          <li><a href="#">Joining Letter</a></li>
+          <li><a href="hrm/emp_leave.php">Employee Leave</a></li>
+          <li><a href="hrm/attendance.php">Attendance</a></li>
           <li><a href="hrm/manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
       </li>
