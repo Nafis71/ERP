@@ -6,7 +6,7 @@ if(isset($_POST['submit']))
 {
     $arr_id=$_POST['id'];
     $date_temp =$_POST['date'];
-    $date = date("m",$date_temp);
+    $date = date("m",strtotime($date_temp));
     $arr[0]=0;
     $j=0;
         for($i =0;$i<strlen($arr_id);$i++)
@@ -25,23 +25,24 @@ if(isset($_POST['submit']))
                 $fetch_info = mysqli_fetch_array($run);
                 $name = $fetch_info['name'];
                 $designation = $fetch_info['designation'];
-                $insert = "INSERT into attendance(emp_id,name,designation,present_status) values('$id','$name','$designation','1')";
+                $insert = "INSERT into attendance(emp_id,name,designation,attendance_date,present_status) values('$id','$name','$designation','$date_temp','1')";
                 mysqli_query($connect,$insert);
                 if($date==1)
                 {
                     $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
+                    $attendance_check_run = mysqli_query($connect,$attendance_check);
+                    if(mysqli_num_rows($attendance_check_run)==0)
                    { 
                     $insert = "INSERT into month(emp_id,january) values('$id','1')";
                     mysqli_query($connect,$insert);
                    }
                    else
                    {
+                    
                      $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                      $attendance = $fetch_attendance['january'];
                      $attendance++;
-                     $update = "UPDATE month set januray='$attendance' where emp_id='$id'";
+                     $update = "UPDATE month set january='$attendance' where emp_id='$id'";
                      mysqli_query($connect,$update);
                    }
                 }
