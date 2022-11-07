@@ -166,15 +166,7 @@ $id = $_SESSION['id'];
       
     </div>
   </section>
-  <footer>
-<div class="bg-light py-4">
-      <div class="container text-center">        <!--this is the footer -->
-        <?php $date = date("Y");
-        $year =date('Y',strtotime($date));?>
-        <p class="text-muted mb-0 py-2">© <?php echo $year ?> Bando Eco Apparels Ltd All Rights Reserved.</p>
-      </div>
-    </div>
-</footer>
+
     <!-- javascript codes are here -->
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -304,5 +296,6 @@ unset($_SESSION['status']);
     sidebar.classList.toggle("close");
   });
   </script>
+  
 </body>
 </html>

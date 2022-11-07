@@ -198,10 +198,8 @@ $id = $_SESSION['id'];
           <form  method="POST" action="../backend/emp_leave_excel_record.php">
           <th colspan="4" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
-          
           </form>
-          
-          &nbsp;&nbsp;&nbsp;<button class="btn btn-light"  id="mybtn" ><i class="fas fa-angle-double-up"></i>&nbsp;Add Leave Request</button>
+          &nbsp;&nbsp;&nbsp;<button class="btn btn-light"  id="mybtn" ><i class="fas fa-angle-double-up"></i>&nbsp;Add</button>
           </th>
           <th colspan ="1" class="head2">
           <form action="../backend/delete_emp_leave.php" method="POST">

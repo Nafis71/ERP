@@ -211,7 +211,7 @@ if(mysqli_num_rows($run) == 0)
           
           </form>
           
-          &nbsp;&nbsp;&nbsp;<button class="btn btn-light"  id="mybtn" ><i class="fas fa-angle-double-up"></i>&nbsp;Add Leave Request</button>
+          &nbsp;&nbsp;&nbsp;<button class="btn btn-light"  id="mybtn" ><i class="fas fa-angle-double-up"></i>&nbsp;Add</button>
           </th>
           <th colspan ="1" class="head2">
           <form action="../backend/delete_emp_leave.php" method="POST">

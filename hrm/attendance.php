@@ -15,9 +15,9 @@ $id = $_SESSION['id'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/emp_record.css" rel='stylesheet'>
+    <link rel="stylesheet" href="../css/attendance.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Employee Record</title>
+    <title>Employee Leave</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -155,7 +155,7 @@ $id = $_SESSION['id'];
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Employee Records</span>
+      <span class="text">Employee Attendance List</span>
       
     </div>
     <div class = "sec-1">
@@ -164,7 +164,7 @@ $id = $_SESSION['id'];
     <?php
            include 'connect.php';
            mysqli_select_db($connect,'erp');
-           $limit = 13;
+           $limit = 12;
            
            if(isset($_GET['page']))
            {
@@ -175,36 +175,36 @@ $id = $_SESSION['id'];
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $query1 = "select * from employee";
+           $query1 = "SELECT *from attendance";
            $result = mysqli_query($connect,$query1);
            ?>
       <thead>
         <tr>
-          <th class="head" colspan="12">
+          <th class="head" colspan="6">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
       </thead>
       <thead>
         <tr>
-          <form action="../hrm/emp_search.php" method="GET">
+          <form action="../hrm/emp_leave_search.php" method="GET">
           <th colspan="3" class="head1">
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter employee id *" required="required" >
           </th>
-          <th colspan="4"class="head1">
+          <th colspan="1"class="head1">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="../backend/emp_excel_record.php">
-          <th colspan="3" class="head1" >
-          <button class="btn btn-warning" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
+          <form  method="POST" action="../backend/emp_leave_excel_record.php">
+          <th colspan="1" class="head2" >
+          <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>
           
           </form>
           
-          &nbsp;&nbsp;&nbsp;<a class="btn btn-light" href="../hrm/emp_record.php#sec-2"><i class="fa-solid fa-plus"></i>Add Employee</a>
+          &nbsp;&nbsp;&nbsp;<button class="btn btn-light"  id="mybtn" ><i class="fa-solid fa-plus"></i>&nbsp;Add</button>
           </th>
-          <th colspan ="2" class="head1">
-          <form action="../backend/delete.php" method="POST">
+          <th colspan ="1" class="head2">
+          <form action="../backend/delete_emp_leave.php" method="POST">
           <button class="btn btn-danger" type="submit" name ="submit"  ><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
           </th>
           
@@ -218,25 +218,20 @@ $id = $_SESSION['id'];
     <thead>
         <tr>
             <th>#</th>
-            <th>Employee ID&nbsp;</th>
-            <th>Employee Name&nbsp;&nbsp;</th>
-            <th>Designation&nbsp;&nbsp;</th>
-            <th>Address&nbsp;</th>
-            <th>&nbsp;Phone No&nbsp;</th>
-            <th>&nbsp;Bank AC Num&nbsp;</th>
-            <th>Gender&nbsp;&nbsp;</th>
-            <th>Join date&nbsp;&nbsp;</th>
-            <th>Salary&nbsp;&nbsp;</th>
-            <th>&nbsp;On leave</th>
-            <th>Action&nbsp;</th>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Employee Designation</th>
+            <th>Attendance Date</th>
+            <th>Present Status</th>
+          
            
         </tr>
     </thead>
     <tbody>
-          <!-- php code for generating the employee list in the table-->
+          
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "select *from employee natural join salary ORDER BY emp_id desc LIMIT {$offset},{$limit}";
+           $query  = "select *from attendance ORDER BY attendance_date asc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            while($fetch = mysqli_fetch_array($run))
            {
@@ -246,27 +241,23 @@ $id = $_SESSION['id'];
             <td><?php echo $fetch['emp_id']?></td>
             <td><?php echo $fetch['name']?></td>
             <td><?php echo $fetch['designation']?></td>
-            <td><?php echo $fetch['address']?></td>
-            <td>0<?php echo $fetch['emp_phone']?></td>
-            <td><?php echo $fetch['bank']?></td>
-            <td><?php echo $fetch['gender']?></td>
-            <!-- php code for extracting month date and year individually from mysql-->
             <?php 
-            $date = $fetch['join_date'];
+            $date = $fetch['attendance_date'];
             $month = date('F', strtotime($date));
             $day = date('d',strtotime($date));
             $year =date('Y',strtotime($date));
             ?>
             <td><?php echo $day,',', $month ,',', $year ?></td></td>
-            <td><?php echo $fetch['salary']?> &#2547;</td>
             <?php
-             if($fetch['on_leave'] == 0)
+             if($fetch['present_status'] == 0)
              {
-             echo '<td>No</td>';
-            }else 
-            echo '<td>Yes</td>'; 
+            echo '<td>A</td>';
+             }
+             else
+            echo '<td>P</td>';
             ?>
-            <?php echo '<td> <a class = "btn btn-secondary" href="../hrm/emp_edit.php?id='.$fetch['emp_id'].'">';?><i class="fa-solid fa-user-pen"></i>&nbsp;Edit</a></td>          
+            
+           
         </tr><?php
            }
            ?> 
@@ -274,7 +265,7 @@ $id = $_SESSION['id'];
 </table>
 </form>
 <?php
-$query1 = "select * from employee";
+$query1 = "SELECT *from attendance";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -283,30 +274,39 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/emp_record.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/attendance.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../hrm/emp_record.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/attendance.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/emp_record.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/attendance.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
 }
 ?>
-
      </div>
     </div>
-     
-    <hr>
-<div id="sec-2" class ="sec-2">  <!-- This is the add employee section -->
+      
 
-<div class=" text-center mt-5 ">              
+  </section> <!--homesection ends here-->
+
+  <div id="myModal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+  <div class="modal-header">
+    <h2>Attendance</h2>
+    <span class="close"><button type="button" class="btn btn-danger" id="close"><i class="fas fa-times"></i></button></span>
+  </div>
+  <div class="modal-body">
+  <form action="../backend/add_attendance.php" method="post">
+  <div class=" text-center mt-5 ">              
             
             </div>
     
@@ -314,149 +314,70 @@ if(mysqli_num_rows($result)> 0)
         <div class="row ">
           
           <div class="col-lg-7 mx-auto">
-            <div class="card mt-2 mx-auto p-4 bg-light">
-                <div class="card-body bg-light">
+            
+           <div class ="card1">
+
            
                 <div class = "container">
-                                 <form action="../backend/add_emp.php" method="post">
+                                 <form action="../backend/emp_leave.php" method="post">
     
                 
-                                 <h3>Add Employee</h3>
+                                 <h3>Add&nbsp;Attendance</h3>
                 <div class="controls">
     
                     <div class="row">
-                        <div class="col-md-6">
+
                             <div class="form-group">
                                 <label for="form_id">Employee ID <span style="color:#ff0000">*</span></label>
-                                <input id="form_id" type="number" name="id" class="form-control" placeholder="Please enter unique employee ID *" required="required" >
+                                <input id="form_id" type="text" name="id" class="form-control" placeholder="Please enter unique employee ID *" multiple size="50" required="required" >
+                                
+                            </div>                      
+                        </div>
+                        
+                        <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_bank">Attendance&nbsp;Date<span style="color:#ff0000">*</span></label>
+                                <input class="datepicker" type="date" name="date"required="required">
                                 
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="form_lastname">Name <span style="color:#ff0000">*</span></label>
-                                <input id="form_lastname" type="text" name="name" class="form-control" placeholder="Please enter employee name *" required="required" >
-                                                                </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="form_address">Address <span style="color:#ff0000">*</span></label>
-                                <input id="form_address" type="text" name="address" class="form-control" placeholder="Please enter address *" required="required" >
-                                                                </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="form_phone">Phone Number <span style="color:#ff0000">*</span></label>
-                                <input id="form_phone"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="phone" maxlength = "11" name="phone" class="form-control" placeholder="Please enter your lastname *" required="required">
-                                                                </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                            <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1" value="Male" required>
-                            <label class="form-check-label" for="flexRadioDefault1" >Male <span style="color:#ff0000">*</span></label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault2"value="Female"required>
-                            <label class="form-check-label" for="flexRadioDefault2" >
-                              Female <span style="color:#ff0000">*</span>
-                            </label>
-                          </div>    
-                             </div>
-                        </div>
-                           
-                        <div class="col-md-6">
-                            <div class="form-group">
-                            <label for="form_need">Please specify designation <span style="color:#ff0000">*</span></label>
-                                <select id="form_need" name="designation" class="form-control" required="required" >
-                                <option value="" selected disabled>--Select a designation--</option>
-                                <!-- php code for generating the designation list-->
-                                <?php
-                            $query2 = "select *from designation";
-                            $run2 = mysqli_query($connect,$query2);
-                            while($fetch2 = mysqli_fetch_assoc($run2))
-                            {
-                            ?>
-                                    <option value ="<?php echo $fetch2['name'] ?>"><?php echo $fetch2['name']?></option>
-                                    <?php
-                            }
-                            ?>
-                                </select>   
-                            </div>
-                          </div>
-                        </div>
+                        
                     </div>
+                    
+                    NB:  "Please put comma after every employee id and end with a comma."<br>
+                         " You can enter single or multiple employee IDs "
+                    <br>
                     <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="form_bank">Bank Account <span style="color:#ff0000">*</span></label>
-                                <input id="form_bank" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); " type="number" maxlength="9" name="bank" class="form-control" placeholder="Please enter the account Number *" required="required" data-error="Valid email is required.">
-                                
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="form_need1">Please specify salary <span style="color:#ff0000">*</span></label>
-                                <select id="form_need1"  name="salary" class="form-control" required="required">
-                                    <option value="" selected disabled>--Select Salary--</option>
-                                    <!-- php code for generating the salary list-->
-                                    <?php
-                                     $query3 ="select *from salary_list ";
-                                     $run3 = mysqli_query($connect,$query3);    
-                                     while($fetch4 = mysqli_fetch_assoc($run3))
-                                     {
-                                    ?>
-                                    <option value = " <?php echo $fetch4['amount'] ?> "> <?php echo $fetch4['designation'] ?> -> <?php echo $fetch4['amount']?> &#2547;</option>
-                                  
-                                    <?php 
-                                    }
-                                    ?>
-                                </select>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="form_message">Remarks</label>
-                                <textarea id="form_message" name="message" class="form-control" placeholder="Write a remark here (OPTIONAL)" rows="4"  ></textarea>
-                                </div>
-    
-                            </div>
-    
-    
-                        <div class="col-md-12">
+                    <div class="col-md-12">
                             
                             <button name ="submit" type="submit" class="btn btn-success btn-send  pt-2 btn-block
                                 " value="INSERT" >Submit</button>
                         
                        </div>
-              
-                      </div>
+                    <hr>
+                    
     
     
                     </div>
                   </form>
-               </div>
-             </div>
+  </div>
+
+</div>
+             
 
             </div>
          </div>
-        </div>
-        <footer>
-<div class="bg-light py-4">
-      <div class="container text-center">        <!--this is the footer -->
-        <?php $date = date("Y");
-        $year =date('Y',strtotime($date));?>
-        <p class="text-muted mb-0 py-2">© <?php echo $year ?> Bando Eco Apparels Ltd All Rights Reserved.</p>
-      </div>
-    </div>
-</footer>
+          </div>
+  </div>
+  </div>
+  
+</div>
 
-  </section> <!--homesection ends here-->
-
+</div>
+</form>
+ 
 
   <!-- javascript codes are here -->
 
@@ -475,7 +396,43 @@ if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
 }
 unset($_SESSION['status']);
 ?>   
+<!-- Modal Javascript starts here -->
+<script>
 
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("mybtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close");
+var close = document.getElementById("close");
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+
+close.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+</script>
+<!-- modal script ends here -->
 
 <!--navbar javascript code-->
 <script>
