@@ -4,18 +4,9 @@ include 'connect.php';
 mysqli_select_db($connect,'erp');
 if(isset($_POST['submit']))
 {
-    $arr_id=$_POST['id'];
+    $id=$_POST['id'];
     $date_temp =$_POST['date'];
     $date = date("m",strtotime($date_temp));
-    $arr[0]=0;
-    $j=0;
-        for($i =0;$i<strlen($arr_id);$i++)
-        {
-           
-            if($arr_id[$i]==',')
-            {
-                $id=implode($arr);
-                $j=0;
                 $check ="SELECT * FROM employee where emp_id='$id'";
                 $check_run = mysqli_query($connect,$check);
                 if(mysqli_num_rows($check_run)!=0)
@@ -249,18 +240,11 @@ if(isset($_POST['submit']))
                 $_SESSION['cause'] = "";
                 header("location:../hrm/attendance.php");
                 }
-            }
-            else
-            {
-                
-                    $arr[$j]=$arr_id[$i];
-                    $j++;
+           
                     
                
             }
            
-        }
    
-}
 
 ?>

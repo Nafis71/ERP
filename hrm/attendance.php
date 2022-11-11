@@ -332,7 +332,7 @@ if(mysqli_num_rows($result)> 0)
                                 
                             </div>                      
                         </div>
-                        
+                        <hr>
                         <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -341,7 +341,22 @@ if(mysqli_num_rows($result)> 0)
                                 
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_bank">In&nbsp;Time<span style="color:#ff0000">*</span></label>
+                                <input class="datepicker" type="time" name="date"required="required">
+                                
+                            </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_bank">Out&nbsp;Time<span style="color:#ff0000">*</span></label>
+                                <input class="datepicker" type="time" name="date"required="required">
+                                
+                            </div>
+                        </div>
+                        </div>
+                        <hr>
                         
                     </div>
                     
