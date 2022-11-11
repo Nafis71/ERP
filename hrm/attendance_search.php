@@ -1,10 +1,21 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+$search =$_GET['search'];
+$getmonth = $_GET['month'];
+$month = date("m",strtotime($getmonth));
+mysqli_select_db($connect,'erp');
+$sql = "SELECT *from attendance where emp_id ='$search' and MONTH(attendance_date)='$month'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=4');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -175,12 +186,12 @@ $id = $_SESSION['id'];
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $query1 = "SELECT *from attendance";
+           $query1 = "SELECT *from attendance where emp_id ='$search' and MONTH(attendance_date)='$month'";
            $result = mysqli_query($connect,$query1);
            ?>
       <thead>
         <tr>
-          <th class="head" colspan="9">
+          <th class="head" colspan="8">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
@@ -197,8 +208,10 @@ $id = $_SESSION['id'];
           
           </th>
           </form>
-          <form  method="POST" action="../backend/emp_attendance_excel_record.php">
+          <form  method="POST" action="../backend/attendance_search_excel.php">
           <th colspan="3" class="head2" >
+          <input type="hidden" name="id" value="<?php echo $search?>">
+          <input type="hidden" name="month" value="<?php echo $month?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp;
           
           </form>
@@ -228,7 +241,7 @@ $id = $_SESSION['id'];
             <th>In Time</th>
             <th>Out Time</th>
             <th>Working Hour</th>
-            <th>Present Status</th>
+            
           
            
         </tr>
@@ -237,7 +250,7 @@ $id = $_SESSION['id'];
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "select *from attendance ORDER BY attendance_date asc LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from attendance where emp_id ='$search' and MONTH(attendance_date)='$month' ORDER BY attendance_date asc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            while($fetch = mysqli_fetch_array($run))
            {
@@ -258,21 +271,13 @@ $id = $_SESSION['id'];
             <td><?php echo $fetch['out_time']?></td>
             <td><?php echo $fetch['working_hour']?></td>
             <?php
-             if($fetch['present_status'] == 0)
-             {
-            echo '<td>A</td>';
-             }
-             else
-            echo '<td>P</td>';
-            ?>          
-        </tr><?php
            }
            ?> 
     </tbody>
 </table>
 </form>
 <?php
-$query1 = "SELECT *from attendance";
+$query1 = "SELECT *from attendance where emp_id ='$search' and MONTH(attendance_date)='$month'";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -281,17 +286,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/attendance.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/attendance_search.php?page='.($page-1).'&search='.$search.'&month='.$month.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../hrm/attendance.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/attendance_search.php?page='.$i.'&search='.$search.'&month='.$month.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/attendance.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/attendance_search.php?page='.($page+1).'&search='.$search.'&month='.$month.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
@@ -354,7 +359,7 @@ if(mysqli_num_rows($result)> 0)
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="form_bank">In&nbsp;Time<span style="color:#ff0000">*</span></label>
-                                <input class="datepicker" type="time" name="intime" value="08:00" min="08:00" max="16:00" required="required">
+                                <input class="datepicker" type="time" name="intime"required="required">
                                 
                             </div>
                         </div>

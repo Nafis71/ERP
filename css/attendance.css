@@ -415,6 +415,10 @@
  
    
 }
+.head1 .datepicker{
+  border: none;
+    padding: 1px;
+}
 .modal .modal-body .datepicker{
   border: none;
     padding: 1px;

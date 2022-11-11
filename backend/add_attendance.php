@@ -2,11 +2,20 @@
 session_start();
 include 'connect.php';
 mysqli_select_db($connect,'erp');
+function differenceInHours($startdate,$enddate){
+	$starttimestamp = strtotime($startdate);
+	$endtimestamp = strtotime($enddate);
+	$difference = abs($endtimestamp - $starttimestamp)/3600;
+	return $difference;
+}
 if(isset($_POST['submit']))
 {
     $id=$_POST['id'];
     $date_temp =$_POST['date'];
     $date = date("m",strtotime($date_temp));
+    $intime=$_POST['intime'];
+    $outtime=$_POST['outtime'];
+    $working_hour = differenceInHours($intime,$outtime);
                 $check ="SELECT * FROM employee where emp_id='$id'";
                 $check_run = mysqli_query($connect,$check);
                 if(mysqli_num_rows($check_run)!=0)
@@ -16,7 +25,7 @@ if(isset($_POST['submit']))
                 $fetch_info = mysqli_fetch_array($run);
                 $name = $fetch_info['name'];
                 $designation = $fetch_info['designation'];
-                $insert = "INSERT into attendance(emp_id,name,designation,attendance_date,present_status) values('$id','$name','$designation','$date_temp','1')";
+                $insert = "INSERT into attendance(emp_id,name,designation,attendance_date,in_time,out_time,working_hour,present_status) values('$id','$name','$designation','$date_temp','$intime','$outtime','$working_hour','1')";
                 mysqli_query($connect,$insert);
                 if($date==1)
                 {

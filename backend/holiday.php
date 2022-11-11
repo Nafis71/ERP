@@ -14,7 +14,8 @@ if(isset($_POST['submit']))
         if(mysqli_num_rows($run)==0)
         {
             $working_days= $total_days-$holiday;
-            $insert = "INSERT into holiday(month,year,total_holiday,total_day,working_day) values('$date','$year','$holiday','$total_days','$working_days')";
+            $working_hour= $working_days*8;
+            $insert = "INSERT into holiday(month,year,total_holiday,total_day,working_day,working_hour) values('$date','$year','$holiday','$total_days','$working_days','$working_hour')";
             mysqli_query($connect,$insert);
         }
         else
@@ -22,7 +23,8 @@ if(isset($_POST['submit']))
             $fetch =mysqli_fetch_assoc($run);
             $total_days= $fetch['total_day'];
             $temp_working=$total_days-$holiday;
-            $update ="UPDATE holiday SET total_holiday='$holiday', working_day='$temp_working' where month='$date'";
+            $working_hour= $temp_working*8;
+            $update ="UPDATE holiday SET total_holiday='$holiday', working_day='$temp_working',working_hour='$working_hour' where month='$date'";
             mysqli_query($connect,$update);
         }
         $_SESSION['status']="Holiday Added Successfully";

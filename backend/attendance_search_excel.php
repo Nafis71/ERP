@@ -2,15 +2,17 @@
 session_start();
 include 'connect.php';
 mysqli_select_db($connect,'erp');
+$id =$_POST['id'];
+$month = $_POST['month'];
 if(isset($_POST['submit']))
 {
-   $sql ="SELECT *from attendance natural join month order by emp_id desc";
+   $sql ="SELECT *from attendance where emp_id ='$id' and MONTH(attendance_date)='$month' order by attendance_date desc";
    $run = mysqli_query($connect,$sql);
    if(mysqli_num_rows($run) > 0)
    {
      $output ='<table class="table" border="1">
      <tr>
-            <th>Employee ID</th>
+     <th>Employee ID</th>
             <th>Employee Name</th>
             <th>Employee Designation</th>
             <th>Attendance Date</th>
@@ -26,13 +28,13 @@ if(isset($_POST['submit']))
      {
         $output .= '
         <tr>
-          <td>'.$row['emp_id'].'</td>
-          <td>'.$row['name'].'</td>
-          <td>'.$row['designation'].'</td>
-          <td>'.$row['attendance_date'].'</td>
-          <td>'.$row['in_time'].'</td>
-          <td>'.$row['out_time'].'</td>
-          <td>'.$row['working_hour'].'</td>
+        <td>'.$row['emp_id'].'</td>
+        <td>'.$row['name'].'</td>
+        <td>'.$row['designation'].'</td>
+        <td>'.$row['attendance_date'].'</td>
+        <td>'.$row['in_time'].'</td>
+        <td>'.$row['out_time'].'</td>
+        <td>'.$row['working_hour'].'</td>
         </tr>
         ';
      }
