@@ -54,13 +54,13 @@ $id = $_SESSION['id'];
         <div class="iocn-link">
           <a href="#">
             <i class='bx bx-book-alt' ></i>
-            <span class="link_name">Posts</span>
+            <span class="link_name">Finance Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Posts</a></li>
-          <li><a href="#">Web Design</a></li>
+          <li><a class="link_name" href="#">Finance Panel</a></li>
+          <li><a href="finance/salary_expense.php">Salary Expense</a></li>
           <li><a href="#">Login Form</a></li>
           <li><a href="#">Card Design</a></li>
         </ul>

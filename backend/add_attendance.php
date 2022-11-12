@@ -29,218 +29,218 @@ if(isset($_POST['submit']))
                 mysqli_query($connect,$insert);
                 if($date==1)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
+                    $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='1'";
                     $attendance_check_run = mysqli_query($connect,$attendance_check);
                     if(mysqli_num_rows($attendance_check_run)==0)
                    { 
-                    $insert = "INSERT into month(emp_id,january) values('$id','1')";
+                    $insert = "INSERT into month(emp_id,month,count) values('$id','1','1')";
                     mysqli_query($connect,$insert);
                    }
                    else
                    {
                     
                      $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['january'];
+                     $attendance = $fetch_attendance['count'];
                      $attendance++;
-                     $update = "UPDATE month set january='$attendance' where emp_id='$id'";
+                     $update = "UPDATE month set count='$attendance' where emp_id='$id'";
                      mysqli_query($connect,$update);
                    }
                 }
                 if($date==2)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,february) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='2'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','2','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['february'];
-                     $attendance++;
-                     $update = "UPDATE month set february='$attendance' where emp_id='$id'";
-                     mysqli_query($connect,$update);
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                    $attendance = $fetch_attendance['count'];
+                    $attendance++;
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    mysqli_query($connect,$update);
                    }
                 }
                 if($date==3)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,march) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='3'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','3','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['march'];
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                     $attendance = $fetch_attendance['count'];
                      $attendance++;
-                     $update = "UPDATE month set march='$attendance' where emp_id='$id'";
+                     $update = "UPDATE month set count='$attendance' where emp_id='$id'";
                      mysqli_query($connect,$update);
                    }
                 }
                 if($date==4)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,april) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='4'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','4','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['april'];
-                     $attendance++;
-                     $update = "UPDATE month set april='$attendance' where emp_id='$id'";
-                     mysqli_query($connect,$update);
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                    $attendance = $fetch_attendance['count'];
+                    $attendance++;
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    mysqli_query($connect,$update);
                    }
                 }
                 if($date==5)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,may) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='5'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','5','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['may'];
-                     $attendance++;
-                     $update = "UPDATE month set may='$attendance' where emp_id='$id'";
-                     mysqli_query($connect,$update);
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                    $attendance = $fetch_attendance['count'];
+                    $attendance++;
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    mysqli_query($connect,$update);
                    }
                 }
                 if($date==6)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,june) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='6'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','6','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['june'];
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                     $attendance = $fetch_attendance['count'];
                      $attendance++;
-                     $update = "UPDATE month set june='$attendance' where emp_id='$id'";
+                     $update = "UPDATE month set count='$attendance' where emp_id='$id'";
                      mysqli_query($connect,$update);
                    }
                 }
                 if($date==7)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,july) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='7'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','7','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['july'];
-                     $attendance++;
-                     $update = "UPDATE month set july='$attendance' where emp_id='$id'";
-                     mysqli_query($connect,$update);
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                    $attendance = $fetch_attendance['count'];
+                    $attendance++;
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    mysqli_query($connect,$update);
                    }
                 }
                 if($date==8)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,august) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='8'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','8','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['august'];
-                     $attendance++;
-                     $update = "UPDATE month set august='$attendance' where emp_id='$id'";
-                     mysqli_query($connect,$update);
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                    $attendance = $fetch_attendance['count'];
+                    $attendance++;
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    mysqli_query($connect,$update);
                    }
                 }
                 if($date==9)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,september) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='9'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','9','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['september'];
-                     $attendance++;
-                     $update = "UPDATE month set september='$attendance' where emp_id='$id'";
-                     mysqli_query($connect,$update);
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                    $attendance = $fetch_attendance['count'];
+                    $attendance++;
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    mysqli_query($connect,$update);
                    }
                 }
                 if($date==10)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,october) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='10'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','10','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['october'];
-                     $attendance++;
-                     $update = "UPDATE month set october='$attendance' where emp_id='$id'";
-                     mysqli_query($connect,$update);
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                    $attendance = $fetch_attendance['count'];
+                    $attendance++;
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    mysqli_query($connect,$update);
                    }
                 }
                 if($date==11)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,november) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='11'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','11','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['november'];
-                     $attendance++;
-                     $update = "UPDATE month set november='$attendance' where emp_id='$id'";
-                     mysqli_query($connect,$update);
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                    $attendance = $fetch_attendance['count'];
+                    $attendance++;
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    mysqli_query($connect,$update);
                    }
                 }
                 if($date==12)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id'";
-                    $attendance_check_run = mysqli_query($connect,$check);
-                    if(mysqli_num_rows($check_run)==0)
-                   { 
-                    $insert = "INSERT into month(emp_id,december) values('$id','1')";
-                    mysqli_query($connect,$insert);
-                   }
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='12'";
+                  $attendance_check_run = mysqli_query($connect,$attendance_check);
+                  if(mysqli_num_rows($attendance_check_run)==0)
+                 { 
+                  $insert = "INSERT into month(emp_id,month,count) values('$id','12','1')";
+                  mysqli_query($connect,$insert);
+                 }
                    else
                    {
-                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
-                     $attendance = $fetch_attendance['december'];
+                    $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
+                     $attendance = $fetch_attendance['count'];
                      $attendance++;
-                     $update = "UPDATE month set december='$attendance' where emp_id='$id'";
+                     $update = "UPDATE month set count='$attendance' where emp_id='$id'";
                      mysqli_query($connect,$update);
                    }
                 }
