@@ -13,6 +13,7 @@ if(isset($_POST['submit']))
     $id=$_POST['id'];
     $date_temp =$_POST['date'];
     $date = date("m",strtotime($date_temp));
+    $year = date("Y",strtotime($date_temp));
     $intime=$_POST['intime'];
     $outtime=$_POST['outtime'];
     $working_hour = differenceInHours($intime,$outtime);
@@ -29,11 +30,11 @@ if(isset($_POST['submit']))
                 mysqli_query($connect,$insert);
                 if($date==1)
                 {
-                    $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='1'";
+                    $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='1' and year='$year'";
                     $attendance_check_run = mysqli_query($connect,$attendance_check);
                     if(mysqli_num_rows($attendance_check_run)==0)
                    { 
-                    $insert = "INSERT into month(emp_id,month,count) values('$id','1','1')";
+                    $insert = "INSERT into month(emp_id,month,year,count) values('$id','1','$year','1')";
                     mysqli_query($connect,$insert);
                    }
                    else
@@ -42,17 +43,17 @@ if(isset($_POST['submit']))
                      $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                      $attendance = $fetch_attendance['count'];
                      $attendance++;
-                     $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                     $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='1'and year ='$year'";
                      mysqli_query($connect,$update);
                    }
                 }
                 if($date==2)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='2'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='2' and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','2','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','2','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -60,17 +61,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                     $attendance = $fetch_attendance['count'];
                     $attendance++;
-                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id' and month ='2'and year = '$year'";
                     mysqli_query($connect,$update);
                    }
                 }
                 if($date==3)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='3'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='3' and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','3','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','3','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -78,17 +79,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                      $attendance = $fetch_attendance['count'];
                      $attendance++;
-                     $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                     $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='3'and year ='$year'";
                      mysqli_query($connect,$update);
                    }
                 }
                 if($date==4)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='4'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='4'and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','4','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','4','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -96,17 +97,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                     $attendance = $fetch_attendance['count'];
                     $attendance++;
-                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='4'and year ='$year'";
                     mysqli_query($connect,$update);
                    }
                 }
                 if($date==5)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='5'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='5'and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','5','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','5','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -114,17 +115,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                     $attendance = $fetch_attendance['count'];
                     $attendance++;
-                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='5'and year='$year'";
                     mysqli_query($connect,$update);
                    }
                 }
                 if($date==6)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='6'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='6' and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','6','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','6','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -132,17 +133,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                      $attendance = $fetch_attendance['count'];
                      $attendance++;
-                     $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                     $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='6' and year='$year'";
                      mysqli_query($connect,$update);
                    }
                 }
                 if($date==7)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='7'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='7' and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','7','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','7','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -150,17 +151,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                     $attendance = $fetch_attendance['count'];
                     $attendance++;
-                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='7' and year='$year'";
                     mysqli_query($connect,$update);
                    }
                 }
                 if($date==8)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='8'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='8'and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','8','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','8','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -168,17 +169,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                     $attendance = $fetch_attendance['count'];
                     $attendance++;
-                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='8'and year='$year'";
                     mysqli_query($connect,$update);
                    }
                 }
                 if($date==9)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='9'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='9' and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','9','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','9','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -186,17 +187,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                     $attendance = $fetch_attendance['count'];
                     $attendance++;
-                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='9' and year ='$year'";
                     mysqli_query($connect,$update);
                    }
                 }
                 if($date==10)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='10'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='10' and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','10','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','10','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -204,17 +205,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                     $attendance = $fetch_attendance['count'];
                     $attendance++;
-                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='10' and year ='$year'";
                     mysqli_query($connect,$update);
                    }
                 }
                 if($date==11)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='11'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='11' and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','11','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','11','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -222,17 +223,17 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                     $attendance = $fetch_attendance['count'];
                     $attendance++;
-                    $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                    $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='11' and year ='$year'";
                     mysqli_query($connect,$update);
                    }
                 }
                 if($date==12)
                 {
-                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='12'";
+                  $attendance_check ="SELECT * FROM month where emp_id='$id' and month ='12' and year='$year'";
                   $attendance_check_run = mysqli_query($connect,$attendance_check);
                   if(mysqli_num_rows($attendance_check_run)==0)
                  { 
-                  $insert = "INSERT into month(emp_id,month,count) values('$id','12','1')";
+                  $insert = "INSERT into month(emp_id,month,year,count) values('$id','12','$year','1')";
                   mysqli_query($connect,$insert);
                  }
                    else
@@ -240,7 +241,7 @@ if(isset($_POST['submit']))
                     $fetch_attendance=mysqli_fetch_assoc($attendance_check_run);
                      $attendance = $fetch_attendance['count'];
                      $attendance++;
-                     $update = "UPDATE month set count='$attendance' where emp_id='$id'";
+                     $update = "UPDATE month set count='$attendance' where emp_id='$id'and month ='12' and year ='$year'";
                      mysqli_query($connect,$update);
                    }
                 }

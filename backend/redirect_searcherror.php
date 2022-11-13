@@ -36,6 +36,13 @@ $_SESSION['status_code']="info";
 $_SESSION['cause'] = "No Data Available For This Employee";
 header('location:../hrm/attendance.php');
 }
+else if($indicate == 6)
+{
+$_SESSION['status']="No Data Available";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "No Data Available For This Employee";
+header('location:../finance/salary_expense.php');
+}
 
 
 ?>

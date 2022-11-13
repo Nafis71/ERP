@@ -6,7 +6,7 @@ $month =$_POST['month'];
 $year = $_POST['year'];
 if(isset($_POST['submit']))
 {
-   $sql ="SELECT *from salary_expense where month='$month' and year='$year' order by emp_id desc";
+   $sql ="SELECT *from salary_expense where month='$month' and year='$year' order by emp_id asc";
    $run = mysqli_query($connect,$sql);
    if(mysqli_num_rows($run) > 0)
    {

@@ -1,10 +1,22 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+$search =$_GET['search'];
+$getmonth = $_GET['month'];
+$month =date("m",strtotime($getmonth));
+$year = date("Y",strtotime($getmonth));
+mysqli_select_db($connect,'erp');
+$sql = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and emp_id='$search'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=6');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,10 +58,10 @@ $id = $_SESSION['id'];
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">HRM Panel</a></li>
-          <li><a href="emp_record.php">Employee Records</a></li>
-          <li><a href="emp_leave.php">Employee Leave</a></li>
-          <li><a href="attendance.php">Attendance</a></li>
-          <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
+          <li><a href="../hrm/emp_record.php">Employee Records</a></li>
+          <li><a href="../hrm/emp_leave.php">Employee Leave</a></li>
+          <li><a href="../hrm/attendance.php">Attendance</a></li>
+          <li><a href="../hrm/manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
       </li>
       <li>
@@ -175,8 +187,7 @@ $id = $_SESSION['id'];
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $month=date("m"); $month=$month-1;
-           $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'";
+           $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and emp_id='$search'";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
@@ -193,15 +204,16 @@ $id = $_SESSION['id'];
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter employee id *" required="required" >
           </th>
           <th colspan="4"class="head1">
-            <?php $year=date("Y"); $month=date("m"); $month=$month-1;  ?>
-              <input class="datepicker" type="month" name="month" min="2010-01" max="<?php echo $year ?>-<?php echo $month ?>" value="<?php echo $year ?>-<?php echo $month ?>" required="required">
+          <input class="datepicker" type="month" name="month" min="2010-01" max="<?php echo $year ?>-<?php echo $month ?>" value="<?php echo $year ?>-<?php echo $month ?>" required="required">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          
           </th>
           </form>
           <form  method="POST" action="../backend/salary_expense_excel_record.php">
           <th colspan="4" class="head2" >
             <input type="hidden" name="month" value="<?php echo $month ?>">
             <input type="hidden" name="year" value="<?php echo $year ?>">
+           
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
 
@@ -236,7 +248,7 @@ $id = $_SESSION['id'];
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and emp_id='$search' LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))
@@ -262,7 +274,7 @@ $id = $_SESSION['id'];
             $working_hour ="SELECT sum(working_hour) as working_hour from attendance where emp_id='$id1' and MONTH(attendance_date)='$month'";
             $working_run =mysqli_query($connect,$working_hour);
             $fetch_working_hour = mysqli_fetch_array($working_run);
-            $total_hour ="SELECT *from holiday where month='$month'";
+            $total_hour ="SELECT *from holiday where month='$month' and year='$year'";
             $total_hour_run =mysqli_query($connect,$total_hour);
             $fetch_total_hour = mysqli_fetch_array($total_hour_run);
             $totalhour =$fetch_total_hour['working_hour'];
@@ -273,42 +285,18 @@ $id = $_SESSION['id'];
             <td><?php echo $totalhour?> hr</td>
             <td><?php echo $fetch_working_hour['working_hour']?> hr</td>
             <td><?php echo $total_salary?> &#2547;</td>
-            <td><?php echo $fetch_total_hour['year']?>-<?php echo $fetch_total_hour['month']?></td>
+            <td><?php echo $year?>-<?php echo $month?></td>
         </tr><?php
-             $name = $emp_info_fetch['name'];
-             $designation =$emp_info_fetch['designation'];
-             $basicsalary =$fetch['salary'];
-             $transport = $fetch['transport'];
-             $medical = $fetch['medical'];
-             $rent = $fetch['rent'];
-             $total_attendance = $fetch['count'];
-             $working_hour =$fetch_working_hour['working_hour'];
-             $year1 = $fetch_total_hour['year'];
-             $month1 = $fetch_total_hour['month'];
-            $sql = "SELECT * FROM salary_expense where emp_id ='$id1' and month = '$month1' and year = '$year1'";
-            $runsql =mysqli_query($connect,$sql);
-            if(mysqli_num_rows($runsql)!=0)
-            {
-              $sql2 = "UPDATE salary_expense set basic_salary='$basicsalary',transport='$transport',medical='$medical',rent='$rent',total_attendance=' $total_attendance',month_working_hour='$totalhour',total_working_hour='$working_hour',gross_salary='$total_salary' where emp_id ='$id1' and month= '$month1' and year='$year1'";
-              mysqli_query($connect,$sql2);
-
-            }
-            else
-            {
-              $sql3 = "INSERT into salary_expense(month,year,emp_id,name,designation,basic_salary,transport,medical,rent,total_attendance,month_working_hour,total_working_hour,gross_salary)values('$month1','$year1','$id1','$name','$designation','$basicsalary','$transport','$medical','$rent','$total_attendance','$totalhour','$working_hour','$total_salary')";
-              mysqli_query($connect,$sql3);
-            }?>
-
-           <?php
+            
            }
            ?> 
-           <thead><th colspan="14">Total Salary Expense For This month :&nbsp;<?php echo $total_expense  ?> &#2547; </th></thead>
+           <thead><th colspan="14">Total Salary Expense For This month :&nbsp;<?php echo $total_expense  ?> &#2547;</th></thead>
            
     </tbody>
 </table>
 </form>
 <?php
-$query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'";
+$query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and emp_id='$search'";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -317,17 +305,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/salary_expense.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../hrm/salary_expense_search.php?page='.($page-1).'&search='.$search.'&month='.$month.'&year='.$year.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../hrm/salary_expense.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../hrm/salary_expense_search.php?page='.$i.'&search='.$search.'&month='.$month.'&year='.$year.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/salary_expense.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../hrm/salary_expense_search.php?page='.($page+1).'&search='.$search.'&month='.$month.'&year='.$year.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
