@@ -405,19 +405,18 @@
 .card
 {
   height: auto;
-  background: #F8F9FA;
   padding-bottom: 32px;
   padding-left: 10px;
   padding-right: 59px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.10);
   border: none;
   border-radius: 2px;
  
    
 }
 .head1 .datepicker{
-  border: none;
-    padding: 1px;
+  border: white;
+    padding: 7px;
+    border-radius: 5px;
 }
 .modal .modal-body .datepicker{
   border: none;

@@ -248,6 +248,17 @@ $id = $_SESSION['id'];
         </tr><?php
            }
            ?> 
+           <thead>
+           <th>#</th>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Employee Designation</th>
+            <th>Attendance Date</th>
+            <th>In Time</th>
+            <th>Out Time</th>
+            <th>Working Hour</th>
+            <th>Present Status</th>
+          </thead>
     </tbody>
 </table>
 </form>

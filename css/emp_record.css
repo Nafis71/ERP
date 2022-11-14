@@ -396,12 +396,9 @@
 .card
 {
   height: auto;
-  width :100%;
-  background: #F9F9F9;
   padding-bottom: 32px;
   padding-left: 10px;
   padding-right: 59px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.10);
   border: none;
   border-radius: 2px;
 }

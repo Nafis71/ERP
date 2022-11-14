@@ -15,7 +15,7 @@ $id = $_SESSION['id'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/salary_expense.css" rel='stylesheet'>
+    <link rel="stylesheet" href="../css/machine_repair.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
     <title>Employee Leave</title>
 </head>
@@ -46,10 +46,10 @@ $id = $_SESSION['id'];
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">HRM Panel</a></li>
-          <li><a href="emp_record.php">Employee Records</a></li>
-          <li><a href="emp_leave.php">Employee Leave</a></li>
-          <li><a href="attendance.php">Attendance</a></li>
-          <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
+          <li><a href="../hrm/emp_record.php">Employee Records</a></li>
+          <li><a href="../hrm/emp_leave.php">Employee Leave</a></li>
+          <li><a href="../hrm/attendance.php">Attendance</a></li>
+          <li><a href="../hrm/manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
       </li>
       <li>
@@ -137,11 +137,11 @@ $id = $_SESSION['id'];
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Employee Monthly Salary Expense</span>
+      <span class="text">Machine Repair & Maintenance</span>
       
     </div>
     <div class = "sec-1">
-     <div class ="card2">
+     <div class ="card">
      <table class="styled-table">
     <?php
            include 'connect.php';
@@ -158,37 +158,35 @@ $id = $_SESSION['id'];
            }
            $offset = ($page-1) * $limit;
            $month=date("m"); $month=$month-1;
-           $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'";
+           $query1 = "SELECT *from machine_repair";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
         <tr>
-          <th class="head" colspan="14">
+          <th class="head" colspan="6">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
       </thead>
       <thead>
         <tr>
-          <form action="../finance/salary_expense_search.php" method="GET">
-          <th colspan="3" class="head1">               
-           <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter employee id *" required="required" >
+          <form action="../finance/machine_repair_search.php" method="GET">
+          <th colspan="2" class="head1">               
+           <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter Machine id *" required="required" >
           </th>
-          <th colspan="4"class="head1">
-            <?php $year=date("Y"); $month=date("m"); $month=$month-1;  ?>
-              <input class="datepicker" type="month" name="month" min="2010-01" max="<?php echo $year ?>-<?php echo $month ?>" value="<?php echo $year ?>-<?php echo $month ?>" required="required">
+          <th colspan="2"class="head1">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
           <form  method="POST" action="../backend/salary_expense_excel_record.php">
-          <th colspan="4" class="head2" >
+          <th colspan="1" class="head2" >
             <input type="hidden" name="month" value="<?php echo $month ?>">
             <input type="hidden" name="year" value="<?php echo $year ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
-
+          <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-plus"></i>&nbsp;Add</button>
           </th>
-          <th colspan ="3" class="head2">
+          <th colspan ="1" class="head2">
           <form action="../backend/delete_attendance.php" method="POST">
           <button class="btn btn-danger" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
           </th>         
@@ -196,29 +194,19 @@ $id = $_SESSION['id'];
       </thead>
     <thead>
         <tr>
-            <th>Employee&nbsp;ID</th>
-            <th>Employee&nbsp;Name</th>
-            <th>Employee&nbsp;Designation</th>
-            <th>Proposed&nbsp;Salary</th>
-            <th>Basic&nbsp;Salary</th>
-            <th>Transport&nbsp;Allowance</th>
-            <th>Medical&nbsp;Allowance</th>
-            <th>Rent&nbsp;Allowance</th>
-            <th>Total&nbsp;Attendance</th>
-            <th>Month's&nbsp;Working&nbsp;Hour</th>
-            <th>Total&nbsp;Working&nbsp;Hour</th>
-            <th>Gross&nbsp;Salary</th>
-            <th>YearofMonth</th>
-
-          
-           
+            <th>Machine&nbsp;ID</th>
+            <th>Machine&nbsp;Name</th>
+            <th>Machine&nbsp;Function</th>
+            <th>Working&nbsp;Status</th>
+            <th>Repair&nbsp;Cost</th>
+            <th>Issue&nbsp;date</th>
         </tr>
     </thead>
     <tbody>
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from machine_repair LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))
@@ -226,71 +214,38 @@ $id = $_SESSION['id'];
            
            ?>
         <tr>
-            <?php $id1= $fetch['emp_id'];
-            $emp_info  = "SELECT *from employee where emp_id='$id1'";
-            $emp_info_run = mysqli_query($connect,$emp_info);
-            $emp_info_fetch = mysqli_fetch_array($emp_info_run);
-            ?>
-            <td><?php echo $fetch['emp_id']?></td>
-            <td><?php echo $emp_info_fetch['name']?></td>
-            <td><?php echo $emp_info_fetch['designation']?></td>
-            <td><?php echo $fetch['amount']?> &#2547;</td>
-            <td><?php echo $fetch['salary']?> &#2547;</td>
-            <td><?php echo $fetch['transport']?> &#2547;</td>
-            <td><?php echo $fetch['medical']?> &#2547;</td>
-            <td><?php echo $fetch['rent']?> &#2547;</td>
-            <td><?php echo $fetch['count']?></td>
+            <td><?php echo $fetch['machine_id']?></td>
+            <td><?php echo $fetch['machine_name']?></td>
+            <td><?php echo $fetch['machine_function']?></td>
             <?php
-            $working_hour ="SELECT sum(working_hour) as working_hour from attendance where emp_id='$id1' and MONTH(attendance_date)='$month'";
-            $working_run =mysqli_query($connect,$working_hour);
-            $fetch_working_hour = mysqli_fetch_array($working_run);
-            $total_hour ="SELECT *from holiday where month='$month'";
-            $total_hour_run =mysqli_query($connect,$total_hour);
-            $fetch_total_hour = mysqli_fetch_array($total_hour_run);
-            $totalhour =$fetch_total_hour['working_hour'];
-            $monthly_salary = $fetch_working_hour['working_hour']*$fetch['perhour'];
-            $total_salary = $monthly_salary+$fetch['transport']+$fetch['medical']+$fetch['rent'];
-            $total_expense=$total_expense+$total_salary;
+                 if($fetch['working_status']==0)
+                 {
+                    echo'<td>Need Repairs</td>';
+                 }
+                 else
+                 {
+                    echo'<td>Repaired</td>';
+                 }
             ?>
-            <td><?php echo $totalhour?> hr</td>
-            <td><?php echo $fetch_working_hour['working_hour']?> hr</td>
-            <td><?php echo $total_salary?> &#2547;</td>
-            <td><?php echo $fetch_total_hour['year']?>-<?php echo $fetch_total_hour['month']?></td>
-        </tr><?php
-             $name = $emp_info_fetch['name'];
-             $designation =$emp_info_fetch['designation'];
-             $basicsalary =$fetch['salary'];
-             $transport = $fetch['transport'];
-             $medical = $fetch['medical'];
-             $rent = $fetch['rent'];
-             $total_attendance = $fetch['count'];
-             $working_hour =$fetch_working_hour['working_hour'];
-             $year1 = $fetch_total_hour['year'];
-             $month1 = $fetch_total_hour['month'];
-            $sql = "SELECT * FROM salary_expense where emp_id ='$id1' and month = '$month1' and year = '$year1'";
-            $runsql =mysqli_query($connect,$sql);
-            if(mysqli_num_rows($runsql)!=0)
-            {
-              $sql2 = "UPDATE salary_expense set basic_salary='$basicsalary',transport='$transport',medical='$medical',rent='$rent',total_attendance=' $total_attendance',month_working_hour='$totalhour',total_working_hour='$working_hour',gross_salary='$total_salary' where emp_id ='$id1' and month= '$month1' and year='$year1'";
-              mysqli_query($connect,$sql2);
-
-            }
-            else
-            {
-              $sql3 = "INSERT into salary_expense(month,year,emp_id,name,designation,basic_salary,transport,medical,rent,total_attendance,month_working_hour,total_working_hour,gross_salary)values('$month1','$year1','$id1','$name','$designation','$basicsalary','$transport','$medical','$rent','$total_attendance','$totalhour','$working_hour','$total_salary')";
-              mysqli_query($connect,$sql3);
-            }?>
+            <td><?php echo $fetch['cost']?> &#2547;</td>
+            <td><?php echo $fetch['date']?></td>
+        </tr>
 
            <?php
            }
            ?> 
-           <thead><th colspan="14">Total Salary Expense For This month :&nbsp;<?php echo $total_expense  ?> &#2547; </th></thead>
+           <thead><th>Machine&nbsp;ID</th>
+            <th>Machine&nbsp;Name</th>
+            <th>Machine&nbsp;Function</th>
+            <th>Working&nbsp;Status</th>
+            <th>Repair&nbsp;Cost</th>
+            <th>Issue&nbsp;date</th></thead>
            
     </tbody>
 </table>
 </form>
 <?php
-$query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'";
+$query1 = "SELECT *from machine_repair";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -299,17 +254,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../finance/salary_expense.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../production/machine_repair.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../finance/salary_expense.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../production/machine_repair.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../finance/salary_expense.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../production/machine_repair.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
@@ -320,6 +275,70 @@ if(mysqli_num_rows($result)> 0)
       
 
   </section> <!--homesection ends here-->
+  <div id="myModal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+  <div class="modal-header"> 
+    <h3>Machine Info</h3>
+    <span class="close"><button type="button" class="btn btn-danger" id="close"><i class="fas fa-times"></i></button></span>
+  </div>
+  <div class="modal-body">
+  
+  <div class="row ">
+  <form action="../backend/holiday.php" method="POST">
+          <div class="col-lg-7 mx-auto">
+             <div class="row">
+             <h3>Add&nbsp;Broken&nbsp;Machine&nbsp;info</h3>
+             <hr>
+             <br>
+             <div class="col-md-6">
+             <div class="form-group">
+                                <label for="form_id">Enter Machine ID<span style="color:#ff0000">*</span></label>
+                                <input id="form_id" type="text" name="id" class="form-control" placeholder="Machine ID"required="required" >
+                                
+                            </div> 
+                        </div>
+                        <div class="col-md-6">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_bank">Issue&nbsp;Date<span style="color:#ff0000">*</span></label>
+                                <input class="datepicker" type="date" name="date" required="required">
+                                
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                                <label for="form_id">Machine Function<span style="color:#ff0000">*</span></label>
+                                <input id="form_id" type="text" name="function" class="form-control" placeholder="Enter Machine Function"required="required" >
+                                
+                            </div>       
+                        </div>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                                <label for="form_id">Repair Cost<span style="color:#ff0000">*</span></label>
+                                <input id="form_id" type="text" name="cost" class="form-control" placeholder="Repair Cost" multiple size="50" required="required" >
+                                
+                            </div>       
+                        </div>
+    
+                            </div>
+                        </div>
+                      <br>
+                        <hr>
+                        <div class="col-md-12">
+                        
+                            <button name ="submit" type="submit" class="btn btn-success btn-send  pt-2 btn-block
+                                "  >Submit</button>
+                                
+                       </div>
+                       </form>
+                       
+                    </div>
+             </div>
+          </div>
+  </div>
   <!-- javascript codes are here -->
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

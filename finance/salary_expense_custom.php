@@ -1,12 +1,21 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
-
-$year=date("Y"); $month=date("m"); $month=$month-1;
+$getmonth = $_GET['month'];
+$month = date("m", strtotime($getmonth));
+$year = date("Y", strtotime($getmonth));
+mysqli_select_db($connect,'erp');
+$sql = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'and year='$year'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=7');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -159,7 +168,6 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $month=date("m"); $month=$month-1;
            $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'";
            $result = mysqli_query($connect,$query1);
         ?>
@@ -262,30 +270,7 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
             <td><?php echo $fetch_working_hour['working_hour']?> hr</td>
             <td><?php echo $total_salary?> &#2547;</td>
             <td><?php echo $fetch_total_hour['year']?>-<?php echo $fetch_total_hour['month']?></td>
-        </tr><?php
-             $name = $emp_info_fetch['name'];
-             $designation =$emp_info_fetch['designation'];
-             $basicsalary =$fetch['salary'];
-             $transport = $fetch['transport'];
-             $medical = $fetch['medical'];
-             $rent = $fetch['rent'];
-             $total_attendance = $fetch['count'];
-             $working_hour =$fetch_working_hour['working_hour'];
-             $year1 = $fetch_total_hour['year'];
-             $month1 = $fetch_total_hour['month'];
-            $sql = "SELECT * FROM salary_expense where emp_id ='$id1' and month = '$month1' and year = '$year1'";
-            $runsql =mysqli_query($connect,$sql);
-            if(mysqli_num_rows($runsql)!=0)
-            {
-              $sql2 = "UPDATE salary_expense set basic_salary='$basicsalary',transport='$transport',medical='$medical',rent='$rent',total_attendance=' $total_attendance',month_working_hour='$totalhour',total_working_hour='$working_hour',gross_salary='$total_salary' where emp_id ='$id1' and month= '$month1' and year='$year1'";
-              mysqli_query($connect,$sql2);
-
-            }
-            else
-            {
-              $sql3 = "INSERT into salary_expense(month,year,emp_id,name,designation,basic_salary,transport,medical,rent,total_attendance,month_working_hour,total_working_hour,gross_salary)values('$month1','$year1','$id1','$name','$designation','$basicsalary','$transport','$medical','$rent','$total_attendance','$totalhour','$working_hour','$total_salary')";
-              mysqli_query($connect,$sql3);
-            }?>
+        </tr>
 
            <?php
            }
@@ -318,17 +303,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../finance/salary_expense.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="salary_expense_custom.php?page='.($page-1).'&month='.$month.'&year='.$year.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../finance/salary_expense.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="salary_expense_custom.php?page='.$i.'&month='.$month.'&year='.$year.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../finance/salary_expense.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="salary_expense_custom.php?page='.($page+1).'&month='.$month.'&year='.$year.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
