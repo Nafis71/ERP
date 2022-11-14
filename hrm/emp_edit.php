@@ -27,7 +27,7 @@ $id = $_SESSION['id'];
     </div>
     <ul class="nav-links">
       <li>
-        <a href="dashboard.php">
+        <a href="../dashboard.php">
           <i class='bx bx-grid-alt' ></i>
           <span class="link_name">Dashboard</span>
         </a>
@@ -76,7 +76,7 @@ $id = $_SESSION['id'];
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="machine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
           <li><a href="#">Pigments</a></li>
           <li><a href="#">Box Icons</a></li>
         </ul>
