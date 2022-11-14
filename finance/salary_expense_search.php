@@ -11,7 +11,7 @@ $getmonth = $_GET['month'];
 $month =date("m",strtotime($getmonth));
 $year = date("Y",strtotime($getmonth));
 mysqli_select_db($connect,'erp');
-$sql = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and emp_id='$search'";
+$sql = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'and year='$year' and emp_id='$search'";
 $run =mysqli_query($connect,$sql);
 if(mysqli_num_rows($run) == 0)
 {
@@ -80,34 +80,16 @@ if(mysqli_num_rows($run) == 0)
         </ul>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="link_name">Analytics</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Analytics</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-line-chart' ></i>
-          <span class="link_name">Chart</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Chart</a></li>
-        </ul>
-      </li>
-      <li>
         <div class="iocn-link">
           <a href="#">
-            <i class='bx bx-plug' ></i>
-            <span class="link_name">Plugins</span>
+          <i class='bx bx-package' ></i>
+            <span class="link_name">Production Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Plugins</a></li>
-          <li><a href="#">UI Face</a></li>
+          <li><a class="link_name" href="#">Production Panel</a></li>
+          <li><a href="machine_repair.php">Machine Repair</a></li>
           <li><a href="#">Pigments</a></li>
           <li><a href="#">Box Icons</a></li>
         </ul>
@@ -187,7 +169,7 @@ if(mysqli_num_rows($run) == 0)
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and emp_id='$search'";
+           $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'and year='$year' and emp_id='$search'";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
@@ -248,7 +230,7 @@ if(mysqli_num_rows($run) == 0)
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and emp_id='$search' LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'and year='$year' and emp_id='$search' LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))
@@ -271,7 +253,7 @@ if(mysqli_num_rows($run) == 0)
             <td><?php echo $fetch['rent']?> &#2547;</td>
             <td><?php echo $fetch['count']?></td>
             <?php
-            $working_hour ="SELECT sum(working_hour) as working_hour from attendance where emp_id='$id1' and MONTH(attendance_date)='$month'";
+            $working_hour ="SELECT sum(working_hour) as working_hour from attendance where emp_id='$id1' and MONTH(attendance_date)='$month' and YEAR(attendance_date)='$year'";
             $working_run =mysqli_query($connect,$working_hour);
             $fetch_working_hour = mysqli_fetch_array($working_run);
             $total_hour ="SELECT *from holiday where month='$month' and year='$year'";
@@ -296,7 +278,7 @@ if(mysqli_num_rows($run) == 0)
 </table>
 </form>
 <?php
-$query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and emp_id='$search'";
+$query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'and year='$year' and emp_id='$search'";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -305,17 +287,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../hrm/salary_expense_search.php?page='.($page-1).'&search='.$search.'&month='.$month.'&year='.$year.'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../finance/salary_expense_search.php?page='.($page-1).'&search='.$search.'&month='.$month.'&year='.$year.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../hrm/salary_expense_search.php?page='.$i.'&search='.$search.'&month='.$month.'&year='.$year.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../finance/salary_expense_search.php?page='.$i.'&search='.$search.'&month='.$month.'&year='.$year.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../hrm/salary_expense_search.php?page='.($page+1).'&search='.$search.'&month='.$month.'&year='.$year.'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../financehrm/salary_expense_search.php?page='.($page+1).'&search='.$search.'&month='.$month.'&year='.$year.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
