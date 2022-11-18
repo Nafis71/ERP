@@ -15,9 +15,9 @@ $id = $_SESSION['id'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/machine_repair.css" rel='stylesheet'>
+    <link rel="stylesheet" href="../css/add_machine.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Employee Leave</title>
+    <title>Add Machine</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -137,11 +137,96 @@ $id = $_SESSION['id'];
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Machine Repair & Maintenance</span>
+      <span class="text">Add Machine Info</span>
       
     </div>
     <div class = "sec-1">
      <div class ="card">
+        <div class="form">
+     <div class="row-col-lg-12">
+          
+          
+              
+                <div class = "container">
+                                 <form action="../backend/add_machine.php" method="post">                  
+                                 <h3>Machine&nbsp;Info</h3>
+                                 <hr>
+                <div class="controls">
+    
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="form_id">Machine ID <span style="color:#ff0000">*</span></label>
+                                <input id="form_id" type="number" name="id" class="form-control" placeholder="Machine ID"required="required" >
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="form_lastname">Machine Name <span style="color:#ff0000">*</span></label>
+                                <input id="form_lastname" type="text" name="name" class="form-control" placeholder="Machine Name"  required="required" >
+                                                                </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="form_need1">Machine Catagory<span style="color:#ff0000">*</span></label>
+                                <select id="form_need1"  name="catagory" class="form-control" required="required">
+                                    <option value="">--Select Catagory--</option>
+                                    <option value ="Cutting Machines">Cutting Machines</option>
+                                    <option value ="Sewing Machines">Sewing Machines</option>
+                                    <option value ="Finishing Machine">Finishing Machine</option>
+                                    <option value="Washing Machine">Washing Machine</option>
+                                    <option value ="Generator">Generator</option>
+                                </select>
+                                
+                            </div>
+                           
+                             </div>
+                             <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="form_lastname">Per Unit Cost<span style="color:#ff0000">*</span></label>
+                                <input id="form_lastname" type="text" name="unitcost" class="form-control" placeholder="Buying Cost"  required="required" >
+                                                                </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="form_lastname">Quantity<span style="color:#ff0000">*</span></label>
+                                <input id="form_lastname" type="number" name="quantity" class="form-control" placeholder="Buying Quantity"  required="required" >
+                                                                </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="form_lastname">Buying Date<span style="color:#ff0000">*</span></label>
+                                <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" >
+                                                                </div>
+                        </div>
+                        
+                             <div class="col-md-2">
+                             <button name ="submit" type="submit" class="btn btn-success
+                                ">Submit</button>
+                    
+                        </div>
+                        
+                        </div>
+                    </div>
+                    <hr>
+                        <div class="col-md-4">
+                            
+                           
+                        
+                       </div>
+    
+    
+                    </div>
+                  </form>
+               </div>
+            
+     
+          </div>
+          </div>
+  </div>
+  <div class = "sec-2">
+    
      <table class="styled-table">
     <?php
            include 'connect.php';
@@ -158,12 +243,12 @@ $id = $_SESSION['id'];
            }
            $offset = ($page-1) * $limit;
            $month=date("m"); $month=$month-1;
-           $query1 = "SELECT *from machine_repair";
+           $query1 = "SELECT *from machine_list";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
         <tr>
-          <th class="head" colspan="6">
+          <th class="head" colspan="8">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
@@ -179,14 +264,14 @@ $id = $_SESSION['id'];
           </th>
           </form>
           <form  method="POST" action="../backend/salary_expense_excel_record.php">
-          <th colspan="1" class="head2" >
+          <th colspan="2" class="head2" >
             <input type="hidden" name="month" value="<?php echo $month ?>">
             <input type="hidden" name="year" value="<?php echo $year ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
           <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-plus"></i>&nbsp;Add</button>
           </th>
-          <th colspan ="1" class="head2">
+          <th colspan ="2" class="head2">
           <form action="../backend/delete_attendance.php" method="POST">
           <button class="btn btn-danger" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
           </th>         
@@ -194,19 +279,21 @@ $id = $_SESSION['id'];
       </thead>
     <thead>
         <tr>
-            <th>Machine&nbsp;ID</th>
+        <th>#</th>
+        <th>Machine&nbsp;ID</th>
             <th>Machine&nbsp;Name</th>
-            <th>Machine&nbsp;Function</th>
-            <th>Working&nbsp;Status</th>
-            <th>Repair&nbsp;Cost</th>
-            <th>Issue&nbsp;date</th>
+            <th>Machine&nbsp;Catagory</th>
+            <th>Per&nbsp;Unit&nbsp;Cost</th>
+            <th>Quantity</th>
+            <th>Total&nbsp;Price</th>
+            <th>Buying&nbsp;Date</th>
         </tr>
     </thead>
     <tbody>
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from machine_repair LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from machine_list ORDER BY machine_id desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))
@@ -214,32 +301,29 @@ $id = $_SESSION['id'];
            
            ?>
         <tr>
+        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['machine_id']; ?>"> </td>
             <td><?php echo $fetch['machine_id']?></td>
             <td><?php echo $fetch['machine_name']?></td>
-            <td><?php echo $fetch['machine_function']?></td>
-            <?php
-                 if($fetch['working_status']==0)
-                 {
-                    echo'<td>Need Repairs</td>';
-                 }
-                 else
-                 {
-                    echo'<td>Repaired</td>';
-                 }
-            ?>
-            <td><?php echo $fetch['cost']?> &#2547;</td>
-            <td><?php echo $fetch['date']?></td>
+            <td><?php echo $fetch['machine_catagory']?></td>
+            <td><?php echo $fetch['unit_price']?></td>
+            <td><?php echo $fetch['quantity']?></td>
+            <td><?php echo $fetch['buying_price']?> &#2547;</td>
+            <td><?php echo $fetch['buying_date']?></td>
         </tr>
 
            <?php
            }
            ?> 
-           <thead><th>Machine&nbsp;ID</th>
+           <thead>
+           <th>#</th>
+        <th>Machine&nbsp;ID</th>
             <th>Machine&nbsp;Name</th>
-            <th>Machine&nbsp;Function</th>
-            <th>Working&nbsp;Status</th>
-            <th>Repair&nbsp;Cost</th>
-            <th>Issue&nbsp;date</th></thead>
+            <th>Machine&nbsp;Catagory</th>
+            <th>Per&nbsp;Unit&nbsp;Cost</th>
+            <th>Quantity</th>
+            <th>Total&nbsp;Price</th>
+            <th>Buying&nbsp;Date</th>
+            </thead>
            
     </tbody>
 </table>
@@ -337,12 +421,10 @@ if(mysqli_num_rows($result)> 0)
                        </form>
                        
                     </div>
-             </div>
+          
 </div>
-          </div>
-  </div>
+  </section>
   <!-- javascript codes are here -->
-</section>
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <?php
