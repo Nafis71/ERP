@@ -76,7 +76,7 @@ $id = $_SESSION['id'];
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Production Panel</a></li>
           <li><a href="production/machine_repair.php">Machine Repair</a></li>
-          <li><a href="#">Pigments</a></li>
+          <li><a href="production/add_machine.php">Machinery Purchase</a></li>
           <li><a href="#">Box Icons</a></li>
         </ul>
       </li>
