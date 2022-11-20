@@ -1,10 +1,19 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+$search =$_GET['search'];
+mysqli_select_db($connect,'erp');
+$sql = "select *from machine_list where machine_id ='$search'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=8');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -185,7 +194,7 @@ $id = $_SESSION['id'];
                              <div class="col-md-2">
                             <div class="form-group">
                                 <label for="form_lastname">Per Unit Cost<span style="color:#ff0000">*</span></label>
-                                <input id="form_lastname" type="text" name="unitcost" class="form-control" placeholder="Per Unit Cost"  required="required" >
+                                <input id="form_lastname" type="text" name="unitcost" class="form-control" placeholder="Buying Cost"  required="required" >
                                                                 </div>
                         </div>
                         <div class="col-md-2">
@@ -243,7 +252,7 @@ $id = $_SESSION['id'];
            }
            $offset = ($page-1) * $limit;
            $month=date("m"); $month=$month-1;
-           $query1 = "SELECT *from machine_list";
+           $query1 = "SELECT *from machine_list where machine_id = '$search'";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
@@ -293,7 +302,7 @@ $id = $_SESSION['id'];
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from machine_list ORDER BY machine_id desc LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from machine_list where machine_id ='$search' ORDER BY machine_id desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))
@@ -301,7 +310,7 @@ $id = $_SESSION['id'];
            
            ?>
         <tr>
-        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['machine_id']; ?>"> </td>
+        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['machine_id'];?>"></td>
             <td><?php echo $fetch['machine_id']?></td>
             <td><?php echo $fetch['machine_name']?></td>
             <td><?php echo $fetch['machine_catagory']?></td>
@@ -338,17 +347,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../production/add_machine.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../production/machine_search.php?page='.($page-1).'&search='.$search.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../production/add_machine.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../production/machine_search.php?page='.$i.'&search='.$search.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../production/add_machine.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../production/machine_search.php?page='.($page+1).'&search='.$search.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
@@ -359,7 +368,6 @@ if(mysqli_num_rows($result)> 0)
       
 
   </section> <!--homesection ends here-->
- 
   <!-- javascript codes are here -->
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

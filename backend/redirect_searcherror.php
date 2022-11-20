@@ -50,6 +50,13 @@ $_SESSION['status_code']="info";
 $_SESSION['cause'] = "No Records Available For This Month";
 header('location:../finance/salary_expense.php');
 }
+else if($indicate == 8)
+{
+$_SESSION['status']="No Records Available";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "";
+header('location:../production/add_machine.php');
+}
 
 
 ?>
