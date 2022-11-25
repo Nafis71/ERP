@@ -177,7 +177,7 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter employee id *" required="required" >
           </th>
           <th colspan="3"class="head1">
-              <input class="datepicker" type="month" name="month" min="2010-01" max="<?php echo $year ?>-<?php echo $month ?>" value="<?php echo $year ?>-<?php echo $month ?>" required="required">
+              <input class="datepicker" type="month" name="month" min="2010-01"  value="<?php echo $year ?>-<?php echo $month ?>" required="required">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>

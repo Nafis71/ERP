@@ -1,10 +1,36 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+if(isset($_GET['year']) && isset($_GET['month']))
+{
+    $month = $_GET['month'];
+    $year = $_GET['year'];
+}
+elseif(isset($_GET['month']))
+{
+  $date = $_GET['month'];
+  $month = date("m",strtotime($date));
+  $year = date("Y",strtotime($date));
+}
+else
+{
+  $getmonth = date("m");
+  $month = $getmonth - 1;
+  $getyear = date("Y");
+  $year =$getyear;
+}
+mysqli_select_db($connect,'erp');
+$sql = "SELECT *from machine_buying_expense where month='$month'and year='$year'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=10');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +41,9 @@ $id = $_SESSION['id'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/add_machine.css" rel='stylesheet'>
+    <link rel="stylesheet" href="../css/machine_buying_expense.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Add Machine</title>
+    <title>Machinery buying expense</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -77,8 +103,8 @@ $id = $_SESSION['id'];
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="machine_repair.php">Machine Repair</a></li>
-          <li><a href="add_machine.php">Machinery Purchase</a></li>
+          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
           <li><a href="#">Box Icons</a></li>
         </ul>
       </li>
@@ -137,95 +163,11 @@ $id = $_SESSION['id'];
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Machinery Purchase</span>
+      <span class="text">Machinery Purchase Expense</span>
       
     </div>
-    <div class = "sec-1">
-     <div class ="card">
-        <div class="form">
-     <div class="row-col-lg-12">
-          
-          
-              
-                <div class = "container">
-                                 <form action="../backend/add_machine.php" method="post">                  
-                                 <h3>Machine&nbsp;Info</h3>
-                                 <hr>
-                <div class="controls">
-    
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="form_id">Machine ID <span style="color:#ff0000">*</span></label>
-                                <input id="form_id" type="number" name="id" class="form-control" placeholder="Machine ID"required="required" >
-                                
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="form_lastname">Machine Name <span style="color:#ff0000">*</span></label>
-                                <input id="form_lastname" type="text" name="name" class="form-control" placeholder="Machine Name"  required="required" >
-                                                                </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="form_need1">Machine Catagory<span style="color:#ff0000">*</span></label>
-                                <select id="form_need1"  name="catagory" class="form-control" required="required">
-                                    <option value="">--Select Catagory--</option>
-                                    <option value ="Cutting Machines">Cutting Machines</option>
-                                    <option value ="Sewing Machines">Sewing Machines</option>
-                                    <option value ="Finishing Machine">Finishing Machine</option>
-                                    <option value="Washing Machine">Washing Machine</option>
-                                    <option value ="Generator">Generator</option>
-                                </select>
-                                
-                            </div>
-                           
-                             </div>
-                             <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="form_lastname">Per Unit Cost<span style="color:#ff0000">*</span></label>
-                                <input id="form_lastname" type="text" name="unitcost" class="form-control" placeholder="Per Unit Cost"  required="required" >
-                                                                </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="form_lastname">Quantity<span style="color:#ff0000">*</span></label>
-                                <input id="form_lastname" type="number" name="quantity" class="form-control" placeholder="Buying Quantity"  required="required" >
-                                                                </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="form_lastname">Buying Date<span style="color:#ff0000">*</span></label>
-                                <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" >
-                                                                </div>
-                        </div>
-                        
-                             <div class="col-md-2">
-                             <button name ="submit" type="submit" class="btn btn-success
-                                ">Submit</button>
-                    
-                        </div>
-                        
-                        </div>
-                    </div>
-                    <hr>
-                        <div class="col-md-4">
-                            
-                           
-                        
-                       </div>
-    
-    
-                    </div>
-                  </form>
-               </div>
-            
-     
-          </div>
-          </div>
-  </div>
-  <div class = "sec-2">
+  
+  <div class = "sec-1">
     
      <table class="styled-table">
     <?php
@@ -242,13 +184,12 @@ $id = $_SESSION['id'];
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $month=date("m"); $month=$month-1;
-           $query1 = "SELECT *from machine_list";
+           $query1 = "SELECT *from machine_buying_expense where month ='$month' and year ='$year'";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
         <tr>
-          <th class="head" colspan="8">
+          <th class="head" colspan="7">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
@@ -256,22 +197,29 @@ $id = $_SESSION['id'];
       <thead>
         <tr>
           <form action="../production/machine_search.php" method="GET">
-          <th colspan="2" class="head1">               
+          <th colspan="1" class="head1">               
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter Machine id *" required="required" >
           </th>
           <th colspan="2"class="head1">
+          <input class="datepicker" type="month" name="month" min="2010-01" max="<?php echo $year ?>-<?php echo $month ?>" value="<?php echo $year ?>-<?php echo $month ?>" required="required">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="../backend/machinery_purchase_excel.php">
-          <th colspan="2" class="head2" >
+          <th colspan="2" class="head1">
+          <form  method="GET" action="machine_buying_expense.php">
+          <input class="datepicker" type="month" name="month" min="2010-01" max="<?php echo $year ?>-<?php echo $month ?>" value="<?php echo $year ?>-<?php echo $month ?>" required="required">
+          <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-table"></i></button>
+          </form>
+          </th>
+          <form  method="POST" action="../backend/salary_expense_excel_record.php">
+          <th colspan="1" class="head2" >
             <input type="hidden" name="month" value="<?php echo $month ?>">
             <input type="hidden" name="year" value="<?php echo $year ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
           <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
           </th>
-          <th colspan ="2" class="head2">
+          <th colspan ="1" class="head2">
           <form action="../backend/machine_delete.php" method="POST">
           <button class="btn btn-danger" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
           </th>         
@@ -283,17 +231,16 @@ $id = $_SESSION['id'];
         <th>Machine&nbsp;ID</th>
             <th>Machine&nbsp;Name</th>
             <th>Machine&nbsp;Catagory</th>
-            <th>Per&nbsp;Unit&nbsp;Cost</th>
-            <th>Quantity</th>
-            <th>Total&nbsp;Price</th>
-            <th>Buying&nbsp;Date</th>
+            <th>Total&nbsp;Quantity</th>
+            <th>Total&nbsp;Cost</th>
+            <th>YearOfMonth</th>
         </tr>
     </thead>
     <tbody>
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from machine_list ORDER BY machine_id desc LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from machine_buying_expense where month = '$month'  and year ='$year' ORDER BY month desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))
@@ -301,14 +248,22 @@ $id = $_SESSION['id'];
            
            ?>
         <tr>
-        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['machine_id']; ?>"> </td>
+        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['machine_id'];?>"></td>
             <td><?php echo $fetch['machine_id']?></td>
-            <td><?php echo $fetch['machine_name']?></td>
-            <td><?php echo $fetch['machine_catagory']?></td>
-            <td><?php echo $fetch['unit_price']?></td>
-            <td><?php echo $fetch['quantity']?></td>
-            <td><?php echo $fetch['buying_price']?> &#2547;</td>
-            <td><?php echo $fetch['buying_date']?></td>
+            <?php
+            $machineid = $fetch['machine_id'];
+            $sql ="SELECT distinct machine_name, machine_catagory from machine_list where machine_id = '$machineid'";
+            $runsql = mysqli_query($connect,$sql);
+            $fetchsql = mysqli_fetch_array($runsql);
+            $sql2 = "SELECT sum(quantity) as quantity FROM machine_list where machine_id = '$machineid' and MONTH(buying_date)='$month' and YEAR(buying_date)='$year'";
+            $runsql2 =mysqli_query($connect,$sql2);
+            $fetchsql2 = mysqli_fetch_array($runsql2);
+            ?>
+            <td><?php echo $fetchsql['machine_name']?></td>
+            <td><?php echo $fetchsql['machine_catagory']?></td>
+            <td><?php echo $fetchsql2['quantity']?></td>
+            <td><?php echo $fetch['cost']?> &#2547;</td>
+            <td><?php echo $fetch['year']?>-<?php echo $fetch['month']?></td>
         </tr>
 
            <?php
@@ -319,17 +274,16 @@ $id = $_SESSION['id'];
         <th>Machine&nbsp;ID</th>
             <th>Machine&nbsp;Name</th>
             <th>Machine&nbsp;Catagory</th>
-            <th>Per&nbsp;Unit&nbsp;Cost</th>
-            <th>Quantity</th>
-            <th>Total&nbsp;Price</th>
-            <th>Buying&nbsp;Date</th>
+            <th>Total&nbsp;Quantity</th>
+            <th>Total&nbsp;Cost</th>
+            <th>YearOfMonth</th>
             </thead>
            
     </tbody>
 </table>
 </form>
 <?php
-$query1 = "SELECT *from machine_list";
+$query1 = "SELECT *from machine_buying_expense where month ='$month' and year ='$year'";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -338,17 +292,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../production/add_machine.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../production/machine_search.php?page='.($page-1).'&month='.$month.'&year='.$month.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../production/add_machine.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../production/machine_search.php?page='.$i.'&month='.$month.'&year='.$month.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../production/add_machine.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../production/machine_search.php?page='.($page+1).'&month='.$month.'&year='.$month.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
@@ -359,7 +313,6 @@ if(mysqli_num_rows($result)> 0)
       
 
   </section> <!--homesection ends here-->
- 
   <!-- javascript codes are here -->
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

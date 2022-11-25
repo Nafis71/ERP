@@ -284,24 +284,21 @@
   display: block;
   justify-content: center;
   position: relative;
-  background: #F9F9F9 ;
-  margin-top: 20px;
-  padding-bottom: 46px;
+  margin-top: -22px;
   width: 100%;
-  padding-top: 20px;
-  border-radius: 3px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.10);
 
 }
 .home-section .sec-1 .styled-table {
   border-collapse: collapse;
-  margin: 25px;
+
+  
   font-size: 16px;
   font-weight: 400;
   font-family: sans-serif;
-  max-width: 100%;
+  width: 100%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   text-align: center;
+ 
   padding: 9px;
   
 }
@@ -391,31 +388,37 @@
   color:#fff;
   background:#333;
 }
-.row
+
+
+.sec-1 .card
 {
-  position: relative;
-  margin-top: 20px;
-  left: 9px;
-}
-.sec-2 .btn-success
-{
-  margin-top: 9px;
-}
-.card
-{
-  height: auto;
-  padding-bottom: 32px;
-  padding-left: 10px;
-  padding-right: 59px;
-  border: none;
-  border-radius: 2px;
+    height: auto;
+    padding-bottom: 32px;
+    padding-left: 10px;
+    padding-right: 59px;
+    border: none;
+    border-radius: 10px;
+    background: antiquewhite
+    ;
+    width: auto;
+    left: 3%;
  
    
+}
+.sec-1 .form
+{
+    position: relative;
+    top: 10px;
 }
 .head1 .datepicker{
     border: white;
     padding: 7px;
     border-radius: 5px;
+}
+.sec-1 .datepicker{
+  border: white;
+  padding: 7px;
+  border-radius: 5px;
 }
 .modal .modal-body .datepicker{
   border: none;
@@ -457,7 +460,10 @@ footer {
 }
 .row
 {
-  width: fit-content;
+    position: relative;
+    margin-top: 21px;
+    left: 0px;
+    display: flex;
 }
 .modal {
   display: none; /* Hidden by default */

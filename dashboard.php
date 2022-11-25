@@ -204,7 +204,7 @@ unset($_SESSION['status']);
         ]);
 
         var options = {
-          title: 'Company Performance',
+          title: 'Employee Statistics',
           curveType: 'function',
           legend: { position: 'bottom' }
         };

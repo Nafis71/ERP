@@ -137,7 +137,7 @@ $id = $_SESSION['id'];
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Bonus/Deduct Salary</span>
+      <span class="text">Bonus/Deduct Salary Records</span>
       
     </div>
     <div class = "sec-1">

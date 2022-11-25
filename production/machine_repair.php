@@ -163,37 +163,37 @@ $id = $_SESSION['id'];
         ?>
       <thead>
         <tr>
-          <th class="head" colspan="6">
+          <th class="head" colspan="7">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
       </thead>
       <thead>
         <tr>
-          <form action="../finance/machine_repair_search.php" method="GET">
-          <th colspan="2" class="head1">               
+          <form action="machine_repair_search.php" method="GET">
+          <th colspan="3" class="head1">               
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter Machine id *" required="required" >
           </th>
           <th colspan="2"class="head1">
+          <input class="datepicker" type="month" name="date" min="2010-01" required="required">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
           <form  method="POST" action="../backend/salary_expense_excel_record.php">
           <th colspan="1" class="head2" >
-            <input type="hidden" name="month" value="<?php echo $month ?>">
-            <input type="hidden" name="year" value="<?php echo $year ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
           <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-plus"></i>&nbsp;Add</button>
           </th>
           <th colspan ="1" class="head2">
-          <form action="../backend/delete_attendance.php" method="POST">
-          <button class="btn btn-danger" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
+          <form action="../backend/machine_repair.php" method="POST">
+          <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-hammer"></i>&nbsp;Repair</button>
           </th>         
         </tr>     
       </thead>
     <thead>
         <tr>
+            <th>#</th>
             <th>Machine&nbsp;ID</th>
             <th>Machine&nbsp;Name</th>
             <th>Machine&nbsp;Function</th>
@@ -214,6 +214,7 @@ $id = $_SESSION['id'];
            
            ?>
         <tr>
+        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['machine_id']; ?>"> </td>
             <td><?php echo $fetch['machine_id']?></td>
             <td><?php echo $fetch['machine_name']?></td>
             <td><?php echo $fetch['machine_function']?></td>
@@ -234,7 +235,9 @@ $id = $_SESSION['id'];
            <?php
            }
            ?> 
-           <thead><th>Machine&nbsp;ID</th>
+           <thead>
+           <th>#</th>
+           <th>Machine&nbsp;ID</th>
             <th>Machine&nbsp;Name</th>
             <th>Machine&nbsp;Function</th>
             <th>Working&nbsp;Status</th>
@@ -301,27 +304,11 @@ if(mysqli_num_rows($result)> 0)
                             </div> 
                         </div>
                         <div class="col-md-6">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="form_bank">Issue&nbsp;Date<span style="color:#ff0000">*</span></label>
-                                <input class="datepicker" type="date" name="name required="required">
-                                
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-md-6">
                         <div class="form-group">
-                                <label for="form_id">Machine Function<span style="color:#ff0000">*</span></label>
-                                <input id="form_id" type="text" name="function" class="form-control" placeholder="Enter Machine Function" required="required" >
+                        <label for="form_id">Repair Cost<span style="color:#ff0000">*</span></label>
+                        <input id="form_id" type="text" name="cost" class="form-control" placeholder="Repair Cost" required="required" >
                                 
-                            </div>       
-                        </div>
-                        <div class="col-md-6">
-                        <div class="form-group">
-                                <label for="form_id">Repair Cost<span style="color:#ff0000">*</span></label>
-                                <input id="form_id" type="text" name="cost" class="form-control" placeholder="Repair Cost" multiple size="50" required="required" >
-                                
-                            </div>       
+                        </div>       
                         </div>
     
                             </div>
