@@ -196,7 +196,7 @@ if(mysqli_num_rows($run) == 0)
       </thead>
       <thead>
         <tr>
-          <form action="../production/machine_search.php" method="GET">
+          <form action="../finance/machine_buying_expense_search.php" method="GET">
           <th colspan="1" class="head1">               
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter Machine id *" required="required" >
           </th>
@@ -211,13 +211,13 @@ if(mysqli_num_rows($run) == 0)
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-table"></i></button>
           </form>
           </th>
-          <form  method="POST" action="../backend/salary_expense_excel_record.php">
+          <form  method="POST" action="../backend/machine_buying_expense_excel_record.php">
           <th colspan="1" class="head2" >
             <input type="hidden" name="month" value="<?php echo $month ?>">
             <input type="hidden" name="year" value="<?php echo $year ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
-          <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
+          
           </th>
           <th colspan ="1" class="head2">
           <form action="../backend/machine_delete.php" method="POST">
@@ -263,6 +263,7 @@ if(mysqli_num_rows($run) == 0)
             <td><?php echo $fetchsql['machine_catagory']?></td>
             <td><?php echo $fetchsql2['quantity']?></td>
             <td><?php echo $fetch['cost']?> &#2547;</td>
+            <?php $total_expense= $total_expense+$fetch['cost']  ?>
             <td><?php echo $fetch['year']?>-<?php echo $fetch['month']?></td>
         </tr>
 
@@ -278,6 +279,9 @@ if(mysqli_num_rows($run) == 0)
             <th>Total&nbsp;Cost</th>
             <th>YearOfMonth</th>
             </thead>
+            <thead>
+              <th colspan="7">Total expense for this month:&nbsp;<?php echo $total_expense?>&#2547</th>
+            </thead>
            
     </tbody>
 </table>
@@ -292,17 +296,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../production/machine_search.php?page='.($page-1).'&month='.$month.'&year='.$month.'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../production/machine_buying_expense.php?page='.($page-1).'&month='.$month.'&year='.$month.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../production/machine_search.php?page='.$i.'&month='.$month.'&year='.$month.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../production/machine_buying_expense.php?page='.$i.'&month='.$month.'&year='.$month.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../production/machine_search.php?page='.($page+1).'&month='.$month.'&year='.$month.'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../production/machine_buying_expense.php?page='.($page+1).'&month='.$month.'&year='.$month.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 

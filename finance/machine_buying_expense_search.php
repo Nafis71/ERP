@@ -1,10 +1,22 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+$getdate = $_GET['month'];
+$month = date("m",strtotime($getdate));
+$year = date("Y",strtotime($getdate));
+$search = $_GET['search'];
+mysqli_select_db($connect,'erp');
+$sql = "SELECT *from machine_buying_expense where machine_id ='$search' and month='$month'and year='$year'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=10');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +27,9 @@ $id = $_SESSION['id'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/machine_repair.css" rel='stylesheet'>
+    <link rel="stylesheet" href="../css/machine_buying_expense.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Employee Leave</title>
+    <title>Machinery buying expense</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -77,9 +89,8 @@ $id = $_SESSION['id'];
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="add_order.php">Add Export Orders</a></li>
-          <li><a href="machine_repair.php">Machine Repair</a></li>
-          <li><a href="add_machine.php">Machinery Purchase</a></li>
+          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
           <li><a href="#">Box Icons</a></li>
         </ul>
       </li>
@@ -138,11 +149,12 @@ $id = $_SESSION['id'];
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Machine Repair & Maintenance</span>
+      <span class="text">Machinery Purchase Expense</span>
       
     </div>
-    <div class = "sec-1">
-     <div class ="card">
+  
+  <div class = "sec-1">
+    
      <table class="styled-table">
     <?php
            include 'connect.php';
@@ -158,8 +170,7 @@ $id = $_SESSION['id'];
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $month=date("m"); $month=$month-1;
-           $query1 = "SELECT *from machine_repair";
+           $query1 = "SELECT *from machine_buying_expense where machine_id ='$search' and month = '$month'  and year ='$year'";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
@@ -171,43 +182,51 @@ $id = $_SESSION['id'];
       </thead>
       <thead>
         <tr>
-          <form action="machine_repair_search.php" method="GET">
-          <th colspan="3" class="head1">               
+          <form action="../finance/machine_buying_expense_search.php" method="GET">
+          <th colspan="1" class="head1">               
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter Machine id *" required="required" >
           </th>
           <th colspan="2"class="head1">
-          <input class="datepicker" type="month" name="date" min="2010-01" required="required">
+          <input class="datepicker" type="month" name="month" min="2010-01" max="<?php echo $year ?>-<?php echo $month ?>" value="<?php echo $year ?>-<?php echo $month ?>" required="required">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="../backend/salary_expense_excel_record.php">
+          <th colspan="2" class="head1">
+          <form  method="GET" action="machine_buying_expense.php">
+          <input class="datepicker" type="month" name="month" min="2010-01" max="<?php echo $year ?>-<?php echo $month ?>" value="<?php echo $year ?>-<?php echo $month ?>" required="required">
+          <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-table"></i></button>
+          </form>
+          </th>
+          <form  method="POST" action="../backend/machine_buying_expense_excel_record.php">
           <th colspan="1" class="head2" >
+            <input type="hidden" name="month" value="<?php echo $month ?>">
+            <input type="hidden" name="year" value="<?php echo $year ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
-          <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-plus"></i>&nbsp;Add</button>
+          
           </th>
           <th colspan ="1" class="head2">
-          <form action="../backend/machine_repair.php" method="POST">
-          <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-hammer"></i>&nbsp;Repair</button>
+          <form action="../backend/machine_delete.php" method="POST">
+          <button class="btn btn-danger" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
           </th>         
         </tr>     
       </thead>
     <thead>
         <tr>
-            <th>#</th>
-            <th>Machine&nbsp;ID</th>
+        <th>#</th>
+        <th>Machine&nbsp;ID</th>
             <th>Machine&nbsp;Name</th>
-            <th>Machine&nbsp;Function</th>
-            <th>Working&nbsp;Status</th>
-            <th>Repair&nbsp;Cost</th>
-            <th>Issue&nbsp;date</th>
+            <th>Machine&nbsp;Catagory</th>
+            <th>Total&nbsp;Quantity</th>
+            <th>Total&nbsp;Cost</th>
+            <th>YearOfMonth</th>
         </tr>
     </thead>
     <tbody>
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from machine_repair LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from machine_buying_expense where machine_id ='$search'and month = '$month'  and year ='$year' ORDER BY month desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))
@@ -215,22 +234,23 @@ $id = $_SESSION['id'];
            
            ?>
         <tr>
-        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['machine_id']; ?>"> </td>
+        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['machine_id'];?>"></td>
             <td><?php echo $fetch['machine_id']?></td>
-            <td><?php echo $fetch['machine_name']?></td>
-            <td><?php echo $fetch['machine_function']?></td>
             <?php
-                 if($fetch['working_status']==0)
-                 {
-                    echo'<td>Need Repairs</td>';
-                 }
-                 else
-                 {
-                    echo'<td>Repaired</td>';
-                 }
+            $machineid = $fetch['machine_id'];
+            $sql ="SELECT distinct machine_name, machine_catagory from machine_list where machine_id = '$machineid'";
+            $runsql = mysqli_query($connect,$sql);
+            $fetchsql = mysqli_fetch_array($runsql);
+            $sql2 = "SELECT sum(quantity) as quantity FROM machine_list where machine_id = '$machineid' and MONTH(buying_date)='$month' and YEAR(buying_date)='$year'";
+            $runsql2 =mysqli_query($connect,$sql2);
+            $fetchsql2 = mysqli_fetch_array($runsql2);
             ?>
+            <td><?php echo $fetchsql['machine_name']?></td>
+            <td><?php echo $fetchsql['machine_catagory']?></td>
+            <td><?php echo $fetchsql2['quantity']?></td>
             <td><?php echo $fetch['cost']?> &#2547;</td>
-            <td><?php echo $fetch['date']?></td>
+            
+            <td><?php echo $fetch['year']?>-<?php echo $fetch['month']?></td>
         </tr>
 
            <?php
@@ -238,18 +258,20 @@ $id = $_SESSION['id'];
            ?> 
            <thead>
            <th>#</th>
-           <th>Machine&nbsp;ID</th>
+        <th>Machine&nbsp;ID</th>
             <th>Machine&nbsp;Name</th>
-            <th>Machine&nbsp;Function</th>
-            <th>Working&nbsp;Status</th>
-            <th>Repair&nbsp;Cost</th>
-            <th>Issue&nbsp;date</th></thead>
+            <th>Machine&nbsp;Catagory</th>
+            <th>Total&nbsp;Quantity</th>
+            <th>Total&nbsp;Cost</th>
+            <th>YearOfMonth</th>
+            </thead>
+           
            
     </tbody>
 </table>
 </form>
 <?php
-$query1 = "SELECT *from machine_repair";
+$query1 = "SELECT *from machine_buying_expense where machine_id ='$search' and month = '$month'  and year ='$year'";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -258,17 +280,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../production/machine_repair.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../production/machine_buying_expense_search.php?page='.($page-1).'&search='.$search.'&month='.$month.'&year='.$month.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../production/machine_repair.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../production/machine_buying_expense_search.php?page='.$i.'&search='.$search.'&month='.$month.'&year='.$month.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../production/machine_repair.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../production/machine_buying_expense_search.php?page='.($page+1).'&search='.$search.'&month='.$month.'&year='.$month.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
@@ -279,58 +301,7 @@ if(mysqli_num_rows($result)> 0)
       
 
   </section> <!--homesection ends here-->
-  <div id="myModal" class="modal">
-
-<!-- Modal content -->
-<div class="modal-content">
-  <div class="modal-header"> 
-    <h3>Machine Info</h3>
-    <span class="close"><button type="button" class="btn btn-danger" id="close"><i class="fas fa-times"></i></button></span>
-  </div>
-  <div class="modal-body">
-  
-  <div class="row ">
-  <form action="../backend/add_machine_repair.php" method="POST">
-          <div class="col-lg-7 mx-auto">
-             <div class="row">
-             <h3>Add&nbsp;Broken&nbsp;Machine&nbsp;info</h3>
-             <hr>
-             <br>
-             <div class="row">
-             <div class="col-md-6">
-             <div class="form-group">
-                                <label for="form_id">Enter Machine ID<span style="color:#ff0000">*</span></label>
-                                <input id="form_id" type="text" name="id" class="form-control" placeholder="Machine ID"required="required" >
-                                
-                            </div> 
-                        </div>
-                        <div class="col-md-6">
-                        <div class="form-group">
-                        <label for="form_id">Repair Cost<span style="color:#ff0000">*</span></label>
-                        <input id="form_id" type="text" name="cost" class="form-control" placeholder="Repair Cost" required="required" >
-                                
-                        </div>       
-                        </div>
-    
-                            </div>
-                        </div>
-                      <br>
-                        <hr>
-                        <div class="col-md-12">
-                        
-                            <button name ="submit" type="submit" class="btn btn-success btn-send  pt-2 btn-block
-                                "  >Submit</button>
-                                
-                       </div>
-                       </form>
-                       
-                    </div>
-             </div>
-</div>
-          </div>
-  </div>
   <!-- javascript codes are here -->
-</section>
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <?php

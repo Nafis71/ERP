@@ -189,7 +189,7 @@ $id = $_SESSION['id'];
             <button type="submit"class="btn btn-light" id="mybtn2"><i class="fas fa-angle-double-down"></i>&nbsp;Deduct Salary</button>
           </th>
           <th colspan="1"class="head1">
-          <button class="btn btn-danger" onclick="myFunction2()" name ="submit"><i class="fas fa-broom"></i>&nbsp;Clear Festive Bonus</button>
+          <button class="btn btn-danger" onclick="myFunction2()" name ="submit"><i class="fas fa-broom"></i>&nbsp;CFB</button>
 
           </th>
           

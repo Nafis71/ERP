@@ -141,7 +141,7 @@ $id = $_SESSION['id'];
       
     </div>
     <div class = "sec-1">
-     <div class ="card">
+     
      <table class="styled-table">
     <?php
            include 'connect.php';
@@ -291,7 +291,7 @@ if(mysqli_num_rows($result)> 0)
 
 }
 ?>
-     </div>
+     
     </div>
       
 

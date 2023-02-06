@@ -292,12 +292,11 @@
   min-width: 300px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   text-align: center;
-  background: antiquewhite;
   padding: 9px;
   
 }
 .styled-table thead tr {
-  background-color: #334c7a ;
+  background-color: #34495E ;
   color: #ffffff;
   text-align: center;
   border-bottom:1px solid #e4e4e4;

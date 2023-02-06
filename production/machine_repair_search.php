@@ -94,6 +94,7 @@ if(mysqli_num_rows($run) == 0)
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Production Panel</a></li>
+          <li><a href="add_order.php">Add Export Orders</a></li>
           <li><a href="machine_repair.php">Machine Repair</a></li>
           <li><a href="add_machine.php">Machinery Purchase</a></li>
           <li><a href="#">Box Icons</a></li>
@@ -224,7 +225,7 @@ if(mysqli_num_rows($run) == 0)
           mysqli_select_db($connect,'erp');
            $query  = "SELECT *from machine_repair where machine_id ='$search' and MONTH(date) ='$month' and YEAR(date) ='$year' LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
-           $total_expense=0;
+           
            while($fetch = mysqli_fetch_array($run))
            {
            

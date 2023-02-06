@@ -16,6 +16,8 @@ $id = $_SESSION['id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="logo/Bando.png" type="image/x-icon">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="css/dashboard.css" rel='stylesheet'>
+    
     
    </head>
 <body>
@@ -137,14 +139,80 @@ $id = $_SESSION['id'];
       <i class='bx bx-menu' ></i>
       <span class="text">Dashboard</span>
       <div class="sec-1" style="display: flex;">
-        <div id="curve_chart" style="width: 900px; height: 400px"></div>
-        <div id="curve_chart1" style="width: 900px; height: 400px"></div>
+        <div id="curve_chart" style="width: 680px; height: 400px"></div>
+        <div id="curve_chart1" style="width: 680px; height: 400px"></div>
       </div>
       <div class="sec-2" style="display: flex;">
-      <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-      <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
-    </div>
-      <div class=""></div>
+      <div id="piechart_3d" style="width: 680px; height: 500px;"></div>
+      <div id="columnchart_material" style="width: 680px; height: 500px;"></div>
+     </div>
+     <div class="sec-3" style="display: flex;">
+     <div id="root">
+     <div class="container pt-5">
+      <div class="row align-items-stretch">
+      <div class="c-dashboardInfo col-lg-3 col-md-6">
+        <div class="wrap">
+          <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total&nbsp;Asset<svg
+              class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+              </path>
+            </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">4896852&#2547;</span>
+        </div>
+      </div>
+      <div class="c-dashboardInfo col-lg-3 col-md-6">
+        <div class="wrap">
+          <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Monthly&nbsp;Income<svg
+              class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+              </path>
+            </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">7286500&#2547;</span><span
+            class="hind-font caption-12 c-dashboardInfo__subInfo">Last month: €30</span>
+        </div>
+      </div>
+      <div class="c-dashboardInfo col-lg-3 col-md-6">
+        <div class="wrap">
+          <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Monthly&nbsp;Tax<svg
+              class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+              </path>
+            </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">50000&#2547;</span>
+            <span class="hind-font caption-12 c-dashboardInfo__subInfo">Last&nbsp;month:&nbsp;48000&#2547;</span>
+        </div>
+      </div>
+      <div class="c-dashboardInfo col-lg-3 col-md-6">
+        <div class="wrap">
+          <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Monthly&nbsp;expense<svg
+              class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+              </path>
+            </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">5186500&#2547;</span>
+        </div>
+      </div>
+      <div class="c-dashboardInfo col-lg-3 col-md-6">
+        <div class="wrap">
+          <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Product&nbsp;return<svg
+              class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
+              </path>
+            </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">6,40%</span>
+        </div>
+      </div>
+     </div>
+     </div>
+     </div>
+     </div>
+
+     
       
     </div>
   </section>
@@ -180,7 +248,7 @@ unset($_SESSION['status']);
         ]);
 
         var options = {
-          title: 'Company Performance',
+          title: 'Total Expenses',
           curveType: 'function',
           legend: { position: 'bottom' }
         };
@@ -263,7 +331,12 @@ unset($_SESSION['status']);
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
     </script>
-  <script>
+
+
+
+
+
+<script>
   let arrow = document.querySelectorAll(".arrow");
   for (var i = 0; i < arrow.length; i++) {
     arrow[i].addEventListener("click", (e)=>{

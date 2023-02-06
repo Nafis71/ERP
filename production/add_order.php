@@ -15,9 +15,9 @@ $id = $_SESSION['id'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/machine_repair.css" rel='stylesheet'>
+    <link rel="stylesheet" href="../css/add_order.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Employee Leave</title>
+    <title>Add Machine</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -138,11 +138,108 @@ $id = $_SESSION['id'];
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Machine Repair & Maintenance</span>
+      <span class="text">Export Order list</span>
       
     </div>
     <div class = "sec-1">
      <div class ="card">
+        <div class="form">
+     <div class="row-col-lg-12">
+          
+          
+              
+                <div class = "container">
+                                 <form action="../backend/add_export_order.php" method="post">                  
+                                 <h3>Add&nbsp;order</h3>
+                                 <hr>
+                <div class="controls">
+    
+                    <div class="row">
+                    <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="form_need1">Select Product<span style="color:#ff0000">*</span></label>
+                                <select id="form_need1"  name="product" class="form-control" required="required">
+                                    <option value="">--Select Catagory--</option>
+                                    <?php $sql = "SELECT product_name FROM product_info";
+                                          $run = mysqli_query($connect,$sql);
+                                          while($fetch = mysqli_fetch_array($run))
+                                          { ?>
+                                            <option value="<?php echo $fetch['product_name']?>"><?php echo $fetch['product_name']?></option>
+                                            <?php
+                                          }
+                                    ?>
+                                </select>
+                                
+                            </div>
+                           
+                             </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="companyname">Select Company<span style="color:#ff0000">*</span></label>
+                                <select id="companyname"  name="company" class="form-control" required="required">
+                                    <option value="">--Select one--</option>
+                                    <?php $sql = "SELECT DISTINCT company_name FROM company_list";
+                                          $run = mysqli_query($connect,$sql);
+                                          while($fetch = mysqli_fetch_array($run))
+                                          { ?>
+                                            <option value="<?php echo $fetch['company_name']?>"><?php echo $fetch['company_name']?></option>
+                                            <?php
+                                          }
+                                    ?>
+                                </select>
+                                
+                            </div>
+                           
+                             </div>
+                             <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="country">Select Country<span style="color:#ff0000">*</span></label>
+                                <select id="country"  name="country" class="form-control" required="required">
+                                    <option value="">--Select one--</option>
+                                    <?php $sql = "SELECT DISTINCT company_origin FROM company_list";
+                                          $run = mysqli_query($connect,$sql);
+                                          while($fetch = mysqli_fetch_array($run))
+                                          { ?>
+                                            <option value="<?php echo $fetch['company_origin']?>"><?php echo $fetch['company_origin']?></option>
+                                            <?php
+                                          }
+                                    ?>
+                                </select>
+                                
+                            </div>
+                           
+                             </div>
+                             <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="form_lastname">Order Unit<span style="color:#ff0000">*</span></label>
+                                <input id="form_lastname" type="text" name="unit" class="form-control" placeholder="Enter total order unit"  required="required" >
+                                                                </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="form_lastname">Delivery Date<span style="color:#ff0000">*</span></label>
+                                <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" >
+                                                                </div>
+                        </div>
+                        
+                             <div class="col-md-3">
+                             <button name ="submit" type="submit" class="btn btn-success
+                                ">Submit</button>
+                        </div>           
+                        </div>
+                    </div>
+                    <hr>
+                        <div class="col-md-4">
+                          <label style="color:#ff0000">Please check again all the info before proceeding!</label>
+                       </div>
+                    </div>
+                  </form>
+               </div>
+          </div>
+          </div>
+  </div>
+  <div class = "sec-2">
+    
      <table class="styled-table">
     <?php
            include 'connect.php';
@@ -158,79 +255,72 @@ $id = $_SESSION['id'];
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $month=date("m"); $month=$month-1;
-           $query1 = "SELECT *from machine_repair";
+           $query1 = "SELECT *from export_order";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
         <tr>
-          <th class="head" colspan="7">
+          <th class="head" colspan="9">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
       </thead>
       <thead>
         <tr>
-          <form action="machine_repair_search.php" method="GET">
+          <form action="../production/machine_search.php" method="GET">
           <th colspan="3" class="head1">               
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter Machine id *" required="required" >
           </th>
           <th colspan="2"class="head1">
-          <input class="datepicker" type="month" name="date" min="2010-01" required="required">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="../backend/salary_expense_excel_record.php">
-          <th colspan="1" class="head2" >
+          <form  method="POST" action="../backend/machinery_purchase_excel.php">
+          <th colspan="2" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
-          <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-plus"></i>&nbsp;Add</button>
+          <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
           </th>
-          <th colspan ="1" class="head2">
-          <form action="../backend/machine_repair.php" method="POST">
-          <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-hammer"></i>&nbsp;Repair</button>
+          <th colspan ="2" class="head2">
+          <form action="../backend/machine_delete.php" method="POST">
+          <button class="btn btn-danger" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
           </th>         
         </tr>     
       </thead>
     <thead>
         <tr>
-            <th>#</th>
-            <th>Machine&nbsp;ID</th>
-            <th>Machine&nbsp;Name</th>
-            <th>Machine&nbsp;Function</th>
-            <th>Working&nbsp;Status</th>
-            <th>Repair&nbsp;Cost</th>
-            <th>Issue&nbsp;date</th>
+        <th>#</th>
+        <th>Product&nbsp;ID</th>
+            <th>Product&nbsp;Name</th>
+            <th>Company&nbsp;Name</th>
+            <th>Delivery&nbsp;To</th>
+            <th>Total&nbsp;Unit</th>
+            <th>Per&nbsp;Unit&nbsp;Cost</th>
+            <th>Total&nbsp;Price</th>
+            <th>Delivery&nbsp;Date</th>
         </tr>
     </thead>
     <tbody>
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from machine_repair LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from export_order ORDER BY delivery_time desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
-           $total_expense=0;
+           $total_cost=0;
            while($fetch = mysqli_fetch_array($run))
            {
            
            ?>
         <tr>
-        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['machine_id']; ?>"> </td>
-            <td><?php echo $fetch['machine_id']?></td>
-            <td><?php echo $fetch['machine_name']?></td>
-            <td><?php echo $fetch['machine_function']?></td>
-            <?php
-                 if($fetch['working_status']==0)
-                 {
-                    echo'<td>Need Repairs</td>';
-                 }
-                 else
-                 {
-                    echo'<td>Repaired</td>';
-                 }
-            ?>
-            <td><?php echo $fetch['cost']?> &#2547;</td>
-            <td><?php echo $fetch['date']?></td>
+        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['product_id']; ?>"></td>
+            <td><?php echo $fetch['product_id']?></td>
+            <td><?php echo $fetch['product_name']?></td>
+            <td><?php echo $fetch['company_name']?></td>
+            <td><?php echo $fetch['delivery_to']?></td>
+            <td><?php echo $fetch['total_unit']?></td>
+            <td><?php echo $fetch['per_unit_cost']?> &#2547;</td>
+            <td><?php echo $fetch['total_cost'] ?> &#2547;</td>
+            <td><?php echo $fetch['delivery_time']?></td>
         </tr>
 
            <?php
@@ -238,18 +328,21 @@ $id = $_SESSION['id'];
            ?> 
            <thead>
            <th>#</th>
-           <th>Machine&nbsp;ID</th>
-            <th>Machine&nbsp;Name</th>
-            <th>Machine&nbsp;Function</th>
-            <th>Working&nbsp;Status</th>
-            <th>Repair&nbsp;Cost</th>
-            <th>Issue&nbsp;date</th></thead>
+        <th>Product&nbsp;ID</th>
+            <th>Product&nbsp;Name</th>
+            <th>Company&nbsp;Name</th>
+            <th>Delivery&nbsp;To</th>
+            <th>Total&nbsp;Unit</th>
+            <th>Per&nbsp;Unit&nbsp;Cost</th>
+            <th>Total&nbsp;Price</th>
+            <th>Delivery&nbsp;Date</th>
+            </thead>
            
     </tbody>
 </table>
 </form>
 <?php
-$query1 = "SELECT *from machine_repair";
+$query1 = "SELECT *from export_order";
 $result = mysqli_query($connect,$query1);
 if(mysqli_num_rows($result)> 0)
 {
@@ -258,17 +351,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../production/machine_repair.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../production/add_order.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../production/machine_repair.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../production/add_order.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../production/machine_repair.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../production/add_order.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
@@ -279,58 +372,8 @@ if(mysqli_num_rows($result)> 0)
       
 
   </section> <!--homesection ends here-->
-  <div id="myModal" class="modal">
-
-<!-- Modal content -->
-<div class="modal-content">
-  <div class="modal-header"> 
-    <h3>Machine Info</h3>
-    <span class="close"><button type="button" class="btn btn-danger" id="close"><i class="fas fa-times"></i></button></span>
-  </div>
-  <div class="modal-body">
-  
-  <div class="row ">
-  <form action="../backend/add_machine_repair.php" method="POST">
-          <div class="col-lg-7 mx-auto">
-             <div class="row">
-             <h3>Add&nbsp;Broken&nbsp;Machine&nbsp;info</h3>
-             <hr>
-             <br>
-             <div class="row">
-             <div class="col-md-6">
-             <div class="form-group">
-                                <label for="form_id">Enter Machine ID<span style="color:#ff0000">*</span></label>
-                                <input id="form_id" type="text" name="id" class="form-control" placeholder="Machine ID"required="required" >
-                                
-                            </div> 
-                        </div>
-                        <div class="col-md-6">
-                        <div class="form-group">
-                        <label for="form_id">Repair Cost<span style="color:#ff0000">*</span></label>
-                        <input id="form_id" type="text" name="cost" class="form-control" placeholder="Repair Cost" required="required" >
-                                
-                        </div>       
-                        </div>
-    
-                            </div>
-                        </div>
-                      <br>
-                        <hr>
-                        <div class="col-md-12">
-                        
-                            <button name ="submit" type="submit" class="btn btn-success btn-send  pt-2 btn-block
-                                "  >Submit</button>
-                                
-                       </div>
-                       </form>
-                       
-                    </div>
-             </div>
-</div>
-          </div>
-  </div>
+ 
   <!-- javascript codes are here -->
-</section>
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <?php
@@ -384,6 +427,7 @@ window.onclick = function(event) {
 
 </script>
 <!-- modal script ends here -->
+
 
 <!--navbar javascript code-->
 <script>
