@@ -260,7 +260,7 @@ $id = $_SESSION['id'];
         ?>
       <thead>
         <tr>
-          <th class="head" colspan="11">
+          <th class="head" colspan="12">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
@@ -276,13 +276,13 @@ $id = $_SESSION['id'];
           </th>
           </form>
           <form  method="POST" action="../backend/machinery_purchase_excel.php">
-          <th colspan="3" class="head2" >
+          <th colspan="4" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
           <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
           </th>
           <th colspan ="2" class="head2">
-          <form action="../backend/machine_delete.php" method="POST">
+          <form action="../backend/add_export_order_delete.php" method="POST">
           <button class="btn btn-danger" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
           </th>         
         </tr>     
@@ -290,6 +290,7 @@ $id = $_SESSION['id'];
     <thead>
         <tr>
         <th>#</th>
+        <th>Order&nbsp;Number</th>
         <th>Product&nbsp;ID</th>
             <th>Product&nbsp;Name</th>
             <th>Company&nbsp;Name</th>
@@ -306,7 +307,7 @@ $id = $_SESSION['id'];
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from export_order ORDER BY delivery_time desc LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from export_order ORDER BY order_no desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_cost=0;
            while($fetch = mysqli_fetch_array($run))
@@ -314,7 +315,8 @@ $id = $_SESSION['id'];
            
            ?>
         <tr>
-        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['product_id']; ?>"></td>
+        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['order_no']; ?>"></td>
+            <td><?php echo $fetch['order_no']?></td>  
             <td><?php echo $fetch['product_id']?></td>
             <td><?php echo $fetch['product_name']?></td>
             <td><?php echo $fetch['company_name']?></td>
@@ -351,6 +353,7 @@ $id = $_SESSION['id'];
            ?> 
            <thead>
            <th>#</th>
+           <th>Order&nbsp;Number</th>
         <th>Product&nbsp;ID</th>
             <th>Product&nbsp;Name</th>
             <th>Company&nbsp;Name</th>

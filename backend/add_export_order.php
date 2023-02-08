@@ -18,12 +18,26 @@ $sqlCheck = "SELECT *from company_list where company_name = '$companyName' and c
 $sqlCheckRun = mysqli_query($connect,$sqlCheck);
 if(mysqli_num_rows($sqlCheckRun)!=0)
 {
-    $sqlWrite = "Insert into export_order (product_id, product_name,company_name,delivery_to,total_unit,per_unit_cost,total_cost,delivery_time,status) values('$productId','$product','$companyName','$country','$unit','$productionCost','$totalCost','$date','0')";
-    mysqli_query($connect,$sqlWrite);
-    $_SESSION['status']="Order Info Added Successfully";
-    $_SESSION['status_code']="success";
-    $_SESSION['cause'] = "";
-    header("location:../production/add_order.php");
+    $sqlCheck = "SELECT *from export_order where product_id ='$productId' and company_name = '$companyName' and delivery_to ='$country'";
+    $sqlCheckRun = mysqli_query($connect,$sqlCheck);
+    if(mysqli_num_rows($sqlCheckRun)==0)
+    {
+        $sqlWrite = "Insert into export_order (product_id, product_name,company_name,delivery_to,total_unit,per_unit_cost,total_cost,delivery_time,status) values('$productId','$product','$companyName','$country','$unit','$productionCost','$totalCost','$date','0')";
+        mysqli_query($connect,$sqlWrite);
+        $_SESSION['status']="Order Info Added Successfully";
+        $_SESSION['status_code']="success";
+        $_SESSION['cause'] = "";
+        header("location:../production/add_order.php");
+    }
+    else
+    {
+        $_SESSION['status']="Order Info Already Added";
+        $_SESSION['status_code']="info";
+        $_SESSION['cause'] = "This company's order information has already been added";
+        header("location:../production/add_order.php");
+
+    }
+    
 }
 else
 {

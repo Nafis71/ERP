@@ -71,6 +71,13 @@ $_SESSION['status_code']="info";
 $_SESSION['cause'] = "";
 header('location:../finance/machine_buying_expense.php');
 }
+else if($indicate == 11)
+{
+$_SESSION['status']="No Records Available";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "";
+header('location:../production/add_order.php');
+}
 
 
 ?>
