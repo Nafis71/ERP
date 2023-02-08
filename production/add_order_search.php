@@ -17,7 +17,7 @@ $id = $_SESSION['id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/add_order.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Add Export Order</title>
+    <title>Add Machine</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -260,7 +260,7 @@ $id = $_SESSION['id'];
         ?>
       <thead>
         <tr>
-          <th class="head" colspan="11">
+          <th class="head" colspan="9">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
@@ -268,15 +268,15 @@ $id = $_SESSION['id'];
       <thead>
         <tr>
           <form action="../production/add_order_search.php" method="GET">
-          <th colspan="4" class="head1">               
-           <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter product id *" required="required" >
+          <th colspan="3" class="head1">               
+           <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter Machine id *" required="required" >
           </th>
           <th colspan="2"class="head1">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
           <form  method="POST" action="../backend/machinery_purchase_excel.php">
-          <th colspan="3" class="head2" >
+          <th colspan="2" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
           <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
@@ -298,8 +298,6 @@ $id = $_SESSION['id'];
             <th>Per&nbsp;Unit&nbsp;Cost</th>
             <th>Total&nbsp;Price</th>
             <th>Delivery&nbsp;Date</th>
-            <th>Remaining&nbsp;Days</th>
-            <th>Delivery&nbsp;Status</th>
         </tr>
     </thead>
     <tbody>
@@ -323,27 +321,6 @@ $id = $_SESSION['id'];
             <td><?php echo $fetch['per_unit_cost']?> &#2547;</td>
             <td><?php echo $fetch['total_cost'] ?> &#2547;</td>
             <td><?php echo $fetch['delivery_time']?></td>
-            <?php
-            mysqli_select_db($connect,'erp');
-            $productId = $fetch['product_id'];
-            $companyName = $fetch['company_name'];
-            $query2  = "SELECT datediff(delivery_time,NOW()) as dateDifference from export_order where product_id = '$productId' and company_name ='$companyName'";
-            $run2 = mysqli_query($connect,$query2);
-            $fetch2 = mysqli_fetch_array($run2);
-           ?>
-           <td><?php echo $fetch2['dateDifference']?></td>
-           <?php
-           if($fetch['status']==0)
-           {
-             ?> <td style="Color:grey">Not Delivered Yet</td>
-             <?php
-           }
-           else
-           {
-            ?> <td style="Color:Green">Delivered</td>
-            <?php
-           }
-           ?>
         </tr>
 
            <?php
@@ -359,8 +336,6 @@ $id = $_SESSION['id'];
             <th>Per&nbsp;Unit&nbsp;Cost</th>
             <th>Total&nbsp;Price</th>
             <th>Delivery&nbsp;Date</th>
-            <th>Remaining&nbsp;Days</th>
-            <th>Delivery&nbsp;Status</th>
             </thead>
            
     </tbody>
