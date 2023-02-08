@@ -5,15 +5,7 @@ if(!isset($_SESSION['id']))
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
-$search = $_GET['search'];
-include 'connect.php';
-mysqli_select_db($connect,'erp');
-$sql = "SELECT *from export_order where product_id ='$search' OR order_no ='$search'";
-$run =mysqli_query($connect,$sql);
-if(mysqli_num_rows($run) == 0)
-{
-  header('location:../backend/redirect_searcherror.php?indicate=11');
-}
+$order_no = $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +18,7 @@ if(mysqli_num_rows($run) == 0)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/add_order.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Add Export Order</title>
+    <title>Edit Export Order</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -89,7 +81,7 @@ if(mysqli_num_rows($run) == 0)
           <li><a href="add_order.php">Add Export Orders</a></li>
           <li><a href="machine_repair.php">Machine Repair</a></li>
           <li><a href="add_machine.php">Machinery Purchase</a></li>
-          
+          <li><a href="#">Box Icons</a></li>
         </ul>
       </li>
       <li>
@@ -147,28 +139,34 @@ if(mysqli_num_rows($run) == 0)
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Export Order list</span>
+      <span class="text">Export Order List Updation</span>
       
     </div>
     <div class = "sec-1">
      <div class ="card">
         <div class="form">
      <div class="row-col-lg-12">
-          
-          
               
                 <div class = "container">
-                                 <form action="../backend/add_export_order.php" method="post">                  
-                                 <h3>Add&nbsp;order</h3>
-                                 <hr>
+                        <form action="../backend/edit_export_order.php" method="post">                  
+                         <h3>Edit&nbsp;order</h3>
+                            <hr>
                 <div class="controls">
     
                     <div class="row">
                     <div class="col-md-2">
                             <div class="form-group">
+                             <?php
+                                include 'connect.php';
+                                mysqli_select_db($connect,'erp');
+                                $sql = "SELECT *FROM export_order where order_no = '$order_no'";
+                                $run = mysqli_query($connect,$sql);
+                                $fetch2 = mysqli_fetch_array($run);
+                             ?>
+                             <input type="hidden" name="orderno" value="<?php echo $order_no ?>">
                                 <label for="form_need1">Select Product<span style="color:#ff0000">*</span></label>
                                 <select id="form_need1"  name="product" class="form-control" required="required">
-                                    <option value="">--Select Catagory--</option>
+                                    <option value="<?php echo $fetch2['product_name'] ?>"><?php echo $fetch2['product_name'] ?></option>
                                     <?php $sql = "SELECT product_name FROM product_info";
                                           $run = mysqli_query($connect,$sql);
                                           while($fetch = mysqli_fetch_array($run))
@@ -186,7 +184,7 @@ if(mysqli_num_rows($run) == 0)
                             <div class="form-group">
                                 <label for="companyname">Select Company<span style="color:#ff0000">*</span></label>
                                 <select id="companyname"  name="company" class="form-control" required="required">
-                                    <option value="">--Select one--</option>
+                                    <option value="<?php echo $fetch2['company_name'] ?>"><?php echo $fetch2['company_name'] ?></option>
                                     <?php $sql = "SELECT DISTINCT company_name FROM company_list";
                                           $run = mysqli_query($connect,$sql);
                                           while($fetch = mysqli_fetch_array($run))
@@ -204,7 +202,7 @@ if(mysqli_num_rows($run) == 0)
                             <div class="form-group">
                                 <label for="country">Select Country<span style="color:#ff0000">*</span></label>
                                 <select id="country"  name="country" class="form-control" required="required">
-                                    <option value="">--Select one--</option>
+                                    <option value="<?php echo $fetch2['delivery_to'] ?>"><?php echo $fetch2['delivery_to'] ?></option>
                                     <?php $sql = "SELECT DISTINCT company_origin FROM company_list";
                                           $run = mysqli_query($connect,$sql);
                                           while($fetch = mysqli_fetch_array($run))
@@ -221,19 +219,19 @@ if(mysqli_num_rows($run) == 0)
                              <div class="col-md-2">
                             <div class="form-group">
                                 <label for="form_lastname">Order Unit<span style="color:#ff0000">*</span></label>
-                                <input id="form_lastname" type="text" name="unit" class="form-control" placeholder="Enter total order unit"  required="required" >
+                                <input id="form_lastname" type="text" name="unit" class="form-control" placeholder="Enter total order unit"  required="required" value="<?php echo $fetch2['total_unit'] ?>" >
                                                                 </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="form_lastname">Delivery Date<span style="color:#ff0000">*</span></label>
-                                <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" >
+                                <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" value="<?php echo $fetch2['delivery_time'] ?>" >
                                                                 </div>
                         </div>
                         
                              <div class="col-md-3">
                              <button name ="submit" type="submit" class="btn btn-success
-                                ">Submit</button>
+                                ">Update</button>
                         </div>           
                         </div>
                     </div>
@@ -247,166 +245,6 @@ if(mysqli_num_rows($run) == 0)
           </div>
           </div>
   </div>
-  <div class = "sec-2">
-    
-     <table class="styled-table">
-    <?php
-           include 'connect.php';
-           mysqli_select_db($connect,'erp');
-           $limit = 12;
-           
-           if(isset($_GET['page']))
-           {
-            $page = $_GET['page'];
-           }
-           else
-           {
-            $page =1;
-           }
-           $offset = ($page-1) * $limit;
-           $query1 = "SELECT *from export_order Where product_id ='$search' OR order_no ='$search'";
-           $result = mysqli_query($connect,$query1);
-        ?>
-      <thead>
-        <tr>
-          <th class="head" colspan="13">
-<?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
-          </th>
-        </tr>
-      </thead>
-      <thead>
-        <tr>
-          <form action="../production/add_order_search.php" method="GET">
-          <th colspan="5" class="head1">               
-           <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter product id *" required="required" >
-          </th>
-          <th colspan="2"class="head1">
-          <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-          </th>
-          </form>
-          <form  method="POST" action="../backend/machinery_purchase_excel.php">
-          <th colspan="4" class="head2" >
-          <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
-          </form>
-          </th>
-          <th colspan ="2" class="head2">
-          <form action="../backend/add_export_order_delete.php" method="POST">
-          <button class="btn btn-danger" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
-          </th>         
-        </tr>     
-      </thead>
-    <thead>
-        <tr>
-        <th>#</th>
-        <th>Order&nbsp;Number</th>
-        <th>Product&nbsp;ID</th>
-            <th>Product&nbsp;Name</th>
-            <th>Company&nbsp;Name</th>
-            <th>Delivery&nbsp;To</th>
-            <th>Total&nbsp;Unit</th>
-            <th>Per&nbsp;Unit&nbsp;Cost</th>
-            <th>Total&nbsp;Price</th>
-            <th>Delivery&nbsp;Date</th>
-            <th>Remaining&nbsp;Days</th>
-            <th>Delivery&nbsp;Status</th>
-            <th>Edit&nbsp;Info</th>
-        </tr>
-    </thead>
-    <tbody>
-          
-          <?php
-          mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from export_order Where product_id ='$search' OR order_no ='$search' ORDER BY order_no desc LIMIT {$offset},{$limit}";
-           $run = mysqli_query($connect,$query);
-           $total_cost=0;
-           while($fetch = mysqli_fetch_array($run))
-           {
-           
-           ?>
-        <tr>
-        <td><input type="checkbox" name=check[] value="<?php  echo $fetch['order_no']; ?>"></td>
-            <td><?php echo $fetch['order_no']?></td>  
-            <td><?php echo $fetch['product_id']?></td>
-            <td><?php echo $fetch['product_name']?></td>
-            <td><?php echo $fetch['company_name']?></td>
-            <td><?php echo $fetch['delivery_to']?></td>
-            <td><?php echo $fetch['total_unit']?></td>
-            <td><?php echo $fetch['per_unit_cost']?> &#2547;</td>
-            <td><?php echo $fetch['total_cost'] ?> &#2547;</td>
-            <td><?php echo $fetch['delivery_time']?></td>
-            <?php
-            mysqli_select_db($connect,'erp');
-            $productId = $fetch['product_id'];
-            $companyName = $fetch['company_name'];
-            $query2  = "SELECT datediff(delivery_time,NOW()) as dateDifference from export_order where product_id = '$productId' and company_name ='$companyName'";
-            $run2 = mysqli_query($connect,$query2);
-            $fetch2 = mysqli_fetch_array($run2);
-           ?>
-           <td><?php echo $fetch2['dateDifference']?></td>
-           <?php
-           if($fetch['status']==0)
-           {
-             ?> <td style="Color:grey">Not Delivered Yet</td>
-             <?php
-           }
-           else
-           {
-            ?> <td style="Color:Green">Delivered</td>
-            <?php
-           }
-           ?>
-           <?php echo '<td> <a class = "btn btn-secondary" href="../production/export_order_edit.php?id='.$fetch['order_no'].'">';?><i class="fa-solid fa-pen"></i>&nbsp;Edit</a></td>
-        </tr>
-
-           <?php
-           }
-           ?> 
-           <thead>
-           <th>#</th>
-           <th>Order&nbsp;Number</th>
-        <th>Product&nbsp;ID</th>
-            <th>Product&nbsp;Name</th>
-            <th>Company&nbsp;Name</th>
-            <th>Delivery&nbsp;To</th>
-            <th>Total&nbsp;Unit</th>
-            <th>Per&nbsp;Unit&nbsp;Cost</th>
-            <th>Total&nbsp;Price</th>
-            <th>Delivery&nbsp;Date</th>
-            <th>Remaining&nbsp;Days</th>
-            <th>Delivery&nbsp;Status</th>
-            <th>Edit&nbsp;Info</th>
-            </thead>
-           
-    </tbody>
-</table>
-</form>
-<?php
-$query1 = "SELECT *from export_order Where product_id ='$search' OR order_no ='$search'";
-$result = mysqli_query($connect,$query1);
-if(mysqli_num_rows($result)> 0)
-{
-  $records =mysqli_num_rows($result); 
-  $total_page = ceil($records / $limit);
-  echo '<ul class ="pagination">';
-  if($page >1)
-  {
-    echo'<li><a href="../production/add_order_search.php?page='.($page-1).'&search='.$search.'" class="btn btn-primary">Prev</a></li>';
-  }
-  for($i =1;$i<=$total_page;$i++)
-  {
-    
-    echo'<li><a href="../production/add_order_search.php?page='.$i.'&search='.$search.'" class="btn btn-primary">'.$i.'</a></li>';
-  
-  }
-  if($total_page > $page)
-  {
-    echo'<li><a href="../production/add_order_search.php?page='.($page+1).'&search='.$search.'" class="btn btn-primary">Next</a></li>';
-  }
-  echo'</ul>';
-
-}
-?>
-     </div>
     </div>
       
 

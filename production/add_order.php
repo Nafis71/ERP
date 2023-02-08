@@ -260,7 +260,7 @@ $id = $_SESSION['id'];
         ?>
       <thead>
         <tr>
-          <th class="head" colspan="12">
+          <th class="head" colspan="13">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
@@ -268,7 +268,7 @@ $id = $_SESSION['id'];
       <thead>
         <tr>
           <form action="../production/add_order_search.php" method="GET">
-          <th colspan="4" class="head1">               
+          <th colspan="5" class="head1">               
            <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter product id *" required="required" >
           </th>
           <th colspan="2"class="head1">
@@ -279,7 +279,6 @@ $id = $_SESSION['id'];
           <th colspan="4" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
-          <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
           </th>
           <th colspan ="2" class="head2">
           <form action="../backend/add_export_order_delete.php" method="POST">
@@ -301,6 +300,7 @@ $id = $_SESSION['id'];
             <th>Delivery&nbsp;Date</th>
             <th>Remaining&nbsp;Days</th>
             <th>Delivery&nbsp;Status</th>
+            <th>Edit&nbsp;Info</th>
         </tr>
     </thead>
     <tbody>
@@ -346,6 +346,7 @@ $id = $_SESSION['id'];
             <?php
            }
            ?>
+           <?php echo '<td> <a class = "btn btn-secondary" href="../production/export_order_edit.php?id='.$fetch['order_no'].'">';?><i class="fa-solid fa-pen"></i>&nbsp;Edit</a></td>
         </tr>
 
            <?php
@@ -364,6 +365,7 @@ $id = $_SESSION['id'];
             <th>Delivery&nbsp;Date</th>
             <th>Remaining&nbsp;Days</th>
             <th>Delivery&nbsp;Status</th>
+            <th>Edit&nbsp;Info</th>
             </thead>
            
     </tbody>
