@@ -168,7 +168,7 @@ if(mysqli_num_rows($run) == 0)
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'";
+           $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and year='$year'";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
@@ -232,12 +232,11 @@ if(mysqli_num_rows($run) == 0)
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and year='$year' LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))
-           {
-           
+           { 
            ?>
         <tr>
             <?php $id1= $fetch['emp_id'];
@@ -255,10 +254,10 @@ if(mysqli_num_rows($run) == 0)
             <td><?php echo $fetch['rent']?> &#2547;</td>
             <td><?php echo $fetch['count']?></td>
             <?php
-            $working_hour ="SELECT sum(working_hour) as working_hour from attendance where emp_id='$id1' and MONTH(attendance_date)='$month'";
+            $working_hour ="SELECT sum(working_hour) as working_hour from attendance where emp_id='$id1' and MONTH(attendance_date)='$month' AND YEAR(attendance_date)='$year'";
             $working_run =mysqli_query($connect,$working_hour);
             $fetch_working_hour = mysqli_fetch_array($working_run);
-            $total_hour ="SELECT *from holiday where month='$month'";
+            $total_hour ="SELECT *from holiday where month='$month' and year='$year'";
             $total_hour_run =mysqli_query($connect,$total_hour);
             $fetch_total_hour = mysqli_fetch_array($total_hour_run);
             $totalhour =$fetch_total_hour['working_hour'];

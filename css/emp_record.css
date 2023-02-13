@@ -274,7 +274,7 @@
   position: relative;
     top: 10px;
     left: 10px;
-    width: auto;
+    width: 98%;
     margin-bottom: 50px;
    margin-top: 38px;
 }
@@ -292,13 +292,21 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.10);
 
 }
+.btn {
+  border: none;
+  border-radius: 0;
+  border-radius: 9px !important; 
+    border-radius: 30px;
+    
+    -webkit-box-shadow: 0 13px 30px 0 rgba(37, 33, 31, 0.3);
+    box-shadow: 0 13px 30px 0 rgba(51, 45, 43, 0.3); }
 .home-section .sec-1 .styled-table {
   border-collapse: collapse;
   margin: 25px;
   font-size: 17px;
   font-weight: 400;
   font-family: sans-serif;
-  min-width: 100%;
+  width: 100%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   text-align: center;
   

@@ -63,8 +63,7 @@ $id = $_SESSION['id'];
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Finance Panel</a></li>
           <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
-          <li><a href="#">Login Form</a></li>
-          <li><a href="#">Card Design</a></li>
+          
         </ul>
       </li>
       <li>
@@ -80,7 +79,6 @@ $id = $_SESSION['id'];
           <li><a href="add_order.php">Add Export Orders</a></li>
           <li><a href="machine_repair.php">Machine Repair</a></li>
           <li><a href="add_machine.php">Machinery Purchase</a></li>
-          <li><a href="#">Box Icons</a></li>
         </ul>
       </li>
       <li>
@@ -180,7 +178,7 @@ $id = $_SESSION['id'];
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="../backend/salary_expense_excel_record.php">
+          <form  method="POST" action="../backend/machine_repair_excel.php">
           <th colspan="1" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
@@ -207,7 +205,7 @@ $id = $_SESSION['id'];
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from machine_repair LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from machine_repair Order by date desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))

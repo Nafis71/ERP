@@ -17,6 +17,7 @@ $order_no = $_GET['id'];
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/add_order.css" rel='stylesheet'>
+    <link rel="stylesheet" href="../css/style1.css">
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
     <title>Edit Export Order</title>
 </head>
@@ -64,8 +65,7 @@ $order_no = $_GET['id'];
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Finance Panel</a></li>
           <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
-          <li><a href="#">Login Form</a></li>
-          <li><a href="#">Card Design</a></li>
+          
         </ul>
       </li>
       <li>
@@ -77,11 +77,10 @@ $order_no = $_GET['id'];
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Production Panel</a></li>
+        <li><a class="link_name" href="#">Production Panel</a></li>
           <li><a href="add_order.php">Add Export Orders</a></li>
           <li><a href="machine_repair.php">Machine Repair</a></li>
           <li><a href="add_machine.php">Machinery Purchase</a></li>
-          <li><a href="#">Box Icons</a></li>
         </ul>
       </li>
       <li>
@@ -142,31 +141,28 @@ $order_no = $_GET['id'];
       <span class="text">Export Order List Updation</span>
       
     </div>
-    <div class = "sec-1">
-     <div class ="card">
-        <div class="form">
-     <div class="row-col-lg-12">
-              
-                <div class = "container">
-                        <form action="../backend/edit_export_order.php" method="post">                  
-                         <h3>Edit&nbsp;order</h3>
-                            <hr>
-                <div class="controls">
+    <div class = "sec-5">
+    <div class="content">
     
-                    <div class="row">
-                    <div class="col-md-2">
-                            <div class="form-group">
-                             <?php
+    <div class="container">
+      <div class="row align-items-stretch no-gutters contact-wrap">
+        <div class="col-md-12">
+          <div class="form h-100">
+            <h3>Order List Edit</h3>
+            <form class="mb-5" method="post" id="contactForm" name="contactForm" action="../backend/edit_export_order.php">
+                              <?php
                                 include 'connect.php';
                                 mysqli_select_db($connect,'erp');
                                 $sql = "SELECT *FROM export_order where order_no = '$order_no'";
                                 $run = mysqli_query($connect,$sql);
                                 $fetch2 = mysqli_fetch_array($run);
-                             ?>
-                             <input type="hidden" name="orderno" value="<?php echo $order_no ?>">
-                                <label for="form_need1">Select Product<span style="color:#ff0000">*</span></label>
-                                <select id="form_need1"  name="product" class="form-control" required="required">
-                                    <option value="<?php echo $fetch2['product_name'] ?>"><?php echo $fetch2['product_name'] ?></option>
+                              ?>
+              <div class="row">
+              <div class="col-md-4 form-group mb-3">
+              <input type="hidden" name="orderno" value="<?php echo $order_no ?>">
+              <label for="country">Select Product<span style="color:#ff0000">*</span></label>
+                  <select class="custom-select" id="budget" name="product">
+                  <option value="<?php echo $fetch2['product_name'] ?>"><?php echo $fetch2['product_name'] ?></option>
                                     <?php $sql = "SELECT product_name FROM product_info";
                                           $run = mysqli_query($connect,$sql);
                                           while($fetch = mysqli_fetch_array($run))
@@ -175,16 +171,12 @@ $order_no = $_GET['id'];
                                             <?php
                                           }
                                     ?>
-                                </select>
-                                
-                            </div>
-                           
-                             </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="companyname">Select Company<span style="color:#ff0000">*</span></label>
-                                <select id="companyname"  name="company" class="form-control" required="required">
-                                    <option value="<?php echo $fetch2['company_name'] ?>"><?php echo $fetch2['company_name'] ?></option>
+                  </select>
+                </div>
+                <div class="col-md-4 form-group mb-3">
+                <label for="country">Select Company<span style="color:#ff0000">*</span></label>
+                  <select class="custom-select" id="budget" name="company">
+                  <option value="<?php echo $fetch2['company_name'] ?>"><?php echo $fetch2['company_name'] ?></option>
                                     <?php $sql = "SELECT DISTINCT company_name FROM company_list";
                                           $run = mysqli_query($connect,$sql);
                                           while($fetch = mysqli_fetch_array($run))
@@ -193,16 +185,12 @@ $order_no = $_GET['id'];
                                             <?php
                                           }
                                     ?>
-                                </select>
-                                
-                            </div>
-                           
-                             </div>
-                             <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="country">Select Country<span style="color:#ff0000">*</span></label>
-                                <select id="country"  name="country" class="form-control" required="required">
-                                    <option value="<?php echo $fetch2['delivery_to'] ?>"><?php echo $fetch2['delivery_to'] ?></option>
+                  </select>
+                </div>
+                <div class="col-md-4 form-group mb-3">
+                <label for="country">Select Country<span style="color:#ff0000">*</span></label>
+                  <select class="custom-select" id="country" name="country">
+                  <option value="<?php echo $fetch2['delivery_to'] ?>"><?php echo $fetch2['delivery_to'] ?></option>
                                     <?php $sql = "SELECT DISTINCT company_origin FROM company_list";
                                           $run = mysqli_query($connect,$sql);
                                           while($fetch = mysqli_fetch_array($run))
@@ -211,39 +199,35 @@ $order_no = $_GET['id'];
                                             <?php
                                           }
                                     ?>
-                                </select>
-                                
-                            </div>
-                           
-                             </div>
-                             <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="form_lastname">Order Unit<span style="color:#ff0000">*</span></label>
-                                <input id="form_lastname" type="text" name="unit" class="form-control" placeholder="Enter total order unit"  required="required" value="<?php echo $fetch2['total_unit'] ?>" >
-                                                                </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="form_lastname">Delivery Date<span style="color:#ff0000">*</span></label>
-                                <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" value="<?php echo $fetch2['delivery_time'] ?>" >
-                                                                </div>
-                        </div>
-                        
-                             <div class="col-md-3">
-                             <button name ="submit" type="submit" class="btn btn-success
-                                ">Update</button>
-                        </div>           
-                        </div>
-                    </div>
-                    <hr>
-                        <div class="col-md-4">
-                          <label style="color:#ff0000">Please check again all the info before proceeding!</label>
-                       </div>
-                    </div>
-                  </form>
-               </div>
+                  </select>
+                </div>
+                
+               
+              </div>
+              <div class="row">
+              <div class="col-md-4 form-group mb-3">
+                <label for="form_lastname">Order Unit<span style="color:#ff0000">*</span></label>
+                  <input type="number" class="form-control" name="unit" id="unit"  placeholder="Enter Order Unit" value="<?php echo $fetch2['total_unit'] ?>">
+                </div>
+              <div class="col-md-2 form-group mb-5">
+              <label for="form_lastname">Delivery Date<span style="color:#ff0000">*</span></label>
+                 <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" value="<?php echo $fetch2['delivery_time'] ?>" >
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <input type="submit" value="Update" name ="submit" class="btn btn-primary rounded-0 py-2 px-4">
+                </div>
+              </div>
+            </form>
+
+
           </div>
-          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
   </div>
     </div>
       

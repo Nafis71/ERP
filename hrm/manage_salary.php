@@ -63,8 +63,6 @@ $id = $_SESSION['id'];
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Finance Panel</a></li>
           <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
-          <li><a href="#">Login Form</a></li>
-          <li><a href="#">Card Design</a></li>
         </ul>
       </li>
       <li>
@@ -77,9 +75,9 @@ $id = $_SESSION['id'];
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Production Panel</a></li>
+          <li><a href="../production/add_order.php">Add Export Orders</a></li>
           <li><a href="../production/machine_repair.php">Machine Repair</a></li>
           <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
-          <li><a href="#">Box Icons</a></li>
         </ul>
       </li>
       <li>

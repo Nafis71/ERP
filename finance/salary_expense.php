@@ -160,7 +160,7 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
            }
            $offset = ($page-1) * $limit;
            $month=date("m"); $month=$month-1;
-           $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month'";
+           $query1 = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and year='$year'";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
@@ -224,7 +224,7 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from salary NATURAL JOIN salary_list Natural Join month where month='$month' and year='$year' LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
            while($fetch = mysqli_fetch_array($run))
@@ -247,10 +247,10 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
             <td><?php echo $fetch['rent']?> &#2547;</td>
             <td><?php echo $fetch['count']?></td>
             <?php
-            $working_hour ="SELECT sum(working_hour) as working_hour from attendance where emp_id='$id1' and MONTH(attendance_date)='$month'";
+            $working_hour ="SELECT sum(working_hour) as working_hour from attendance where emp_id='$id1' and MONTH(attendance_date)='$month' and YEAR(attendance_date)='$year'";
             $working_run =mysqli_query($connect,$working_hour);
             $fetch_working_hour = mysqli_fetch_array($working_run);
-            $total_hour ="SELECT *from holiday where month='$month'";
+            $total_hour ="SELECT *from holiday where month='$month'and year='$year'";
             $total_hour_run =mysqli_query($connect,$total_hour);
             $fetch_total_hour = mysqli_fetch_array($total_hour_run);
             $totalhour =$fetch_total_hour['working_hour'];
@@ -273,7 +273,7 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
              $working_hour =$fetch_working_hour['working_hour'];
              $year1 = $fetch_total_hour['year'];
              $month1 = $fetch_total_hour['month'];
-            $sql = "SELECT * FROM salary_expense where emp_id ='$id1' and month = '$month1' and year = '$year1'";
+            $sql = "SELECT * FROM salary_expense where emp_id ='$id1' and month = '$month1' and year = '$year'";
             $runsql =mysqli_query($connect,$sql);
             if(mysqli_num_rows($runsql)!=0)
             {
@@ -283,7 +283,7 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
             }
             else
             {
-              $sql3 = "INSERT into salary_expense(month,year,emp_id,name,designation,basic_salary,transport,medical,rent,total_attendance,month_working_hour,total_working_hour,gross_salary)values('$month1','$year1','$id1','$name','$designation','$basicsalary','$transport','$medical','$rent','$total_attendance','$totalhour','$working_hour','$total_salary')";
+              $sql3 = "INSERT into salary_expense(month,year,emp_id,name,designation,basic_salary,transport,medical,rent,total_attendance,month_working_hour,total_working_hour,gross_salary)values('$month1','$year','$id1','$name','$designation','$basicsalary','$transport','$medical','$rent','$total_attendance','$totalhour','$working_hour','$total_salary')";
               mysqli_query($connect,$sql3);
             }?>
 

@@ -63,8 +63,7 @@ $id = $_SESSION['id'];
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Finance Panel</a></li>
           <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
-          <li><a href="#">Login Form</a></li>
-          <li><a href="#">Card Design</a></li>
+          
         </ul>
       </li>
       <li>
@@ -76,11 +75,10 @@ $id = $_SESSION['id'];
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Production Panel</a></li>
+        <li><a class="link_name" href="#">Production Panel</a></li>
           <li><a href="add_order.php">Add Export Orders</a></li>
           <li><a href="machine_repair.php">Machine Repair</a></li>
           <li><a href="add_machine.php">Machinery Purchase</a></li>
-          <li><a href="#">Box Icons</a></li>
         </ul>
       </li>
       <li>
@@ -224,7 +222,7 @@ $id = $_SESSION['id'];
                         
                              <div class="col-md-3">
                              <button name ="submit" type="submit" class="btn btn-success
-                                ">Submit</button>
+                                "><i class="fas fa-cloud-upload-alt"></i>&nbsp;Submit</button>
                         </div>           
                         </div>
                     </div>
@@ -260,7 +258,7 @@ $id = $_SESSION['id'];
         ?>
       <thead>
         <tr>
-          <th class="head" colspan="13">
+          <th class="head" colspan="15">
 <?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
           </th>
         </tr>
@@ -269,13 +267,13 @@ $id = $_SESSION['id'];
         <tr>
           <form action="../production/add_order_search.php" method="GET">
           <th colspan="5" class="head1">               
-           <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter product id *" required="required" >
+           <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter product id/ Order no" required="required" >
           </th>
-          <th colspan="2"class="head1">
+          <th colspan="4"class="head1">
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="../backend/machinery_purchase_excel.php">
+          <form  method="POST" action="../backend/add_order_excel.php">
           <th colspan="4" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
@@ -297,6 +295,8 @@ $id = $_SESSION['id'];
             <th>Total&nbsp;Unit</th>
             <th>Per&nbsp;Unit&nbsp;Cost</th>
             <th>Total&nbsp;Price</th>
+            <th>Payment&nbsp;Type</th>
+            <th>Payment&nbsp;Status</th>
             <th>Delivery&nbsp;Date</th>
             <th>Remaining&nbsp;Days</th>
             <th>Delivery&nbsp;Status</th>
@@ -324,6 +324,8 @@ $id = $_SESSION['id'];
             <td><?php echo $fetch['total_unit']?></td>
             <td><?php echo $fetch['per_unit_cost']?> &#2547;</td>
             <td><?php echo $fetch['total_cost'] ?> &#2547;</td>
+            <td style="color:green">Pre-Payment</td>
+            <td style="color:green">Paid</td>
             <td><?php echo $fetch['delivery_time']?></td>
             <?php
             mysqli_select_db($connect,'erp');
@@ -362,6 +364,8 @@ $id = $_SESSION['id'];
             <th>Total&nbsp;Unit</th>
             <th>Per&nbsp;Unit&nbsp;Cost</th>
             <th>Total&nbsp;Price</th>
+            <th>Payment&nbsp;Type</th>
+            <th>Payment&nbsp;Status</th>
             <th>Delivery&nbsp;Date</th>
             <th>Remaining&nbsp;Days</th>
             <th>Delivery&nbsp;Status</th>

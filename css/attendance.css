@@ -314,6 +314,14 @@
   
   
 }
+.btn {
+  border: none;
+  border-radius: 0;
+  border-radius: 9px !important; 
+    border-radius: 30px;
+    
+    -webkit-box-shadow: 0 13px 30px 0 rgba(37, 33, 31, 0.3);
+    box-shadow: 0 13px 30px 0 rgba(51, 45, 43, 0.3); }
 .styled-table .head
 {
   text-align: left;
