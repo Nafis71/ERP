@@ -143,7 +143,7 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
       
     </div>
     <div class = "sec-1">
-     <div class ="card2">
+    
      <table class="styled-table">
     <?php
            include 'connect.php';
@@ -334,7 +334,7 @@ if(mysqli_num_rows($result)> 0)
 
 }
 ?>
-     </div>
+   
     </div>
       
 
