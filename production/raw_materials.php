@@ -238,14 +238,10 @@ $id = $_SESSION['id'];
           </th>
           </form>
           <form  method="POST" action="../backend/add_order_excel.php">
-          <th colspan="3" class="head2" >
+          <th colspan="5" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
-          </th>
-          <th colspan ="2" class="head2">
-          <form action="../backend/add_export_order_delete.php" method="POST">
-          <button class="btn btn-secondary" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
-          </th>         
+          </th>      
         </tr>     
       </thead>
     <thead>
