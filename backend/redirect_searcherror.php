@@ -78,6 +78,13 @@ $_SESSION['status_code']="info";
 $_SESSION['cause'] = "";
 header('location:../production/add_order.php');
 }
+else if($indicate == 12)
+{
+$_SESSION['status']="No Records Available";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "";
+header('location:../production/raw_materials.php');
+}
 
 
 ?>

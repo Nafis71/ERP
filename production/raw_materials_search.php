@@ -1,10 +1,19 @@
 <?php
 session_start();
+include 'connect.php';
 if(!isset($_SESSION['id']))
 {
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+$search = $_GET['search'];
+mysqli_select_db($connect,'erp');
+$sql = "SELECT *from raw_material_purchase where material_id ='$search' OR serial_no ='$search'";
+$run =mysqli_query($connect,$sql);
+if(mysqli_num_rows($run) == 0)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=12');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +26,7 @@ $id = $_SESSION['id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/raw_materials.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Raw material purchase</title>
+    <title>Raw Material Search</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -217,7 +226,7 @@ $id = $_SESSION['id'];
             $page =1;
            }
            $offset = ($page-1) * $limit;
-           $query1 = "SELECT *from raw_material_purchase";
+           $query1 = "SELECT *from raw_material_purchase where material_id ='$search' OR serial_no ='$search'";
            $result = mysqli_query($connect,$query1);
         ?>
       <thead>
@@ -237,7 +246,7 @@ $id = $_SESSION['id'];
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </th>
           </form>
-          <form  method="POST" action="../backend/raw_material_excel.php">
+          <form  method="POST" action="../backend/add_order_excel.php">
           <th colspan="5" class="head2" >
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
@@ -262,7 +271,7 @@ $id = $_SESSION['id'];
           
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "SELECT *from raw_material_purchase ORDER BY serial_no desc LIMIT {$offset},{$limit}";
+           $query  = "SELECT *from raw_material_purchase where material_id ='$search' OR serial_no ='$search' ORDER BY serial_no desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            while($fetch = mysqli_fetch_array($run))
            {
@@ -310,17 +319,17 @@ if(mysqli_num_rows($result)> 0)
   echo '<ul class ="pagination">';
   if($page >1)
   {
-    echo'<li><a href="../production/raw_materials.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+    echo'<li><a href="../production/raw_materials_search.php?page='.($page-1).'&search='.$search.'" class="btn btn-primary">Prev</a></li>';
   }
   for($i =1;$i<=$total_page;$i++)
   {
     
-    echo'<li><a href="../production/raw_materials.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+    echo'<li><a href="../production/raw_materials_search.php?page='.$i.'&search='.$search.'" class="btn btn-primary">'.$i.'</a></li>';
   
   }
   if($total_page > $page)
   {
-    echo'<li><a href="../production/raw_materials.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+    echo'<li><a href="../production/raw_materials_search.php?page='.($page+1).'&search='.$search.'" class="btn btn-primary">Next</a></li>';
   }
   echo'</ul>';
 
