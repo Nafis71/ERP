@@ -182,7 +182,7 @@ $serial_no = $_GET['id'];
                 </div>
               <div class="col-md-2 form-group mb-5">
               <label for="form_lastname">Purchase Date<span style="color:#ff0000">*</span></label>
-                 <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" value="<?php echo $fetch['purchase_date'] ?>" required>
+                 <input class = "datepicker"id="form_lastname" type="date" name="date" max = "<?php $year ?> required="required" value="<?php echo $fetch['purchase_date'] ?>" required>
               </div>
               </div>
               <div class="row">
