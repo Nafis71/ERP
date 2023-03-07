@@ -2,8 +2,10 @@
 session_start();
 include 'connect.php';
 mysqli_select_db($connect,'erp');
-    $year=date("Y"); $month=date("m");
     $id = $_GET['id'];
+    $date =$_GET['date'];
+    $month =date("m",strtotime($date));
+    $year =date("Y",strtotime($date));
     $sql = "SELECT total_cost, material_id from raw_material_purchase where serial_no= '$id'";
     $run = mysqli_query($connect,$sql);
     $fetch = mysqli_fetch_array($run);

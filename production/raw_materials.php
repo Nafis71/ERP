@@ -266,7 +266,6 @@ $id = $_SESSION['id'];
            $run = mysqli_query($connect,$query);
            while($fetch = mysqli_fetch_array($run))
            {
-           
            ?>
         <tr>
         <td><input type="checkbox" name=check[] value="<?php  echo $fetch['serial_no']; ?>"></td>
@@ -278,7 +277,7 @@ $id = $_SESSION['id'];
             <td><?php echo $fetch['total_cost'] ?> &#2547;</td>
             <td style="color:green">Paid</td>
             <td><?php echo $fetch['purchase_date']?></td>
-           <?php echo '<td><a class = "btn btn-secondary" href="../production/export_order_edit.php?id='.$fetch['serial_no'].'"><i class="fa-solid fa-pen"></i></a>&nbsp;<a class = "btn btn-secondary" href="../backend/material_purchase_delete.php?id='.$fetch['serial_no'].'"><i class="fa fa-solid fa-trash-can"></i></a></td>';?>
+           <?php echo '<td><a class = "btn btn-secondary" href="../production/raw_material_edit.php?id='.$fetch['serial_no'].'"><i class="fa-solid fa-pen"></i></a>&nbsp;<a class = "btn btn-secondary" href="../backend/material_purchase_delete.php?id='.$fetch['serial_no'].'&date='.$fetch['purchase_date'].'"><i class="fa fa-solid fa-trash-can"></i></a></td>';?>
            
         </tr>
            <?php
