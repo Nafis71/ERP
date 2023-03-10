@@ -39,12 +39,12 @@ if($level != 4)
     </div>
     <ul class="nav-links">
       <li>
-        <a href="../dashboard.php">
+        <a href="dashboard.php">
           <i class='bx bx-grid-alt' ></i>
           <span class="link_name">Dashboard</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="../dashboard.php">Dashboard</a></li>
+          <li><a class="link_name" href="dashboard.php">Dashboard</a></li>
         </ul>
       </li>
       <li>
@@ -171,12 +171,12 @@ if($level != 4)
                 <input type="number" class="form-control" name="password" id="password"  placeholder="Enter Password " required>
               </div>
                 <div class="col-md-4 form-group mb-3">
-                <label for="country">Select Access Level<span style="color:#ff0000">*</span></label>
+                <label for="country">Select Designation<span style="color:#ff0000">*</span></label>
                   <select class="custom-select" id="country" name="level" required>
-                  <option value="">Select Level</option>
-                    <option value="1">Level 1</option>
-                    <option value="2">Level 2</option>
-                    <option value="3">Level 3</option>
+                  <option value="">Select One</option>
+                    <option value="1">(HRM)</option>
+                    <option value="2">(Finance Officer)</option>
+                    <option value="3">(Production Head)</option>
                   </select>
                 </div>   
                 <div class="col-md-2 form-group">
