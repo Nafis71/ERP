@@ -5,6 +5,16 @@ if(!isset($_SESSION['id']))
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+include 'connect.php';
+mysqli_select_db($connect,'erp');
+$select = "SELECT *from login where emp_id = '$id'";
+$run =mysqli_query($connect,$select);
+$fetch=mysqli_fetch_array($run);
+$level = $fetch['level'];
+if($level ==3 || $level == 1)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=14');
+}
 
 $year=date("Y"); $month=date("m"); $month=$month-1;
 ?>
@@ -87,12 +97,12 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
         </ul>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-compass' ></i>
-          <span class="link_name">Explore</span>
+        <a href="../user.php">
+        <i class="fa-solid fa-user-plus"></i>
+          <span  class="link_name">Add ERP Account</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Explore</a></li>
+          <li><a class="link_name" href="../user.php">Add ERP Account</a></li>
         </ul>
       </li>
       <li>

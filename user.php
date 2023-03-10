@@ -5,6 +5,16 @@ if(!isset($_SESSION['id']))
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+include 'connect.php';
+mysqli_select_db($connect,'erp');
+$select = "SELECT *from login where emp_id = '$id'";
+$run =mysqli_query($connect,$select);
+$fetch=mysqli_fetch_array($run);
+$level = $fetch['level'];
+if($level != 4)
+{
+  header('location:backend/redirect_searcherror.php?indicate=14');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,19 +87,20 @@ $id = $_SESSION['id'];
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-        <li><a href="../production/raw_materialsadd_order.php">Add Export Orders</a></li>
-          <li><a href="../production/raw_materialsmachine_repair.php">Machine Repair</a></li>
-          <li><a href="../production/raw_materialsadd_machine.php">Machinery Purchase</a></li>
-          <li><a href="../production/raw_materials.php">Machinery Purchase</a></li>
+        <li><a class="link_name" href="#">Production Panel</a></li>
+          <li><a href="../production/add_order.php">Add Export Orders</a></li>
+          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
+          <li><a href="../production/raw_materials.php">Material Purchase</a></li>
         </ul>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-compass' ></i>
-          <span class="link_name">Explore</span>
+        <a href="user.php">
+        <i class="fa-solid fa-user-plus"></i>
+          <span  class="link_name">Add ERP Account</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Explore</a></li>
+          <li><a class="link_name" href="user.php">Add ERP Account</a></li>
         </ul>
       </li>
       <li>

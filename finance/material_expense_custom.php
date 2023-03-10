@@ -87,12 +87,12 @@ $year = date("Y", strtotime($getmonth));
         </ul>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-compass' ></i>
-          <span class="link_name">Explore</span>
+        <a href="../user.php">
+        <i class="fa-solid fa-user-plus"></i>
+          <span  class="link_name">Add ERP Account</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Explore</a></li>
+          <li><a class="link_name" href="../user.php">Add ERP Account</a></li>
         </ul>
       </li>
       <li>
