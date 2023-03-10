@@ -5,7 +5,8 @@ if(!isset($_SESSION['id']))
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
-$order_no = $_GET['id'];
+
+$year=date("Y"); $month=date("m"); $month=$month-1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,10 +17,9 @@ $order_no = $_GET['id'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/add_order.css" rel='stylesheet'>
-    <link rel="stylesheet" href="../css/style1.css">
+    <link rel="stylesheet" href="../css/salary_expense.css" rel='stylesheet'>
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Edit Export Order</title>
+    <title>Monthly Material Expense</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -64,10 +64,9 @@ $order_no = $_GET['id'];
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Finance Panel</a></li>
-          <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
-          <li><a href="../finance/material_expense.php">Material Expense</a></li>
-          <li><a href="../finance/machinery_expenses.php">Machinery Expense</a></li>
-          
+          <li><a href="salary_expense.php">Salary Expense</a></li>
+          <li><a href="material_expense.php">Material Expense</a></li>
+          <li><a href="machinery_expenses.php">Machinery Expense</a></li>
         </ul>
       </li>
       <li>
@@ -80,10 +79,10 @@ $order_no = $_GET['id'];
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="add_order.php">Add Export Orders</a></li>
-          <li><a href="machine_repair.php">Machine Repair</a></li>
-          <li><a href="add_machine.php">Machinery Purchase</a></li>
-          <li><a href="raw_materials.php">Machinery Purchase</a></li>
+          <li><a href="../production/raw_materialsadd_order.php">Add Export Orders</a></li>
+          <li><a href="../production/raw_materialsmachine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/raw_materialsadd_machine.php">Machinery Purchase</a></li>
+          <li><a href="../production/raw_materials.php">Machinery Purchase</a></li>
         </ul>
       </li>
       <li>
@@ -141,102 +140,137 @@ $order_no = $_GET['id'];
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Export Order List Updation</span>
-      
+      <span class="text">Material Purchase Expense</span>     
     </div>
-    <div class = "sec-5">
-    <div class="content">
+    <div class = "sec-1">
     
-    <div class="container">
-      <div class="row align-items-stretch no-gutters contact-wrap">
-        <div class="col-md-12">
-          <div class="form h-100">
-            <h3>Order List Edit</h3>
-            <form class="mb-5" method="post" id="contactForm" name="contactForm" action="../backend/edit_export_order.php">
-                              <?php
-                                include 'connect.php';
-                                mysqli_select_db($connect,'erp');
-                                $sql = "SELECT *FROM export_order where order_no = '$order_no'";
-                                $run = mysqli_query($connect,$sql);
-                                $fetch2 = mysqli_fetch_array($run);
-                              ?>
-              <div class="row">
-              <div class="col-md-4 form-group mb-3">
-              <input type="hidden" name="orderno" value="<?php echo $order_no ?>">
-              <label for="country">Select Product<span style="color:#ff0000">*</span></label>
-                  <select class="custom-select" id="budget" name="product">
-                  <option value="<?php echo $fetch2['product_name'] ?>"><?php echo $fetch2['product_name'] ?></option>
-                                    <?php $sql = "SELECT product_name FROM product_info";
-                                          $run = mysqli_query($connect,$sql);
-                                          while($fetch = mysqli_fetch_array($run))
-                                          { ?>
-                                            <option value="<?php echo $fetch['product_name']?>"><?php echo $fetch['product_name']?></option>
-                                            <?php
-                                          }
-                                    ?>
-                  </select>
-                </div>
-                <div class="col-md-4 form-group mb-3">
-                <label for="country">Select Company<span style="color:#ff0000">*</span></label>
-                  <select class="custom-select" id="budget" name="company">
-                  <option value="<?php echo $fetch2['company_name'] ?>"><?php echo $fetch2['company_name'] ?></option>
-                                    <?php $sql = "SELECT DISTINCT company_name FROM company_list";
-                                          $run = mysqli_query($connect,$sql);
-                                          while($fetch = mysqli_fetch_array($run))
-                                          { ?>
-                                            <option value="<?php echo $fetch['company_name']?>"><?php echo $fetch['company_name']?></option>
-                                            <?php
-                                          }
-                                    ?>
-                  </select>
-                </div>
-                <div class="col-md-4 form-group mb-3">
-                <label for="country">Select Country<span style="color:#ff0000">*</span></label>
-                  <select class="custom-select" id="country" name="country">
-                  <option value="<?php echo $fetch2['delivery_to'] ?>"><?php echo $fetch2['delivery_to'] ?></option>
-                                    <?php $sql = "SELECT DISTINCT company_origin FROM company_list";
-                                          $run = mysqli_query($connect,$sql);
-                                          while($fetch = mysqli_fetch_array($run))
-                                          { ?>
-                                            <option value="<?php echo $fetch['company_origin']?>"><?php echo $fetch['company_origin']?></option>
-                                            <?php
-                                          }
-                                    ?>
-                  </select>
-                </div>
-                
-               
-              </div>
-              <div class="row">
-              <div class="col-md-4 form-group mb-3">
-                <label for="form_lastname">Order Unit<span style="color:#ff0000">*</span></label>
-                  <input type="number" class="form-control" name="unit" id="unit"  placeholder="Enter Order Unit" value="<?php echo $fetch2['total_unit'] ?>">
-                </div>
-              <div class="col-md-2 form-group mb-5">
-              <label for="form_lastname">Delivery Date<span style="color:#ff0000">*</span></label>
-                 <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" value="<?php echo $fetch2['delivery_time'] ?>" >
-              </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 form-group">
-                  <input type="submit" value="Update" name ="submit" class="btn btn-primary rounded-0 py-2 px-4">
-                </div>
-              </div>
-            </form>
+     <table class="styled-table">
+    <?php
+           include 'connect.php';
+           mysqli_select_db($connect,'erp');
+           $limit = 12;
+           
+           if(isset($_GET['page']))
+           {
+            $page = $_GET['page'];
+           }
+           else
+           {
+            $page =1;
+           }
+           $offset = ($page-1) * $limit;
+           $month=date("m"); $month=$month-1;
+           $query1 = "SELECT *From material_purchase_expense NATURAL JOIN raw_material_purchase where month='$month' and year='$year'";
+           $result = mysqli_query($connect,$query1);
+        ?>
+      <thead>
+        <tr>
+          <th class="head" colspan="6">
+<?php echo'<span>Total Entries found '.mysqli_num_rows($result).' & Showing Page Number '.$page.'</span>';?>
+          </th>
+        </tr>
+      </thead>
+      <thead>
+        <tr>
+          <form action="../finance/machinery_expense_search.php" method="GET">
+          <th colspan="2" class="head1">               
+           <input id="form_lastname" type="number" name="search" class="form-control" placeholder="Enter machine id*" required="required" >
+          </th>
+          <th colspan="1"class="head1">
+              <input class="datepicker" type="month" name="month" min="2010-01"  value="<?php echo $year ?>-<?php echo $month ?>" required="required">
+          <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </th>
+          </form>
+          <th colspan="2" class="head1">
+          <form  method="GET" action="material_expense_custom.php">
+          <input class="datepicker" type="month" name="month" min="2010-01" max="<?php echo $year ?>-<?php echo $month ?>" value="<?php echo $year ?>-<?php echo $month ?>" required="required">
+          <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-table"></i></button>
+          </form>
+          </th>
+          <th colspan="1" class="head2" >
+          <form  method="POST" action="../backend/machinery_purchase_expense_excel.php">
+            <input type="hidden" name="month" value="<?php echo $month ?>">
+            <input type="hidden" name="year" value="<?php echo $year ?>">
+          <?php  $total_expense=0; ?>
+          <input type="hidden" name="total_expense" value="<?php echo $total_expense;?>">
+          <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
+          </form>
+        </th>
+           
+        </tr>     
+      </thead>
+    <thead>
+        <tr>
+            <th>Material&nbsp;ID</th>
+            <th>Material&nbsp;Name</th>
+            <th>Buying&nbsp;Quantity</th>
+            <th>Unit&nbsp;price</th>
+            <th>Buying&nbsp;Cost</th>
+            <th>Purchase&nbsp;Date</th>  
+        </tr>
+    </thead>
+    <tbody>
+          
+          <?php
+          mysqli_select_db($connect,'erp');
+           $query  = "SELECT *from material_purchase_expense NATURAL JOIN raw_material_purchase where month='$month' and year='$year' LIMIT {$offset},{$limit}";
+           $run = mysqli_query($connect,$query);
+           while($fetch = mysqli_fetch_array($run))
+           {
+           ?>
+        <tr>
+            <td><?php echo $fetch['material_id']?></td>
+            <td><?php echo $fetch['material_name']?></td>
+            <td><?php echo $fetch['quantity']?></td>
+            <td><?php echo $fetch['unit_cost']?>&#2547;</td>
+            <td><?php echo $fetch['cost']?>&#2547;</td>
+            <td><?php echo $fetch['purchase_date']?></td>
+           </tr>
+            <?php $total_expense =  $total_expense + $fetch['cost']?>
+           <?php
+           }
+           ?> 
+           <thead><th>Material&nbsp;ID</th>
+            <th>Material&nbsp;Name</th>
+            <th>Buying&nbsp;Quantity</th>
+            <th>Unit&nbsp;price</th>
+            <th>Buying&nbsp;Cost</th>
+            <th>Purchase&nbsp;Date</th> 
+           <thead><th colspan="6">Total Material Purchase Expense For This Month :&nbsp;<?php echo $total_expense  ?> &#2547; </th></thead>
+    </tbody>
+</table>
+</form>
+<?php
+$query1 = "SELECT *from material_purchase_expense NATURAL JOIN raw_material_purchase where month='$month' and year='$year'";
+$result = mysqli_query($connect,$query1);
+if(mysqli_num_rows($result)> 0)
+{
+  $records =mysqli_num_rows($result); 
+  $total_page = ceil($records / $limit);
+  echo '<ul class ="pagination">';
+  if($page >1)
+  {
+    echo'<li><a href="../finance/material_expense.php?page='.($page-1).'" class="btn btn-primary">Prev</a></li>';
+  }
+  for($i =1;$i<=$total_page;$i++)
+  {
+    
+    echo'<li><a href="../finance/material_expense.php?page='.$i.'" class="btn btn-primary">'.$i.'</a></li>';
+  
+  }
+  if($total_page > $page)
+  {
+    echo'<li><a href="../finance/material_expense.php?page='.($page+1).'" class="btn btn-primary">Next</a></li>';
+  }
+  echo'</ul>';
 
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  </div>
+}
+?>
+   
     </div>
       
 
   </section> <!--homesection ends here-->
- 
   <!-- javascript codes are here -->
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -259,23 +293,31 @@ unset($_SESSION['status']);
 
 // Get the modal
 var modal = document.getElementById("myModal");
+var modal2 = document.getElementById("myModal2");
 
 // Get the button that opens the modal
 var btn = document.getElementById("mybtn");
+var btn2 = document.getElementById("mybtn2");
+var close = document.getElementById("close");
+var close2 = document.getElementById("close2");
+
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close");
-var close = document.getElementById("close");
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
   modal.style.display = "block";
 }
-
+btn2.onclick = function() {
+  modal2.style.display = "block";
+}
 
 close.onclick = function() {
   modal.style.display = "none";
 }
-
+close2.onclick = function() {
+  modal2.style.display = "none";
+}
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
@@ -286,12 +328,14 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+  if (event.target == modal2) {
+    modal2.style.display = "none";
+  }
 }
 
 
 </script>
 <!-- modal script ends here -->
-
 
 <!--navbar javascript code-->
 <script>

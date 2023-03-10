@@ -85,6 +85,13 @@ $_SESSION['status_code']="info";
 $_SESSION['cause'] = "";
 header('location:../production/raw_materials.php');
 }
+else if($indicate == 13)
+{
+$_SESSION['status']="No Records Available";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "";
+header('location:../finance/machinery_expenses.php');
+}
 
 
 ?>

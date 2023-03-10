@@ -5,7 +5,6 @@ if(!isset($_SESSION['id']))
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
-$order_no = $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,10 +15,10 @@ $order_no = $_GET['id'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/41129fd756.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/add_order.css" rel='stylesheet'>
-    <link rel="stylesheet" href="../css/style1.css">
+    <link rel="stylesheet" href="css/user.css" rel='stylesheet'>
+    <link rel="stylesheet" href="css/style1.css">
     <link rel="icon" href="../logo/Bando.png" type="image/x-icon">
-    <title>Edit Export Order</title>
+    <title>Edit Material Purchase Info</title>
 </head>
 <body>
 <!--sidebar starts here-->
@@ -67,7 +66,6 @@ $order_no = $_GET['id'];
           <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
           <li><a href="../finance/material_expense.php">Material Expense</a></li>
           <li><a href="../finance/machinery_expenses.php">Machinery Expense</a></li>
-          
         </ul>
       </li>
       <li>
@@ -79,11 +77,10 @@ $order_no = $_GET['id'];
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-        <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="add_order.php">Add Export Orders</a></li>
-          <li><a href="machine_repair.php">Machine Repair</a></li>
-          <li><a href="add_machine.php">Machinery Purchase</a></li>
-          <li><a href="raw_materials.php">Machinery Purchase</a></li>
+        <li><a href="../production/raw_materialsadd_order.php">Add Export Orders</a></li>
+          <li><a href="../production/raw_materialsmachine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/raw_materialsadd_machine.php">Machinery Purchase</a></li>
+          <li><a href="../production/raw_materials.php">Machinery Purchase</a></li>
         </ul>
       </li>
       <li>
@@ -141,7 +138,7 @@ $order_no = $_GET['id'];
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">Export Order List Updation</span>
+      <span class="text">User Creation For Login</span>
       
     </div>
     <div class = "sec-5">
@@ -151,79 +148,43 @@ $order_no = $_GET['id'];
       <div class="row align-items-stretch no-gutters contact-wrap">
         <div class="col-md-12">
           <div class="form h-100">
-            <h3>Order List Edit</h3>
-            <form class="mb-5" method="post" id="contactForm" name="contactForm" action="../backend/edit_export_order.php">
-                              <?php
-                                include 'connect.php';
-                                mysqli_select_db($connect,'erp');
-                                $sql = "SELECT *FROM export_order where order_no = '$order_no'";
-                                $run = mysqli_query($connect,$sql);
-                                $fetch2 = mysqli_fetch_array($run);
-                              ?>
-              <div class="row">
-              <div class="col-md-4 form-group mb-3">
-              <input type="hidden" name="orderno" value="<?php echo $order_no ?>">
-              <label for="country">Select Product<span style="color:#ff0000">*</span></label>
-                  <select class="custom-select" id="budget" name="product">
-                  <option value="<?php echo $fetch2['product_name'] ?>"><?php echo $fetch2['product_name'] ?></option>
-                                    <?php $sql = "SELECT product_name FROM product_info";
-                                          $run = mysqli_query($connect,$sql);
-                                          while($fetch = mysqli_fetch_array($run))
-                                          { ?>
-                                            <option value="<?php echo $fetch['product_name']?>"><?php echo $fetch['product_name']?></option>
-                                            <?php
-                                          }
-                                    ?>
-                  </select>
+            <h3>User Creation</h3>
+            <form class="mb-5" method="POST" id="contactForm" name="contactForm" action="backend/registration.php">
+              <div class="row">    
+                <div class="col-md-3 form-group mb-3">
+                
+                  <input type="number" class="form-control" name="id" id="id"  placeholder="Enter Employee ID " required>
                 </div>
+                <div class="col-md-3 form-group mb-3">
+                
+                <input type="number" class="form-control" name="password" id="password"  placeholder="Enter Password " required>
+              </div>
                 <div class="col-md-4 form-group mb-3">
-                <label for="country">Select Company<span style="color:#ff0000">*</span></label>
-                  <select class="custom-select" id="budget" name="company">
-                  <option value="<?php echo $fetch2['company_name'] ?>"><?php echo $fetch2['company_name'] ?></option>
-                                    <?php $sql = "SELECT DISTINCT company_name FROM company_list";
-                                          $run = mysqli_query($connect,$sql);
-                                          while($fetch = mysqli_fetch_array($run))
-                                          { ?>
-                                            <option value="<?php echo $fetch['company_name']?>"><?php echo $fetch['company_name']?></option>
-                                            <?php
-                                          }
-                                    ?>
+                <label for="country">Select Access Level<span style="color:#ff0000">*</span></label>
+                  <select class="custom-select" id="country" name="level" required>
+                  <option value="">Select Level</option>
+                    <option value="1">Level 1</option>
+                    <option value="2">Level 2</option>
+                    <option value="3">Level 3</option>
                   </select>
-                </div>
-                <div class="col-md-4 form-group mb-3">
-                <label for="country">Select Country<span style="color:#ff0000">*</span></label>
-                  <select class="custom-select" id="country" name="country">
-                  <option value="<?php echo $fetch2['delivery_to'] ?>"><?php echo $fetch2['delivery_to'] ?></option>
-                                    <?php $sql = "SELECT DISTINCT company_origin FROM company_list";
-                                          $run = mysqli_query($connect,$sql);
-                                          while($fetch = mysqli_fetch_array($run))
-                                          { ?>
-                                            <option value="<?php echo $fetch['company_origin']?>"><?php echo $fetch['company_origin']?></option>
-                                            <?php
-                                          }
-                                    ?>
-                  </select>
+                </div>   
+                <div class="col-md-2 form-group">
+                  <input type="submit" value="INSERT" name ="submit" class="btn btn-primary rounded-0 py-2 px-4">
                 </div>
                 
-               
               </div>
+              <br>
+              <br>
+              <hr>
               <div class="row">
-              <div class="col-md-4 form-group mb-3">
-                <label for="form_lastname">Order Unit<span style="color:#ff0000">*</span></label>
-                  <input type="number" class="form-control" name="unit" id="unit"  placeholder="Enter Order Unit" value="<?php echo $fetch2['total_unit'] ?>">
+                <div class="col-md-4 form-group">
+                  <input type="button" value="EDIT USER" name ="submit" class="btn btn-primary rounded-0 py-2 px-4" onclick="window.location.href='../backend/logsout.php'">
                 </div>
-              <div class="col-md-2 form-group mb-5">
-              <label for="form_lastname">Delivery Date<span style="color:#ff0000">*</span></label>
-                 <input class = "datepicker"id="form_lastname" type="date" name="date" required="required" value="<?php echo $fetch2['delivery_time'] ?>" >
-              </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 form-group">
-                  <input type="submit" value="Update" name ="submit" class="btn btn-primary rounded-0 py-2 px-4">
-                </div>
-              </div>
-            </form>
+                  </form>
 
+                </div>
+              </div>
+            
 
           </div>
         </div>
@@ -232,7 +193,6 @@ $order_no = $_GET['id'];
 
   </div>
   </div>
-    </div>
       
 
   </section> <!--homesection ends here-->
@@ -254,43 +214,6 @@ if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
 }
 unset($_SESSION['status']);
 ?>   
-<!-- Modal Javascript starts here -->
-<script>
-
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("mybtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close");
-var close = document.getElementById("close");
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-
-close.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-
-</script>
-<!-- modal script ends here -->
 
 
 <!--navbar javascript code-->

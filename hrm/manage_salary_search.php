@@ -73,6 +73,8 @@ if(mysqli_num_rows($run) == 0)
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Finance Panel</a></li>
           <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
+          <li><a href="../finance/material_expense.php">Material Expense</a></li>
+          <li><a href="../finance/machinery_expenses.php">Machinery Expense</a></li>
           
         </ul>
       </li>
@@ -85,10 +87,11 @@ if(mysqli_num_rows($run) == 0)
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="../production/add_order.php">Add Export Orders</a></li>
-          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
-          <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
+        <li><a class="link_name" href="#">Production Panel</a></li>
+          <li><a href="../production/raw_materialsadd_order.php">Add Export Orders</a></li>
+          <li><a href="../production/raw_materialsmachine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/raw_materialsadd_machine.php">Machinery Purchase</a></li>
+          <li><a href="../production/raw_materials.php">Machinery Purchase</a></li>
         </ul>
       </li>
       <li>

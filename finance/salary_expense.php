@@ -64,9 +64,9 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Finance Panel</a></li>
-          <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
-          <li><a href="#">Login Form</a></li>
-          <li><a href="#">Card Design</a></li>
+          <li><a href="salary_expense.php">Salary Expense</a></li>
+          <li><a href="material_expense.php">Material Expense</a></li>
+          <li><a href="machinery_expenses.php">Machinery Expense</a></li>
         </ul>
       </li>
       <li>
@@ -78,10 +78,11 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
-          <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
-          <li><a href="#">Box Icons</a></li>
+        <li><a class="link_name" href="#">Production Panel</a></li>
+          <li><a href="../production/raw_materialsadd_order.php">Add Export Orders</a></li>
+          <li><a href="../production/raw_materialsmachine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/raw_materialsadd_machine.php">Machinery Purchase</a></li>
+          <li><a href="../production/raw_materials.php">Machinery Purchase</a></li>
         </ul>
       </li>
       <li>
@@ -187,17 +188,14 @@ $year=date("Y"); $month=date("m"); $month=$month-1;
           <button class="btn btn-light" type="submit" name ="submit"><i class="fa-solid fa-table"></i></button>
           </form>
           </th>
-          <th colspan="2" class="head2" >
+          <th colspan="5" class="head2" >
           <form  method="POST" action="../backend/salary_expense_excel_record.php">
-            <input type="hidden" name="month" value="<?php echo $month ?>">
-            <input type="hidden" name="year" value="<?php echo $year ?>">
+            <input type="hidden" name="month" value="<?php echo $month?>">
+            <input type="hidden" name="year" value="<?php echo $year?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
         </th>
-          <th colspan ="3" class="head2">
-          <form action="../backend/delete_attendance.php" method="POST">
-          <button class="btn btn-danger" type="submit" name ="submit"><i class="fa fa-solid fa-trash-can"></i>&nbsp;Delete</button>
-          </th>         
+           
         </tr>     
       </thead>
     <thead>

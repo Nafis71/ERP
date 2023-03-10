@@ -61,9 +61,10 @@ $id = $_SESSION['id'];
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Finance Panel</a></li>
+        <li><a class="link_name" href="#">Finance Panel</a></li>
           <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
-          
+          <li><a href="../finance/material_expense.php">Material Expense</a></li>
+          <li><a href="../finance/machinery_expenses.php">Machinery Expense</a></li>
         </ul>
       </li>
       <li>
@@ -79,6 +80,7 @@ $id = $_SESSION['id'];
           <li><a href="add_order.php">Add Export Orders</a></li>
           <li><a href="machine_repair.php">Machine Repair</a></li>
           <li><a href="add_machine.php">Machinery Purchase</a></li>
+          <li><a href="raw_materials.php">Machinery Purchase</a></li>
         </ul>
       </li>
       <li>
