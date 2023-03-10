@@ -90,7 +90,7 @@ if(mysqli_num_rows($run) == 0)
           <li><a href="add_order.php">Add Export Orders</a></li>
           <li><a href="machine_repair.php">Machine Repair</a></li>
           <li><a href="add_machine.php">Machinery Purchase</a></li>
-          <li><a href="raw_materials.php">Machinery Purchase</a></li>
+          <li><a href="raw_materials.php">Material Purchase</a></li>
         </ul>
       </li>
       <li>

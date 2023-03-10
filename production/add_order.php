@@ -5,6 +5,16 @@ if(!isset($_SESSION['id']))
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+include 'connect.php';
+mysqli_select_db($connect,'erp');
+$select = "SELECT *from login where emp_id = '$id'";
+$run =mysqli_query($connect,$select);
+$fetch=mysqli_fetch_array($run);
+$level = $fetch['level'];
+if($level == 2 || $level == 1)
+{
+  header('location:../backend/redirect_searcherror.php?indicate=14');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +91,7 @@ $id = $_SESSION['id'];
           <li><a href="add_order.php">Add Export Orders</a></li>
           <li><a href="machine_repair.php">Machine Repair</a></li>
           <li><a href="add_machine.php">Machinery Purchase</a></li>
-          <li><a href="raw_materials.php">Machinery Purchase</a></li>
+          <li><a href="raw_materials.php">Material Purchase</a></li>
         </ul>
       </li>
       <li>

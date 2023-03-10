@@ -77,10 +77,10 @@ $id = $_SESSION['id'];
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="../production/raw_materialsadd_order.php">Add Export Orders</a></li>
-          <li><a href="../production/raw_materialsmachine_repair.php">Machine Repair</a></li>
-          <li><a href="../production/raw_materialsadd_machine.php">Machinery Purchase</a></li>
-          <li><a href="../production/raw_materials.php">Machinery Purchase</a></li>
+          <li><a href="../production/add_order.php">Add Export Orders</a></li>
+          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
+          <li><a href="../production/raw_materials.php">Material Purchase</a></li>
         </ul>
       </li>
       <li>

@@ -92,6 +92,33 @@ $_SESSION['status_code']="info";
 $_SESSION['cause'] = "";
 header('location:../finance/machinery_expenses.php');
 }
-
+else if($indicate == 14)
+{
+$_SESSION['status']="You don't have access to this";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "";
+header('location:../dashboard.php');
+}
+else if($indicate == 15)
+{
+$_SESSION['status']="You don't have access to this";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "";
+header('location:../dashboard.php');
+}
+else if($indicate == 16)
+{
+$_SESSION['status']="You don't have access to this";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "";
+header('location:../dashboard.php');
+}
+else if($indicate == 17)
+{
+$_SESSION['status']="You don't have access to this";
+$_SESSION['status_code']="info";
+$_SESSION['cause'] = "";
+header('location:../dashboard.php');
+}
 
 ?>
