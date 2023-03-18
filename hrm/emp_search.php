@@ -48,53 +48,63 @@ if(mysqli_num_rows($run) == 0)
       </li>
       <li>
         <div class="iocn-link">
+        <?php if ($level==1 || $level == 4)
+          {?>
           <a href="#">
             <i class='bx bx-collection' ></i>
             <span class="link_name">HRM Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
+          <?php }?>
         </div>
         <ul class="sub-menu">
-        <li><a class="link_name" href="#">HRM Panel</a></li>
-          <li><a href="emp_record.php">Employee Records</a></li>
-          <li><a href="emp_leave.php">Employee Leave</a></li>
-          <li><a href="attendance.php">Attendance</a></li>
-          <li><a href="manage_salary.php">Bonus/Deduct Salary</a></li>
+          <li><a class="link_name" href="#">HRM Panel</a></li>
+          <li><a href="../hrm/emp_record.php">Employee Records</a></li>
+          <li><a href="../hrm/emp_leave.php">Employee Leave</a></li>
+          <li><a href="../hrm/attendance.php">Attendance</a></li>
+          <li><a href="../hrm/manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
       </li>
       <li>
         <div class="iocn-link">
+        <?php if ($level==2 || $level == 4)
+          {?>
           <a href="#">
             <i class='bx bx-book-alt' ></i>
             <span class="link_name">Finance Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
+          <?php }?>
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Finance Panel</a></li>
           <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
           <li><a href="../finance/material_expense.php">Material Expense</a></li>
           <li><a href="../finance/machinery_expenses.php">Machinery Expense</a></li>
-          
         </ul>
       </li>
       <li>
         <div class="iocn-link">
+        <?php if ($level==3 || $level == 4)
+          {?>
           <a href="#">
           <i class='bx bx-package' ></i>
             <span class="link_name">Production Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
+          <?php }?>
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="../production/add_order.php">Add Export Orders</a></li>
-          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
-          <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
-          <li><a href="../production/raw_materials.php">Material Purchase</a></li>
+          <li><a href="add_order.php">Add Export Orders</a></li>
+          <li><a href="machine_repair.php">Machine Repair</a></li>
+          <li><a href="add_machine.php">Machinery Purchase</a></li>
+          <li><a href="raw_materials.php">Material Purchase</a></li>
         </ul>
       </li>
       <li>
+        <?php if($level == 4 )
+        {?>
         <a href="../user.php">
         <i class="fa-solid fa-user-plus"></i>
           <span  class="link_name">Add ERP Account</span>
@@ -102,6 +112,7 @@ if(mysqli_num_rows($run) == 0)
         <ul class="sub-menu blank">
           <li><a class="link_name" href="../user.php">Add ERP Account</a></li>
         </ul>
+        <?php  } ?>
       </li>
       <li>
         <a href="#">

@@ -35,7 +35,7 @@ if($level != 4)
 <div class="sidebar close">
     <div class="logo-details">
       <i class='bx bxl-c-plus-plus'></i>
-      <span class="logo_name">Bando ERP</span>
+      <span class="logo_name">Bando&nbsp;ERP</span>
     </div>
     <ul class="nav-links">
       <li>
@@ -44,57 +44,68 @@ if($level != 4)
           <span class="link_name">Dashboard</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="dashboard.php">Dashboard</a></li>
+          <li><a class="link_name" href="#">Dashboard</a></li>
         </ul>
       </li>
       <li>
         <div class="iocn-link">
+          <?php if ($level==1 || $level == 4)
+          {?>
           <a href="#">
             <i class='bx bx-collection' ></i>
             <span class="link_name">HRM Panel</span>
           </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
+          <i class='bx bxs-chevron-down arrow'></i>
+          <?php }?>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">HRM Panel</a></li>
-          <li><a href="../hrm/emp_record.php">Employee Records</a></li>
-          <li><a href="../hrm/emp_leave.php">Employee Leave</a></li>
-          <li><a href="../hrm/attendance.php">Attendance</a></li>
-          <li><a href="../hrm/manage_salary.php">Bonus/Deduct Salary</a></li>
+        <li><a class="link_name" href="#">HRM Panel</a></li>
+          <li><a href="hrm/emp_record.php">Employee Records</a></li>
+          <li><a href="hrm/emp_leave.php">Employee Leave</a></li>
+          <li><a href="hrm/attendance.php">Attendance</a></li>
+          <li><a href="hrm/manage_salary.php">Bonus/Deduct Salary</a></li>
         </ul>
       </li>
       <li>
         <div class="iocn-link">
+        <?php if ($level==2 || $level == 4)
+          {?>
           <a href="#">
             <i class='bx bx-book-alt' ></i>
             <span class="link_name">Finance Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
+          <?php }?>
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Finance Panel</a></li>
-          <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
-          <li><a href="../finance/material_expense.php">Material Expense</a></li>
-          <li><a href="../finance/machinery_expenses.php">Machinery Expense</a></li>
+          <li><a href="finance/salary_expense.php">Salary Expense</a></li>
+          <li><a href="finance/material_expense.php">Material Expense</a></li>
+          <li><a href="finance/machinery_expenses.php">Machinery Expense</a></li>
         </ul>
       </li>
       <li>
         <div class="iocn-link">
+        <?php if ($level==3 || $level == 4)
+          {?>
           <a href="#">
           <i class='bx bx-package' ></i>
             <span class="link_name">Production Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
+          <?php }?>
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="../production/add_order.php">Add Export Orders</a></li>
-          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
-          <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
-          <li><a href="../production/raw_materials.php">Material Purchase</a></li>
+          <li><a href="production/add_order.php">Add Export Orders</a></li>
+          <li><a href="production/machine_repair.php">Machine Repair</a></li>
+          <li><a href="production/add_machine.php">Machinery Purchase</a></li>
+          <li><a href="production/raw_materials.php">Material Purchase</a></li>
         </ul>
       </li>
       <li>
+      <?php if ($level == 4)
+          {?>
         <a href="user.php">
         <i class="fa-solid fa-user-plus"></i>
           <span  class="link_name">Add ERP Account</span>
@@ -102,6 +113,7 @@ if($level != 4)
         <ul class="sub-menu blank">
           <li><a class="link_name" href="user.php">Add ERP Account</a></li>
         </ul>
+        <?php }?>
       </li>
       <li>
         <a href="#">
@@ -113,18 +125,22 @@ if($level != 4)
         </ul>
       </li>
       <li>
-        <a href="#">
+      <div class="iocn-link">
+          <a href="#">
           <i class='bx bx-cog' ></i>
-          <span class="link_name">Setting</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Setting</a></li>
+            <span class="link_name">Settings</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow'></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Settings</a></li>
+          <li><a href="#">Add ERP Account</a></li>
+          
         </ul>
       </li>
       <li>
     <div class="profile-details">
       <div class="profile-content">
-        
       </div>
       <?php
        include 'connect.php';
@@ -134,10 +150,10 @@ if($level != 4)
        $fetch = mysqli_fetch_array($run);
       ?>
       <div class="name-job">
-      <div class="profile_name"><?php echo $fetch['name']; ?></div>
+        <div class="profile_name"><?php echo $fetch['name']; ?></div>
         <div class="job"><?php echo $fetch['designation']; ?></div>
       </div>
-      <i class='bx bx-log-out' onclick="window.location.href='../backend/logout.php'"></i>
+      <i class='bx bx-log-out' onclick="window.location.href='backend/logout.php'"></i>
     </div>
   </li>
 </ul>

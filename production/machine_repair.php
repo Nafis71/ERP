@@ -48,11 +48,14 @@ if($level == 2 || $level == 1)
       </li>
       <li>
         <div class="iocn-link">
+        <?php if ($level==1 || $level == 4)
+          {?>
           <a href="#">
             <i class='bx bx-collection' ></i>
             <span class="link_name">HRM Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
+          <?php }?>
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">HRM Panel</a></li>
@@ -64,27 +67,32 @@ if($level == 2 || $level == 1)
       </li>
       <li>
         <div class="iocn-link">
+        <?php if ($level==2 || $level == 4)
+          {?>
           <a href="#">
             <i class='bx bx-book-alt' ></i>
             <span class="link_name">Finance Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
+          <?php }?>
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Finance Panel</a></li>
           <li><a href="../finance/salary_expense.php">Salary Expense</a></li>
           <li><a href="../finance/material_expense.php">Material Expense</a></li>
           <li><a href="../finance/machinery_expenses.php">Machinery Expense</a></li>
-          
         </ul>
       </li>
       <li>
         <div class="iocn-link">
+        <?php if ($level==3 || $level == 4)
+          {?>
           <a href="#">
           <i class='bx bx-package' ></i>
             <span class="link_name">Production Panel</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
+          <?php }?>
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Production Panel</a></li>
@@ -95,6 +103,8 @@ if($level == 2 || $level == 1)
         </ul>
       </li>
       <li>
+        <?php if($level == 4 )
+        {?>
         <a href="../user.php">
         <i class="fa-solid fa-user-plus"></i>
           <span  class="link_name">Add ERP Account</span>
@@ -102,6 +112,7 @@ if($level == 2 || $level == 1)
         <ul class="sub-menu blank">
           <li><a class="link_name" href="../user.php">Add ERP Account</a></li>
         </ul>
+        <?php  } ?>
       </li>
       <li>
         <a href="#">
