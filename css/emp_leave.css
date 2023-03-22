@@ -423,10 +423,10 @@
  
    
 }
-.date {
-  border: 1px solid gray;
-  border-radius: 4px;
-  padding: 2px;
+.modal-content .modal-header .modal-body .row .card1 .datepicker{
+  border: white;
+  padding: 7px;
+  border-radius: 5px;
 }
 .card1
 {

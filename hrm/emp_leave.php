@@ -238,7 +238,7 @@ if($level ==3 || $level == 2)
           <!-- php code for generating the employee list in the table-->
           <?php
           mysqli_select_db($connect,'erp');
-           $query  = "select *from emp_leave ORDER BY issue_date asc LIMIT {$offset},{$limit}";
+           $query  = "select *from emp_leave ORDER BY issue_date desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            while($fetch = mysqli_fetch_array($run))
            {

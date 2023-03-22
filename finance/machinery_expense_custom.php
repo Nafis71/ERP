@@ -89,10 +89,10 @@ $year = date("Y", strtotime($getmonth));
         </div>
         <ul class="sub-menu">
         <li><a class="link_name" href="#">Production Panel</a></li>
-          <li><a href="add_order.php">Add Export Orders</a></li>
-          <li><a href="machine_repair.php">Machine Repair</a></li>
-          <li><a href="add_machine.php">Machinery Purchase</a></li>
-          <li><a href="raw_materials.php">Material Purchase</a></li>
+          <li><a href="../production/add_order.php">Add Export Orders</a></li>
+          <li><a href="../production/machine_repair.php">Machine Repair</a></li>
+          <li><a href="../production/add_machine.php">Machinery Purchase</a></li>
+          <li><a href="../production/raw_materials.php">Material Purchase</a></li>
         </ul>
       </li>
       <li>
@@ -255,7 +255,7 @@ $year = date("Y", strtotime($getmonth));
             <th>Unit&nbsp;price</th>
             <th>Buying&nbsp;Cost</th>
             <th>Purchase&nbsp;Date</th>  
-           <thead><th colspan="7">Total Machinery Purchase Expense For This month :&nbsp;<?php echo $total_expense  ?> &#2547; </th></thead>
+           <thead><th colspan="7">Total Machinery Purchase Expense For Previous month :&nbsp;<?php echo $total_expense  ?> &#2547; </th></thead>
            
     </tbody>
 </table>

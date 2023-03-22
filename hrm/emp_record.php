@@ -223,7 +223,7 @@ if($level ==3 || $level == 2)
     <thead>
         <tr>
             <th>#</th>
-            <th>Employee ID&nbsp;</th>
+            <th>Employee&nbsp;ID</th>
             <th>Employee Name&nbsp;&nbsp;</th>
             <th>Designation&nbsp;&nbsp;</th>
             <th>Address&nbsp;</th>

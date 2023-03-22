@@ -16,7 +16,7 @@ if($level ==3 || $level == 2)
   header('location:../backend/redirect_searcherror.php?indicate=14');
 }
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">

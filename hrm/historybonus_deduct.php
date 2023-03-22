@@ -5,6 +5,12 @@ if(!isset($_SESSION['id']))
    header('location:../index.php');
 }
 $id = $_SESSION['id'];
+include 'connect.php';
+mysqli_select_db($connect,'erp');
+$select = "SELECT *from login where emp_id = '$id'";
+$run =mysqli_query($connect,$select);
+$fetch=mysqli_fetch_array($run);
+$level = $fetch['level'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
