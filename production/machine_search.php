@@ -14,6 +14,11 @@ if(mysqli_num_rows($run) == 0)
 {
   header('location:../backend/redirect_searcherror.php?indicate=8');
 }
+
+$select = "SELECT *from login where emp_id = '$id'";
+$run =mysqli_query($connect,$select);
+$fetch=mysqli_fetch_array($run);
+$level = $fetch['level'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -291,7 +296,7 @@ if(mysqli_num_rows($run) == 0)
             <input type="hidden" name="year" value="<?php echo $year ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
-          <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
+          
           </th>
           <th colspan ="2" class="head2">
           <form action="../backend/machine_delete.php" method="POST">

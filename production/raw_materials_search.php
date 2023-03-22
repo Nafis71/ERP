@@ -14,6 +14,10 @@ if(mysqli_num_rows($run) == 0)
 {
   header('location:../backend/redirect_searcherror.php?indicate=12');
 }
+$select = "SELECT *from login where emp_id = '$id'";
+$run =mysqli_query($connect,$select);
+$fetch=mysqli_fetch_array($run);
+$level = $fetch['level'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

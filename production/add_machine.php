@@ -288,7 +288,7 @@ $level = $fetch['level'];
             <input type="hidden" name="year" value="<?php echo $year ?>">
           <button class="btn btn-success" type="submit" name ="submit"><i class="fa-solid fa-file-excel"></i>&nbsp;Export Excel</button>&nbsp; 
           </form>
-          <button class="btn btn-light" id="mybtn"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
+          
           </th>
           <th colspan ="2" class="head2">
           <form action="../backend/machine_delete.php" method="POST">
@@ -311,7 +311,7 @@ $level = $fetch['level'];
     <tbody>
           
           <?php
-          mysqli_select_db($connect,'erp');
+           mysqli_select_db($connect,'erp');
            $query  = "SELECT *from machine_list ORDER BY machine_id desc LIMIT {$offset},{$limit}";
            $run = mysqli_query($connect,$query);
            $total_expense=0;
